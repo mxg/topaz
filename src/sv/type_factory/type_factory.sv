@@ -1,0 +1,89 @@
+//------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//------------------------------------------------------------------------------
+
+
+//------------------------------------------------------------------------------
+// Type Factory
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// factory macro
+//
+// Boilerplate code needed for classes to use the factory
+//------------------------------------------------------------------------------
+
+`define factory(T,B)                                        \
+  typedef abstract_factory#(T,B) factory;                   \
+  static function concrete_factory_base#(B) get_factory();  \
+    return factory::get();                                  \
+  endfunction
+
+//------------------------------------------------------------------------------
+// concrete_factory_base
+//------------------------------------------------------------------------------
+virtual class concrete_factory_base#(type B);
+
+  pure virtual function B construct();
+    
+endclass
+
+//------------------------------------------------------------------------------
+// concrete_factory
+//------------------------------------------------------------------------------
+class concrete_factory#(type T, type B) extends concrete_factory_base#(B);
+
+  function B construct();
+    T t = new();
+    return t;
+  endfunction
+
+endclass
+
+//------------------------------------------------------------------------------
+// abstract_factory
+//------------------------------------------------------------------------------
+class abstract_factory#(type T, type B) extends concrete_factory#(T,B);
+
+  typedef abstract_factory#(T,B) this_t;
+
+  static local concrete_factory_base#(B) cfb;
+
+  local function new();
+    cfb = this;
+  endfunction
+
+  static function concrete_factory_base#(B) get();
+    static this_t inst;
+    if(inst == null)
+      inst = new();
+    return inst;
+  endfunction
+
+  static function B create();
+    if(cfb == null) begin
+      concrete_factory#(T,B) t = new();
+      cfb = t;
+    end
+    return cfb.construct();
+  endfunction
+  
+  static function void override(concrete_factory_base#(B) override_cfb);
+    cfb = override_cfb;
+  endfunction
+    
+endclass
+

@@ -1,0 +1,93 @@
+//------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
+// test
+//
+/// A test is the very topmost component in a UVM testbench.  It is responsible
+/// for instantiating the reset of the structural environment and providing
+/// configuiration information to the rest of the testbench.
+//
+//------------------------------------------------------------------------------
+
+`include "uvm_macros.svh"
+import uvm_pkg::*
+
+//------------------------------------------------------------------------------
+// component
+//------------------------------------------------------------------------------
+class component extends uvm_component;
+
+  `uvm_component_utils(component)
+
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
+
+endclass
+
+//------------------------------------------------------------------------------
+// environment
+//------------------------------------------------------------------------------
+class environment extends uvm_component;
+  
+  `uvm_component_utils(environment)
+
+  component c1;
+  component c2;
+
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
+
+  function void build_phase(uvm_phase phase);
+    c1 = new("c1", this);
+    c2 = new("c2", this);
+  endfunction
+
+endclass
+
+//------------------------------------------------------------------------------
+// test
+//------------------------------------------------------------------------------
+class test extends uvm_component;
+
+  `uvm_component_utils(test)
+
+  environment env;
+
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
+
+  function void build_phase(uvm_phase phase);
+    env = new("env", this);
+  endfunction
+
+endclass
+
+//------------------------------------------------------------------------------
+// top
+//------------------------------------------------------------------------------
+module top;
+
+  initial begin
+    component c;
+    run_test()
+  end
+endmodule
+

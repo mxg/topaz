@@ -1,0 +1,71 @@
+#-------------------------------------------------------------------------------
+#                  .
+#                .o8
+#              .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+#                888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+#                888   888   888  888   888  .oP"888     .d8P'
+#                888 . 888   888  888   888 d8(  888   .d8P'  .P
+#                "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+#                                 888
+#                                o888o
+#
+#                  T O P A Z   P A T T E R N   L I B R A R Y
+#
+#     TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+#     code is suitable for study and for copying/pasting into your own work.
+#-------------------------------------------------------------------------------
+
+# TOP must be defined as a path relative to the working directory.  It
+# represents the top of the Xenon hierarchy.
+
+include ${TOP}/make/tools.mk
+
+TEST		= test
+SIMV		= simv
+COMPILELOG	= compile.log
+SIMLOG		= sim.log
+
+
+#
+# source code
+#
+
+INC		= +incdir+. 
+
+#
+# commands
+#
+
+COMPILE_OPTS    = -sverilog                                            \
+		  -full64                                              \
+                  +vcs+lic+wait                                        \
+                  +libext+.v                                           \
+                  +libext+.sv                                          \
+                  -debug
+
+VCS_CMD		= ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS} -l ${COMPILELOG}
+
+SIMV_ARGS	= -l ${SIMLOG} +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
+
+SIMV_CMD	= ./${SIMV} ${SIMV_ARGS} 
+
+#
+# rules
+#
+
+all: build run
+
+build: ${SRC}
+	${VCS_CMD}
+
+run: 
+	${SIMV_CMD}
+
+clean:
+	rm -f ${COMPILELOG} ${VCSLOG} *.log
+	rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
+	rm -f simv ucli.key vc_hdrs.h
+	rm -f novas.* *.fsdb
+	rm -rf verdiLog
+	rm -f xx* *~ #*
+
