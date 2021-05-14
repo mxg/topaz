@@ -7,24 +7,20 @@ module top;
 
   initial begin
 
-    // create a hierarchy;
-    tree treetop;
-    tree t1;
-    tree t2;
+    hier a, b, c, d, e, g, h, i;
 
-    treetop = new(null); // topmost node has noi parent
-    // two odes whose parent is treetop
-    t1 = new(treetop);
-    t1.id = 15;
-    t2 = new(treetop);
-    t2.id = 133;
+    a = new("A", null); // topmost node has no parent
+    b = new("B", a);
+    c = new("C", a);
 
-    // Two nodes whose parent is t1.
-    t2 = new(t1);
-    t2.id = 9;
-    t2 = new(t1);
-    t2.id = 175;
+    d = new("D", b);
+    e = new("E", b);
+    f = new("F", b);
 
+    g = new("G", c);
+    h = new("H", c);
+     
+    i = new("I", g);
   end
 
 endmodule

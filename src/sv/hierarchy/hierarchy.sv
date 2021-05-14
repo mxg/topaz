@@ -23,34 +23,22 @@
 class node;
 
   local node children[$];
+  local node parent;
 
-  function new(node parent);
-
-    // If the parent is null then this nodeis a root node and not the
-    // child of some other node.
-    if(parent == null)
-      return;
-
-    // Connect this node into the hierarchy as a child of the current
-    // node.
-    parent.add_child(this);
-    
+  function new(node p);
+    parent = p;
+    if(parent != null)
+      parent.add_child(this);
   endfunction
 
   function void add_child(node child);
-
-    // Check to make sure that the node is not already in the
-    // hierarchy.
     foreach(children[c]) begin
       if(child == children[c]) begin
         $display("cannot add duplicate child node");
         return;
       end
     end
-
-    // Put the child into the list oc children.
     children.push_back(child);
-
   endfunction
 
   function void get_children(ref node c[$]);
@@ -61,17 +49,16 @@ endclass
 
 //------------------------------------------------------------------------------
 // tree
-
-// A tree is derived from a node. The tree has some interesting data
-// into it, in this case id, whereas node is just a hierarchical
-// shell.
+//
+// A tree is derived from a node. Tree stores the name of each node.
 //------------------------------------------------------------------------------
 class tree extends node;
 
-  int id;
+  string name;
 
-  function new(tree parent);
+  function new(string nm, tree parent);
     super.new(parent);
+    name = nm;
   endfunction
 
 endclass
