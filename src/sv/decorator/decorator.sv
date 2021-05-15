@@ -40,11 +40,11 @@ endclass
 // the same interface as the original (plus the additional operations
 // and state).
 //
-// A component instante is bound to the decorator via the constructor.
+// A component instance is bound to the decorator via the constructor.
 // The services expected from the original interface are delegated to
-// the bound compinent.
+// the bound component.
 //------------------------------------------------------------------------------
-class decorator extends component;
+class decorator;
 
   local component comp;
   local state_t additional_state;
@@ -58,6 +58,7 @@ class decorator extends component;
   endfunction
 
   function void new_operation();
+     // do some new operation
   endfunction
 
 endclass
