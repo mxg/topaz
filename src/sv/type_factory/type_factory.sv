@@ -86,4 +86,3 @@ class abstract_factory#(type T, type B) extends concrete_factory#(T,B);
   endfunction
     
 endclass
-
