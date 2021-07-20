@@ -18,7 +18,6 @@
 module top;
 
    import abstract_factory_pkg::*;
-
    
    initial begin
 
