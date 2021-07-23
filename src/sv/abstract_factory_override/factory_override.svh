@@ -15,52 +15,27 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-class base;
+//------------------------------------------------------------------------------
+// factory
+//------------------------------------------------------------------------------
+class factory#(type B) extends concrete_factory#(B, B);
 
-  `base_factory(base)
+  local static abstract_factory#(B) override;
 
-  virtual function void print();
-    $display("base");
+  local function new();
   endfunction
-  
-endclass
 
-class some_class extends base;
-
-  `factory(base, some_class)
-
-  virtual function void print();
-    $display("some_class");
+  static function void set_override(abstract_factory#(B) ovrd);
+    override = ovrd;
   endfunction
-  
-endclass
 
-class some_other_class extends base;
-
-  `factory(base, some_other_class)
-
-  virtual function void print();
-    $display("some_other_class");
+  static function B construct();
+    if(override != null)
+      return override.create();
+    else begin
+      concrete_factory#(B,B) cf = concrete_factory#(B,B)::get();
+      return cf.create();
+    end
   endfunction
-  
+
 endclass
-
-module top;
-
-  initial begin
-    base b;
-
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(concrete_factory#(base,some_class)::get());
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(some_other_class::factory::get());
-    b = base::factory::create();
-    b.print();
-
-  end
-  
-endmodule

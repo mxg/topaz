@@ -15,52 +15,9 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-class base;
-
-  `base_factory(base)
-
-  virtual function void print();
-    $display("base");
-  endfunction
-  
+//------------------------------------------------------------------------------
+// abstract_factory
+//------------------------------------------------------------------------------
+virtual class abstract_factory#(type B);
+   pure virtual function B create();
 endclass
-
-class some_class extends base;
-
-  `factory(base, some_class)
-
-  virtual function void print();
-    $display("some_class");
-  endfunction
-  
-endclass
-
-class some_other_class extends base;
-
-  `factory(base, some_other_class)
-
-  virtual function void print();
-    $display("some_other_class");
-  endfunction
-  
-endclass
-
-module top;
-
-  initial begin
-    base b;
-
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(concrete_factory#(base,some_class)::get());
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(some_other_class::factory::get());
-    b = base::factory::create();
-    b.print();
-
-  end
-  
-endmodule

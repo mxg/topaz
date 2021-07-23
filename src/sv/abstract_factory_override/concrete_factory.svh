@@ -15,52 +15,27 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-class base;
+//------------------------------------------------------------------------------
+// concrete_factory
+//------------------------------------------------------------------------------
+class concrete_factory#(type B, type T)
+   extends abstract_factory#(B);
 
-  `base_factory(base)
+   typedef concrete_factory#(B,T) this_t;
+   static this_t cf;
 
-  virtual function void print();
-    $display("base");
-  endfunction
-  
+   protected function new();
+   endfunction
+
+   static function this_t get();
+      if(cf == null)
+	 cf = new();
+      return cf;
+   endfunction
+
+   function B create();
+      T t = new();
+      return t;
+   endfunction
+
 endclass
-
-class some_class extends base;
-
-  `factory(base, some_class)
-
-  virtual function void print();
-    $display("some_class");
-  endfunction
-  
-endclass
-
-class some_other_class extends base;
-
-  `factory(base, some_other_class)
-
-  virtual function void print();
-    $display("some_other_class");
-  endfunction
-  
-endclass
-
-module top;
-
-  initial begin
-    base b;
-
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(concrete_factory#(base,some_class)::get());
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(some_other_class::factory::get());
-    b = base::factory::create();
-    b.print();
-
-  end
-  
-endmodule

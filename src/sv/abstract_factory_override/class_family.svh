@@ -16,51 +16,37 @@
 //------------------------------------------------------------------------------
 
 class base;
-
-  `base_factory(base)
-
-  virtual function void print();
-    $display("base");
-  endfunction
-  
+   virtual function string convert2string();
+      return "base";
+   endfunction
 endclass
 
-class some_class extends base;
-
-  `factory(base, some_class)
-
-  virtual function void print();
-    $display("some_class");
-  endfunction
-  
+class class_1 extends base;
+   virtual function string convert2string();
+      return "class_1";
+   endfunction 
 endclass
 
-class some_other_class extends base;
-
-  `factory(base, some_other_class)
-
-  virtual function void print();
-    $display("some_other_class");
-  endfunction
-  
+class class_2 extends base;
+   virtual function string convert2string();
+      return "class_2";
+   endfunction
 endclass
 
-module top;
+class class_3 extends base;
+   virtual function string convert2string();
+      return "class_3";
+   endfunction
+endclass
 
-  initial begin
-    base b;
+class class_1_1 extends class_1;
+   virtual function string convert2string();
+      return "class_1_1";
+   endfunction 
+endclass
 
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(concrete_factory#(base,some_class)::get());
-    b = base::factory::create();
-    b.print();
-
-    base::factory::set_override(some_other_class::factory::get());
-    b = base::factory::create();
-    b.print();
-
-  end
-  
-endmodule
+class class_1_2 extends class_1;
+   virtual function string convert2string();
+      return "class_1_2";
+   endfunction 
+endclass

@@ -15,52 +15,33 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-class base;
-
-  `base_factory(base)
-
-  virtual function void print();
-    $display("base");
-  endfunction
-  
-endclass
-
-class some_class extends base;
-
-  `factory(base, some_class)
-
-  virtual function void print();
-    $display("some_class");
-  endfunction
-  
-endclass
-
-class some_other_class extends base;
-
-  `factory(base, some_other_class)
-
-  virtual function void print();
-    $display("some_other_class");
-  endfunction
-  
-endclass
-
 module top;
 
-  initial begin
-    base b;
+   import abstract_factory_pkg::*;
 
-    b = base::factory::create();
-    b.print();
+   initial begin
 
-    base::factory::set_override(concrete_factory#(base,some_class)::get());
-    b = base::factory::create();
-    b.print();
+     base b;
 
-    base::factory::set_override(some_other_class::factory::get());
-    b = base::factory::create();
-    b.print();
+     // contruct base class (no override)
+     b = factory#(base)::construct();
+     $display("%s", b.convert2string());
+     // establish override
+     factory#(base)::set_override(concrete_factory#(base, class_1)::get());
+     b = factory#(base)::construct();
+     $display("%s", b.convert2string());
+     // set different override
+     factory#(base)::set_override(concrete_factory#(base, class_1_2)::get());
+     b = factory#(base)::construct();
+     $display("%s", b.convert2string());
+     // cancel override
+     factory#(base)::set_override(null);
+     b = factory#(base)::construct();
+     $display("%s", b.convert2string());
 
-  end
-  
+   end
+
 endmodule
+
+
+  

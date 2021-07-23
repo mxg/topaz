@@ -16,15 +16,15 @@
 //------------------------------------------------------------------------------  
 
 //------------------------------------------------------------------------------
-// type_handle_container_base
+// static_type_handle_base
 //------------------------------------------------------------------------------
-virtual class type_handle_container_base;
+virtual class static_type_handle_base;
 endclass
 
 //------------------------------------------------------------------------------
-// type_handle_container
+// static_type_handle
 //------------------------------------------------------------------------------
-class type_handle_container#(type T=int) extends type_handle_container_base;
+class static_type_handle#(type T=int) extends static_type_handle_base;
 endclass
 
 //------------------------------------------------------------------------------
@@ -32,7 +32,7 @@ endclass
 //------------------------------------------------------------------------------
 virtual class type_handle_base;
 
-  pure virtual function type_handle_container_base get_type_handle();
+  pure virtual function static_type_handle_base get_type_handle();
 
 endclass
 
@@ -42,7 +42,7 @@ endclass
 class type_handle #(type T=int) extends type_handle_base;
 
   typedef type_handle#(T) this_t;
-  typedef type_handle_container#(T) this_handle_t;
+  typedef static_type_handle#(T) this_handle_t;
   static this_handle_t handle;
  
   static function this_handle_t get_type();
@@ -51,7 +51,7 @@ class type_handle #(type T=int) extends type_handle_base;
     return handle;
   endfunction
 
-  function type_handle_container_base get_type_handle();
+  function static_type_handle_base get_type_handle();
     return get_type();
   endfunction
 
@@ -71,7 +71,7 @@ module top;
 
   initial begin
 
-    string type_list[type_handle_container_base];
+    string type_list[static_type_handle_base];
     type_handle#(int) th1;
     type_handle#(string) th2;
     type_handle#(int) th3;
