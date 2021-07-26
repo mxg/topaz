@@ -15,36 +15,30 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-module top;
+class base;
+  `register_string_factory("base", base, base)
+   virtual function string convert2string();
+      return "base";
+   endfunction
+endclass
 
-  import class_family_pkg::*;
-  import abstract_factory_pkg::*;
-  
-  initial begin
-    
-    abstract_factory#(base) factories[3];
-    base q[$];
-    int unsigned i;
-    int unsigned f;
-    base b;
-    
-    factories[0] = concrete_factory#(base, class_1)::get();
-    factories[1] = concrete_factory#(base, class_2)::get();
-    factories[2] = concrete_factory#(base, class_3)::get();
-    
-    for(i = 0; i < 10; i++) begin
-      f = $urandom() % 3;
-      b = factories[f].create();
-      q.push_back(b);
-    end
-    
-    foreach(q[i]) begin
-      $display("[%0d] %s", i, q[i].convert2string());
-    end
-    
-  end
-  
-endmodule
+class class_1 extends base;
+  `register_string_factory("class_1", base, class_1)
+   virtual function string convert2string();
+      return "class_1";
+   endfunction 
+endclass
 
+class class_2 extends base;
+  `register_string_factory("class_2", base, class_2)
+   virtual function string convert2string();
+      return "class_2";
+   endfunction
+endclass
 
-  
+class class_3 extends base;
+  `register_string_factory("class_3", base, class_3)
+   virtual function string convert2string();
+      return "class_3";
+   endfunction
+endclass

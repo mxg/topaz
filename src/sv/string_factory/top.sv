@@ -15,36 +15,32 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
+`include "string_factory_macros.svh"
+
+//------------------------------------------------------------------------------
+// top
+//------------------------------------------------------------------------------
 module top;
 
   import class_family_pkg::*;
   import abstract_factory_pkg::*;
+  import string_factory_pkg::*;
   
   initial begin
     
-    abstract_factory#(base) factories[3];
-    base q[$];
-    int unsigned i;
-    int unsigned f;
     base b;
     
-    factories[0] = concrete_factory#(base, class_1)::get();
-    factories[1] = concrete_factory#(base, class_2)::get();
-    factories[2] = concrete_factory#(base, class_3)::get();
+    `create_string_factory("class_1", base, b)
+    $display(b.convert2string());
     
-    for(i = 0; i < 10; i++) begin
-      f = $urandom() % 3;
-      b = factories[f].create();
-      q.push_back(b);
-    end
-    
-    foreach(q[i]) begin
-      $display("[%0d] %s", i, q[i].convert2string());
-    end
-    
+    `create_string_factory("base", base, b)
+    $display(b.convert2string());
+
+    `override_string_factory("base", base, class_2) 
+    `create_string_factory("base", base, b)
+    $display(b.convert2string());   
   end
-  
+
 endmodule
 
-
-  
+    

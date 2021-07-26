@@ -1,5 +1,6 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= abstract_factory_pkg.sv top.sv
-
+SRC	= class_family_pkg.sv  \
+          abstract_factory_pkg.sv \
+          top.sv
