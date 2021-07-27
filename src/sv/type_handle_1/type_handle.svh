@@ -32,6 +32,9 @@ class type_handle #(type T=int) extends type_handle_base;
   typedef type_handle#(T) this_t;
   static this_t my_type;
 
+  local function new();
+  endfunction
+
   static function this_t get_type();
     if(my_type == null)
       my_type = new();

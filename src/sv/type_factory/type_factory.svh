@@ -20,27 +20,27 @@
 //------------------------------------------------------------------------------
 class type_factory#(type B);
 
-  static local abstract_factory#(B) factory_table [string];
+  static local abstract_factory#(B) factory_table [type_handle_base];
 
-  static function bit add(string type_name, abstract_factory#(B) cf);
-    if(!factory_table.exists(type_name))
-      factory_table[type_name] = cf;
+  static function bit add(type_handle_base th, abstract_factory#(B) cf);
+    if(!factory_table.exists(th))
+      factory_table[th] = cf;
     else
-      $display("error: Type %s already exists in the type factory", type_name);
+      $display("error: Type handle already exists in the type factory");
     return 1;
   endfunction
 
-  static function void override(string type_name, abstract_factory#(B) cf);
-    if(factory_table.exists(type_name))
-      factory_table[type_name] = cf;
+  static function void override(type_handle_base th, abstract_factory#(B) cf);
+    if(factory_table.exists(th))
+      factory_table[th] = cf;
     else
-      $display("error: Type %s cannot be overridden in the type factory", type_name);
+      $display("error: Type handle cannot be overridden in the type factory");
   endfunction    
       
-  static function abstract_factory#(B) get_concrete_factory(string type_name);
-    if(factory_table.exists(type_name))
-      return factory_table[type_name];
-    $display("error: Type %s is not in the type factory", type_name);
+  static function abstract_factory#(B) get_concrete_factory(type_handle_base th);
+    if(factory_table.exists(th))
+      return factory_table[th];
+    $display("error: Type is not in the type factory");
     return null;
   endfunction
 

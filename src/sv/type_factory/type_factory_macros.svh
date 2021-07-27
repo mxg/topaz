@@ -16,20 +16,19 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// string_factory_macros
+// type_factory_macros
 //------------------------------------------------------------------------------
 
-`define register_string_factory(type_name, B, T) \
-  static bit __str_fact__ = string_factory#(B)::add(type_name, concrete_factory#(B,T)::get());
+`define register_type_factory(th, B, T) \
+  static bit __typ_fact__ = type_factory#(B)::add(th, concrete_factory#(B,T)::get());
 
-`define override_string_factory(type_name, B, T) \
-  string_factory#(B)::override(type_name, concrete_factory#(B,T)::get());
+`define override_type_factory(th, B, T) \
+  type_factory#(B)::override(th, concrete_factory#(B,T)::get());
 
-`define create_string_factory(type_name, B, t)  \
+`define create_type_factory(th, B, t)  \
   begin                                                       \
     abstract_factory#(B) cf;                                  \
-    cf = string_factory#(B)::get_concrete_factory(type_name); \
+    cf = type_factory#(B)::get_concrete_factory(th);          \
     if(cf != null)                                            \
-      t = cf.create();                                          \
+      t = cf.create();                                        \
   end
-       

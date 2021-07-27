@@ -15,7 +15,7 @@
 //    code is suitable for study and for copying/pasting into your own work.
 //------------------------------------------------------------------------------
 
-`include "string_factory_macros.svh"
+`include "type_factory_macros.svh"
 
 //------------------------------------------------------------------------------
 // top
@@ -24,20 +24,21 @@ module top;
 
   import class_family_pkg::*;
   import abstract_factory_pkg::*;
-  import string_factory_pkg::*;
+  import type_factory_pkg::*;
+  import type_handle_pkg::*;
   
   initial begin
     
     base b;
     
-    `create_string_factory("class_1", base, b)
+    `create_type_factory(type_handle#(class_1)::get_type(), base, b)
     $display(b.convert2string());
     
-    `create_string_factory("base", base, b)
+    `create_type_factory(type_handle#(base)::get_type(), base, b)
     $display(b.convert2string());
 
-    `override_string_factory("base", base, class_2) 
-    `create_string_factory("base", base, b)
+    `override_type_factory(type_handle#(base)::get_type(), base, class_2)
+    `create_type_factory(type_handle#(base)::get_type(), base, b)
     $display(b.convert2string());   
   end
 

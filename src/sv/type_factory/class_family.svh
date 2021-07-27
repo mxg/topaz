@@ -16,28 +16,28 @@
 //------------------------------------------------------------------------------
 
 class base;
-  `register_string_factory("base", base, base)
+  `register_type_factory(type_handle#(base)::get_type(), base, base)
    virtual function string convert2string();
       return "base";
    endfunction
 endclass
 
 class class_1 extends base;
-  `register_string_factory("class_1", base, class_1)
+  `register_type_factory(type_handle#(class_1)::get_type(), base, class_1)
    virtual function string convert2string();
       return "class_1";
    endfunction 
 endclass
 
 class class_2 extends base;
-  `register_string_factory("class_2", base, class_2)
+  `register_type_factory(type_handle#(class_2)::get_type(), base, class_2)
    virtual function string convert2string();
       return "class_2";
    endfunction
 endclass
 
 class class_3 extends base;
-  `register_string_factory("class_3", base, class_3)
+  `register_type_factory(type_handle#(class_3)::get_type(), base, class_3)
    virtual function string convert2string();
       return "class_3";
    endfunction
