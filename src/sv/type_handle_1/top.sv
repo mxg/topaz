@@ -13,37 +13,7 @@
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
-//------------------------------------------------------------------------------  
-
 //------------------------------------------------------------------------------
-// type_handle_base
-//------------------------------------------------------------------------------
-virtual class type_handle_base;
-
-  pure virtual function type_handle_base get_type_handle();
-
-endclass
-
-//------------------------------------------------------------------------------
-// type_handle
-//------------------------------------------------------------------------------
-class type_handle #(type T=int) extends type_handle_base;
-
-  typedef type_handle#(T) this_t;
-  static this_t my_type;
-
-  static function this_t get_type();
-    if(my_type == null)
-      my_type = new();
-    return my_type;
-  endfunction
-
-  function type_handle_base get_type_handle();
-    return get_type();
-  endfunction
-
-endclass
-
 
 class some_class;
 endclass
@@ -55,6 +25,8 @@ endclass
 // top
 //------------------------------------------------------------------------------
 module top;
+
+  import type_handle_pkg::*;
 
   initial begin
 

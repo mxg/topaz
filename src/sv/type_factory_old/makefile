@@ -1,5 +1,5 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= type_handle_pkg.sv top.sv
+SRC	= type_factory.sv test.sv
 
