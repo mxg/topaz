@@ -20,7 +20,8 @@
 //------------------------------------------------------------------------------
 
 `define register_string_factory(type_name, B, T) \
-  static bit __str_fact__ = string_factory#(B)::add(type_name, concrete_factory#(B,T)::get());
+  static bit __str_fact__ = \
+    string_factory#(B)::add(type_name, concrete_factory#(B,T)::get());
 
 `define override_string_factory(type_name, B, T) \
   string_factory#(B)::override(type_name, concrete_factory#(B,T)::get());
@@ -30,6 +31,6 @@
     abstract_factory#(B) cf;                                  \
     cf = string_factory#(B)::get_concrete_factory(type_name); \
     if(cf != null)                                            \
-      t = cf.create();                                          \
+      t = cf.create();                                        \
   end
        

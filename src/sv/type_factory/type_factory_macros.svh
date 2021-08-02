@@ -20,7 +20,8 @@
 //------------------------------------------------------------------------------
 
 `define register_type_factory(th, B, T) \
-  static bit __typ_fact__ = type_factory#(B)::add(th, concrete_factory#(B,T)::get());
+  static bit __typ_fact__ = \
+    type_factory#(B)::add(th, concrete_factory#(B,T)::get());
 
 `define override_type_factory(th, B, T) \
   type_factory#(B)::override(th, concrete_factory#(B,T)::get());
