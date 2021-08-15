@@ -1,7 +1,25 @@
 //------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 // cc_fsm_base
 //------------------------------------------------------------------------------
-virtual class cc_fsm_base extends uvm_object;
+virtual class cc_fsm_base extends uvm_object
+                          implements cc_fsm_intf;
 
   `uvm_object_abstract_utils(cc_fsm_base)
 
@@ -15,10 +33,12 @@ virtual class cc_fsm_base extends uvm_object;
   function new(string name = "cc_fsm_base");
     super.new(name);
     build_state_table();
+  endfunction // new
+
+  virtual function void build_state_table();
+    `uvm_fatal("CC_FSM", "buikld_state_table() is unimplemented")
   endfunction
   
-  pure virtual function void build_state_table();
-
   //----------------------------------------------------------------------------
   // update_state
   //
@@ -37,11 +57,11 @@ virtual class cc_fsm_base extends uvm_object;
       curr_state = state_S;
 
     if(state_table.exists(curr_state))
-	curr_row = state_table[curr_state];
+      curr_row = state_table[curr_state];
     else
-	`uvm_fatal("CC_FSM", 
-		   ("no state table entry for state %s",
-		    curr_state.name()))
+      `uvm_fatal("CC_FSM", 
+		 $sformatf("no state table entry for state %s",
+			   curr_state.name()))
 
     if(curr_row.exists(op)) begin
       next_state = curr_row[op];

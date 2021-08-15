@@ -1,7 +1,8 @@
 //------------------------------------------------------------------------------
 // cc_fsm_mesi
 //------------------------------------------------------------------------------
-class cc_fsm_mesi extends cc_fsm_base;
+class cc_fsm_mesi extends cc_fsm_base
+                  implements cc_fsm_intf;
 
   `uvm_object_utils(cc_fsm_mesi)
 

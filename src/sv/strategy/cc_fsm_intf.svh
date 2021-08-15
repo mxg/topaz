@@ -16,12 +16,10 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// cc_types
+// cc_fsm_intf
 //------------------------------------------------------------------------------
-typedef bit [63:0] addr_t;
-typedef enum {PrRd, PrWr,
-              BusRd, BusRdX,
-              PrRdS, PrRdNS, BusUpgr} operation_t;
-typedef enum {state_M, state_E, state_S,
-              state_I, state_O} state_t;
+interface class cc_fsm_intf;
 
+  pure virtual function void build_state_table();   
+
+endclass     
