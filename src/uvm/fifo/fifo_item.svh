@@ -1,6 +1,23 @@
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 // FIFO sequence item
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 class fifo_item extends uvm_sequence_item;
 
   // op_t identifies the operation to be performed on the fifo
@@ -21,12 +38,12 @@ class fifo_item extends uvm_sequence_item;
     super.new(name);
   endfunction
 
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   // convert2string
   //
   // Convert a fifo item to a printable string.  Both the request and
   // response fields are converted.
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   function string convert2string();
     string    s;
     $sformat(s, "%3s : %s %s %8x [%s]",

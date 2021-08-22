@@ -1,6 +1,37 @@
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//
+//    Copyright 2021 Mark Glasser
+// 
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+// 
+//      http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 // FIFO driver
-//----------------------------------------------------------------------
+//------------------------------------------------------------------------------
 class fifo_driver extends uvm_component;
 
   // port connection to sequence
@@ -13,11 +44,11 @@ class fifo_driver extends uvm_component;
     super.new(name, parent);
   endfunction
 
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   // build_phase
   //
   // create all the bits and peices used by the driver.
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   function void build_phase(uvm_phase phase);
     seq_item_port = new("seq_item_port", this);
 
@@ -27,53 +58,37 @@ class fifo_driver extends uvm_component;
       `uvm_fatal("NO_VIF", "no virtual interface available for the fifo driver");
   endfunction
 
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   // run_phase
   //
   // Main loop for the driver.  Pull new transactions from the sequencer
   // on the negedge of the clock.
-  // --------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   task run_phase(uvm_phase phase);
 
     fifo_item t;
 
     forever begin
-
-      // Pull the next transaction from the sequencer on the falling
-      // edge of the clock.
       @(negedge vif.clk);
-
-      // Retrieve next request
       seq_item_port.try_next_item(t);
-
-      // No transaction?  Then let's wait for the next clock cycle.
       if(t == null)
 	continue;
-
-      // Let's do this thing.
       send_to_bus(t);
-
-      // send response
       seq_item_port.put(t);
-
-      // release the sequencer to get another transaction
       seq_item_port.item_done();
-
     end
     
   endtask
 
-  //--------------------------------------------------------------------
+  //----------------------------------------------------------------------------
   // send_to_bus
   //
-  // Translate a transaction to pint-level protocol
-  //--------------------------------------------------------------------
+  // Translate a transaction to pin-level protocol
+  //----------------------------------------------------------------------------
   task send_to_bus(fifo_item t);
 
-    // Enable the device
     vif.cs <= 1;
 
-    // Switch on the operation type
     case(t.op)
       
       fifo_item::RD:  // Read
@@ -104,14 +119,11 @@ class fifo_driver extends uvm_component;
 
     endcase
 
-    // Put the device into a neutral state in preparation for the next
-    // transaction.
     vif.wr_en <= 0;
     vif.rd_en <= 0;
     vif.cs <= 0;
 
-    // Identify the state of the fifo in each transaction.
-    case(vif.full << 1 | vif.empty)
+    case({vif.full, vif.empty})
       2'b00: t.state = fifo_item::OK;
       2'b01: t.state = fifo_item::EMPTY;
       2'b10: t.state = fifo_item::FULL;

@@ -1,63 +1,36 @@
 //------------------------------------------------------------------------------
+//                 .
+//               .o8
+//             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+//               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+//               888   888   888  888   888  .oP"888     .d8P'
+//               888 . 888   888  888   888 d8(  888   .d8P'  .P
+//               "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+//                                888
+//                               o888o
+//
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//
+//    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
+//    code is suitable for study and for copying/pasting into your own work.
+//------------------------------------------------------------------------------
+
+//------------------------------------------------------------------------------
 // top-level module
 //
 // This module is the tippy-top of the Verilog hierarchy.  It is the
 // place where the testbench and the DUT are connected.
 //------------------------------------------------------------------------------
-`include "uvm_macros.svh"
-import uvm_pkg::*;
+module top();
 
-module top;
+   import uvm_pkg::*;
 
-  // The wires that are shared between the DUT and the testbench.
-  wire clk;
-  wire rst;
-  wire cs;
-  wire rd_en;
-  wire wr_en;
-  wire [31:0] data_in;
-  wire [31:0] data_out;
-  wire empty;
-  wire full;
+   fifo_env dut_env();
+   bind fifo_env fifo_if fif(.clk(clk));
 
-  // Instantiate the DUT
-  fifo f(
-	 .clk(clk),
-	 .rst(rst),
-	 .cs(cs),
-	 .rd_en(rd_en),
-	 .wr_en(wr_en),
-	 .data_in(data_in),
-	 .data_out(data_out),
-	 .empty(empty),
-	 .full(full)
-	 );
-
-  // Instantiate the interface that will connect the DUT to the testbench
-  fifo_if fif(
-	      .clk(clk),
-	      .rst(rst),
-	      .cs(cs),
-	      .rd_en(rd_en),
-	      .wr_en(wr_en),
-	      .data_in(data_in),
-	      .data_out(data_out),
-	      .empty(empty),
-	      .full(full)
-	      );
-
-  // Instantiate the clock generator and connect it to the clk
-  clkgen cg(.clk(clk));
-
-  initial begin
-    // Put the virtual interface into the resoure database
-    uvm_resource_db#(virtual fifo_if)::set("*", "fifo_if", fif, null);
-
-    // Let'er rip!  Without an argument run_test() will look to the
-    // command line for the name of the test to instantiate.  The
-    // +UVM_TESTNAME command line option identifies the top-level test
-    // component to instantiate.
-    run_test();
-  end
+   initial begin
+      uvm_resource_db#(virtual fifo_if)::set("*", "fifo_if", dut_env.fif, null);
+      run_test();
+   end
   
 endmodule
