@@ -3,6 +3,7 @@
 //
 // A simple clock generator.
 //----------------------------------------------------------------------
+
 module clkgen(output clk);
 
   reg r_clk;

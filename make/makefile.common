@@ -41,6 +41,7 @@ COMPILE_OPTS    = -sverilog                                            \
                   +vcs+lic+wait                                        \
                   +libext+.v                                           \
                   +libext+.sv                                          \
+                  -timescale=1ns/1ps                                   \
                   -debug
 
 VCS_CMD		= ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS} -l ${COMPILELOG}

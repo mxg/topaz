@@ -60,7 +60,7 @@ class env extends uvm_component;
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
     seq.start(sqr);
-    phase.drop_objection(this);
+    $display("drop objection");
   endtask
   
 endclass
