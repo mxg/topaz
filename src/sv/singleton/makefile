@@ -32,4 +32,5 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
+UVM_SRC	=
 SRC	= singleton.sv

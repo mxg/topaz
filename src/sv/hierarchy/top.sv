@@ -38,7 +38,7 @@ module top;
 
   initial begin
 
-    hier a, b, c, d, e, g, h, i;
+    tree a, b, c, d, e, f, g, h, i;
 
     a = new("A", null); // topmost node has no parent
     b = new("B", a);

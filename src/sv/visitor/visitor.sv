@@ -54,7 +54,7 @@ class tree_visitor;
   endfunction
 
   function void visit(tree t);
-    $display("visiting node id = %0d", t.id);
+    $display("visiting node id = %s", t.name);
   endfunction
 
 endclass

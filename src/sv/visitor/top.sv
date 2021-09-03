@@ -13,21 +13,19 @@ module top;
     tree treetop;
     tree t1;
     tree t2;
+    tree t3;
+    tree t4;
 
-    treetop = new(null); // topmost node has noi parent
-    treetop.id = 860;
-    // two odes whose parent is treetop
-    t1 = new(treetop);
-    t1.id = 15;
-    t2 = new(treetop);
-    t2.id = 133;
+    treetop = new("top", null); // topmost node has no parent
+    // two nodes whose parent is treetop
+
+
+    t1 = new("t1", treetop);
+    t2 = new("t2", treetop);
 
     // Two nodes whose parent is t1.
-    t2 = new(t1);
-    t2.id = 9;
-    t2 = new(t1);
-    t2.id = 175;
-
+    t3 = new("t3", t1);
+    t4 = new("t4", t1);
     //------------------------------
 
     tv = new();

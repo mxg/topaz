@@ -3,7 +3,7 @@
 # List all the examples that are available.  A directory containing an
 # example is defined by having a makefile.
 
-makefiles=`find . -name makefile -print`
+makefiles=`find . -name makefile -print | sort`
 cnt=0
 
 for f in $makefiles; do
