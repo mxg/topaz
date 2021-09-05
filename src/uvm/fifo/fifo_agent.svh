@@ -53,10 +53,6 @@ class fifo_agent extends uvm_component;
     analysis_port = new("analysis_port", this);
   endfunction
 
-  //----------------------------------------------------------------------------
-  // Connect things together.  Connect the driver to the sequencer an
-  // the talker to the monitor.
-  //----------------------------------------------------------------------------
   function void connect_phase(uvm_phase phase);
     drv.seq_item_port.connect(sqr.seq_item_export);
     mon.analysis_port.connect(analysis_port);
