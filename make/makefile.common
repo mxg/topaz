@@ -42,11 +42,11 @@ COMPILE_OPTS    = -sverilog                                            \
                   +libext+.v                                           \
                   +libext+.sv                                          \
                   -timescale=1ns/1ps                                   \
-                  -debug
+                  -debug_access
 
 VCS_CMD		= ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS} -l ${COMPILELOG}
 
-SIMV_ARGS	= -l ${SIMLOG} +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
+SIMV_ARGS	= -l ${SIMLOG} +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
 
 SIMV_CMD	= ./${SIMV} ${SIMV_ARGS} 
 
@@ -67,6 +67,6 @@ clean:
 	rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
 	rm -f simv ucli.key vc_hdrs.h
 	rm -f novas.* *.fsdb
-	rm -rf verdiLog
+	rm -rf verdiLog nWaveLog
 	rm -f xx* *~ #*
 
