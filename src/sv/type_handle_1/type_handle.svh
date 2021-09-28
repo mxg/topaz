@@ -33,9 +33,7 @@
 // type_handle_base
 //------------------------------------------------------------------------------
 virtual class type_handle_base;
-
   pure virtual function type_handle_base get_type_handle();
-
 endclass
 
 //------------------------------------------------------------------------------
