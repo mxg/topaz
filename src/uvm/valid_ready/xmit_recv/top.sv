@@ -29,30 +29,50 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module master #(parameter DATA_WIDTH=8)
-  (input clk,
-   input  ready,
-   output valid,
-   output [DATA_WIDTH-1:0] data
-  );
+//------------------------------------------------------------------------------
+// clkgen
+//------------------------------------------------------------------------------
+module clkgen(output clk);
 
-  reg r_valid;
-  int delay;
+  reg r_clk;
 
-  assign valid = r_valid;
-  assign data = (valid == 1 && ready == 1) ? $urandom() : 'z;
+  assign clk = r_clk;
 
-  always @(negedge clk) begin
-    r_valid <= 1;
-    @(posedge clk);
-    r_valid <= 0;
-    delay = $urandom_range(10);
-    #delay;
+  initial begin
+    r_clk <= 0;
+    forever begin
+      #5 r_clk <= ~clk;
+    end
+  end
+endmodule
+
+//------------------------------------------------------------------------------
+// top
+//------------------------------------------------------------------------------
+module top();
+
+  parameter DATA_WIDTH = 8;
+
+  wire clk;
+  wire ready;
+  wire valid;
+  wire [DATA_WIDTH-1:0] data;
+
+   transmitter#(.DATA_WIDTH(8)) xmit(.clk(clk),
+				     .ready(ready),
+				     .valid(valid),
+				     .data(data));
+   receiver#(.DATA_WIDTH(8)) recv(.clk(clk),
+				  .ready(ready),
+				  .valid(valid),
+				  .data(data));
+  clkgen ck(clk);`
+
+  initial begin
+    $fsdbDumpfile("vr_xr.fsdb");
+    $fsdbDumpvars();
+    #500;
+    $finish;
   end
 
-  always @(data) begin
-    if(valid == 1 && ready == 1)
-      $display("%12t : sent     -> %0x", $time, data);
-  end
-  
 endmodule

@@ -29,28 +29,30 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module slave #(parameter DATA_WIDTH=8)
+module transmitter #(parameter DATA_WIDTH=8)
   (input clk,
-   output ready,
-   input valid,
-   input [DATA_WIDTH-1:0] data
+   input  ready,
+   output valid,
+   output [DATA_WIDTH-1:0] data
   );
 
-  reg r_ready;
-  reg [DATA_WIDTH-1:0] r_buf;
+  reg r_valid;
+  int delay;
 
-  assign ready = r_ready;
-  assign #0 r_buf = (valid == 1 && ready == 1) ? data : 'z;
+  assign valid = r_valid;
+  assign data = (valid == 1 && ready == 1) ? $urandom() : 'z;
 
   always @(negedge clk) begin
-    r_ready <= 1;
+    r_valid <= 1;
     @(posedge clk);
-    r_ready <= 0;
+    r_valid <= 0;
+    delay = $urandom_range(10);
+    #delay;
   end
 
-  always @(r_buf) begin
+  always @(data) begin
     if(valid == 1 && ready == 1)
-      $display("%12t : received <- %0x", $time, r_buf);
+      $display("%12t : sent     -> %0x", $time, data);
   end
-
+  
 endmodule

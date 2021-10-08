@@ -1,5 +1,5 @@
 TOP	= ../../../..
 include ${TOP}/make/makefile.common
 
-SRC	+= master.sv slave.sv top.sv
+SRC	+= xmit.sv recv.sv top.sv
 INC	+= +incdir+.
