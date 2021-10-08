@@ -58,15 +58,15 @@ module top();
   wire valid;
   wire [DATA_WIDTH-1:0] data;
 
-   transmitter#(.DATA_WIDTH(8)) xmit(.clk(clk),
-				     .ready(ready),
-				     .valid(valid),
-				     .data(data));
-   receiver#(.DATA_WIDTH(8)) recv(.clk(clk),
-				  .ready(ready),
-				  .valid(valid),
-				  .data(data));
-  clkgen ck(clk);`
+  transmitter#(.DATA_WIDTH(8)) xmit(.clk(clk),
+				    .ready(ready),
+				    .valid(valid),
+				    .data(data));
+  receiver#(.DATA_WIDTH(8)) recv(.clk(clk),
+				 .ready(ready),
+				 .valid(valid),
+				 .data(data));
+  clkgen ck(clk);
 
   initial begin
     $fsdbDumpfile("vr_xr.fsdb");
