@@ -49,7 +49,7 @@ module transmitter #(parameter DATA_WIDTH=8)
     r_valid <= 1;
     @(posedge clk);
     r_valid <= 0;
-    delay = $urandom_range(10);
+    delay = $urandom_range(20);
     #delay;
   end
 

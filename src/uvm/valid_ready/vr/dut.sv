@@ -61,11 +61,11 @@ module dut();
   wire [31:0] data;
 
   clkgen ckgen(.clk(clk));
-  slave #(32) slv(.*);
-  bind slave vr_if vr(.*);
+  receiver #(32) recv(.*);
+  bind receiver vr_if rcv_if(.*);
 
   initial begin
-    uvm_resource_db#(virtual vr_if)::set("*", "vif", slv.vr, null);
+    uvm_resource_db#(virtual vr_if)::set("*", "vif", recv.rcv_if, null);
   end
 
 endmodule

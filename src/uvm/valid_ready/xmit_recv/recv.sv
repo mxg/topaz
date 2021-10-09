@@ -43,9 +43,12 @@ module receiver #(parameter DATA_WIDTH=8)
   reg [DATA_WIDTH-1:0] r_buf;
 
   assign ready = r_ready;
-  assign #0 r_buf = (valid == 1 && ready == 1) ? data : 'z;
 
-  always @(negedge clk) begin
+  always @(posedge clk) begin
+    r_buf = (valid == 1 && ready == 1) ? data : 'z;
+  end
+
+  always @(posedge valid) begin
     r_ready <= 1;
     @(posedge clk);
     r_ready <= 0;

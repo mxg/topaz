@@ -45,30 +45,30 @@ class vr_slave extends uvm_component;
 						      "vif", vif, this))
       `uvm_fatal("VR_SLAVE", "virtual interface cannot be located")
   endfunction
-
+  
   task run_phase(uvm_phase phase);
-
+    
     fork
       ctrl_task();
       data_task();
     join
     
   endtask
-
+  
   task ctrl_task();
     forever begin
-      @(negedge vif.clk);
+      @(posedge vif.valid);
       vif.ready <= 1;
       @(posedge vif.clk);
       vif.ready <= 0;
     end
   endtask
-
+  
   task data_task();
-   forever begin
-     @(vif.valid or vif.ready)
-     if(vif.valid == 1 && vif.ready == 1)
-       $display("%12t : receiving <- %0x", $time, vif.data);
+    forever begin
+      @(posedge vif. clk);
+      if(vif.valid == 1 && vif.ready == 1)
+	$display("%12t : receiving <- %0x", $time, vif.data);
     end    
   endtask
   
