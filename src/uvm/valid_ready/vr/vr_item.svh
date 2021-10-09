@@ -33,4 +33,10 @@ class vr_item extends uvm_sequence_item;
 
   bit[31:0] data;
 
+  function string convert2string();
+    string  s;
+    s = $sformatf("data = %08x", data);
+    return s;
+  endfunction
+
 endclass

@@ -39,6 +39,7 @@ class vr_agent extends uvm_component;
   local vr_driver drv;
   local vr_monitor mon;
   local uvm_sequencer#(vr_item) sqr;
+  local vr_talker tlk;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -48,12 +49,14 @@ class vr_agent extends uvm_component;
     drv = new("vr_driver" , this);
     mon = new("vr_monitor", this);
     sqr = new("vr_sequencer", this);
+    tlk = new("vr_talker", this);
     analysis_port = new("analysis_port", this);
   endfunction
 
   function void connect_phase(uvm_phase phase);
     drv.seq_item_port.connect(sqr.seq_item_export);
     mon.analysis_port.connect(analysis_port);
+    mon.analysis_port.connect(tlk.analysis_export);
   endfunction
 
   function uvm_sequencer_base get_sqr();

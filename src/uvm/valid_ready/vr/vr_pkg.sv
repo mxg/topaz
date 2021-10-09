@@ -38,8 +38,9 @@ package vr_pkg;
   `include "vr_seq.svh"
   `include "vr_driver.svh"
   `include "vr_monitor.svh"
+  `include "vr_talker.svh"
   `include "vr_agent.svh"
-  `include "vr_slave.svh"
+  `include "vr_receiver.svh"
 
 endpackage
   

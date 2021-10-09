@@ -51,9 +51,10 @@ class vr_monitor extends uvm_component;
   task run_phase(uvm_phase phase);
     vr_item item;
     forever begin
-      @(vif.valid || vif.ready);
+      @(vif.valid or vif.ready);
       if(vif.valid != 1 || vif.ready != 1)
 	continue;
+      @(posedge vif.clk)
       item = new();
       item.data = vif.data;
       analysis_port.write(item);

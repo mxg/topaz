@@ -30,39 +30,47 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// vr_env
+// vr_receiver
 //------------------------------------------------------------------------------
-class vr_env extends uvm_component;
+class vr_receiver extends uvm_component;
 
-  local vr_agent agent;
-  local uvm_sequence_base seq;
-  //local vr_receiver receiver;
-
+  local virtual vr_if vif;
+  
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
-
-    uvm_object_wrapper seq_wrapper;
-    
-    agent = new("vr_agent", this);
-    //receiver = new("vr_receiver", this);
-    
-    if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
-							   "seq_wrapper",
-							   seq_wrapper, this))
-      `uvm_fatal("VR_ENV", "Sequence cannot be located");
-
-    if(!$cast(seq, seq_wrapper.create_object("seq")))
-      `uvm_fatal("VR_ENV", "Invalid sequence");
-    
+    if(!uvm_resource_db#(virtual vr_if)::read_by_name(get_full_name(),
+						      "vif", vif, this))
+      `uvm_fatal("VR_RECEIVER", "virtual interface cannot be located")
   endfunction
-
+  
   task run_phase(uvm_phase phase);
-    phase.raise_objection(this);
-    seq.start(agent.get_sqr());
-    phase.drop_objection(this);
+    
+    fork
+      ctrl_task();
+      data_task();
+    join
+    
   endtask
-
+  
+  task ctrl_task();
+    forever begin
+      @(posedge vif.valid);
+      vif.ready <= 1;
+      @(posedge vif.clk);
+      vif.ready <= 0;
+    end
+  endtask
+  
+  task data_task();
+    forever begin
+      @(posedge vif. clk);
+      if(vif.valid == 1 && vif.ready == 1)
+	$display("%12t : receiving <- %0x", $time, vif.data);
+    end    
+  endtask
+  
 endclass
+

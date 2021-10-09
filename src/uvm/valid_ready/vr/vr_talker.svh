@@ -30,47 +30,17 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// vr_slave
+// vr_talker
 //------------------------------------------------------------------------------
-class vr_slave extends uvm_component;
+class vr_talker extends uvm_subscriber #(vr_item);
 
-  local virtual vr_if vif;
-  
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
 
-  function void build_phase(uvm_phase phase);
-    if(!uvm_resource_db#(virtual vr_if)::read_by_name(get_full_name(),
-						      "vif", vif, this))
-      `uvm_fatal("VR_SLAVE", "virtual interface cannot be located")
+  function void write(vr_item t);
+    `uvm_info("VR_TALKER", t.convert2string, UVM_NONE)
   endfunction
-  
-  task run_phase(uvm_phase phase);
-    
-    fork
-      ctrl_task();
-      data_task();
-    join
-    
-  endtask
-  
-  task ctrl_task();
-    forever begin
-      @(posedge vif.valid);
-      vif.ready <= 1;
-      @(posedge vif.clk);
-      vif.ready <= 0;
-    end
-  endtask
-  
-  task data_task();
-    forever begin
-      @(posedge vif. clk);
-      if(vif.valid == 1 && vif.ready == 1)
-	$display("%12t : receiving <- %0x", $time, vif.data);
-    end    
-  endtask
-  
+
 endclass
 
