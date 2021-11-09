@@ -36,7 +36,7 @@ class publisher#(type T);
 
    subscriber#(T) subscribers[$];
 
-   function subscribe(subscriber#(T) sub);
+   function void subscribe(subscriber#(T) sub);
       subscribers.push_back(sub);
    endfunction
 
