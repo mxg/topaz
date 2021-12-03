@@ -31,12 +31,18 @@
 
 typedef int unsigned state_t;
 
+interface class component_ifc;
+
+   pure virtual function void operation();
+
+endclass
+
 //------------------------------------------------------------------------------
 // component
 //
 // Component whose funtionality will be wrapped by a decorator.
 //------------------------------------------------------------------------------
-class component;
+class component implements component_ifc;
 
   virtual function void operation();
   endfunction
@@ -57,7 +63,7 @@ endclass
 // The services expected from the original interface are delegated to
 // the bound component.
 //------------------------------------------------------------------------------
-class decorator;
+class decorator implements component_ifc;
 
   local component comp;
   local state_t additional_state;
@@ -66,7 +72,7 @@ class decorator;
     comp = c;
   endfunction
 
-  function void operation();
+  virtual function void operation();
     comp.operation();
   endfunction
 

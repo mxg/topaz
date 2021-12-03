@@ -29,11 +29,12 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-package packet_pkg;
+package mem_pkg;
 
-  `include "packet.svh"
-  `include "udp_pkt.svh"
-  `include "tcp_pkt.svh"
+  `include "mem_types.svh"
+  `include "mem_if.svh"
+  `include "mem.svh"
+  `include "mem_cache.svh"
 
 endpackage
   
