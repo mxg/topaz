@@ -38,9 +38,22 @@ class mem_cache implements mem_if;
   local byte           data_cache[SIZE];
   local tag_t          tags[SIZE];
   local bit [SIZE-1:0] dirty;
+  local bit [SIZE-1:0] full;
+
+  local int 	       cache_hits;
+  local int 	       cache_misses;
+  local int 	       accesses;
   
   function new();
     m = new();
+  endfunction
+
+  function int get_cache_hits();
+    return cache_hits;
+  endfunction
+
+  function int get_cache_misses();
+    return cache_misses;
   endfunction
 
   //----------------------------------------------------------------------------
@@ -52,19 +65,21 @@ class mem_cache implements mem_if;
     tag_t tag     = get_tag(addr);
     byte  data;
 
-    if(tags[index] == tag) begin
+    accesses++;
+    if(tags[index] == tag && full[index] == 1) begin
       data = data_cache[index];
-      $display("read : %8x %2x", addr, data);
+      cache_hits++;
       return data;
     end
     
     data = m.read(addr);
+    cache_misses++;
     if(dirty[index] == 0) begin
       data_cache[index] = data;
       tags[index] = tag;
+      full[index] = 1;
     end
     
-    $display("read : %8x %2x", addr, data);
     return data;
   endfunction
 
@@ -75,35 +90,34 @@ class mem_cache implements mem_if;
     
     index_t index = get_index(addr);
     tag_t tag = get_tag(addr);
+
+    accesses++;
+    if(dirty[index] == 1 && tags[index] != tag) begin
+      m.write(addr, data_cache[index]);
+      dirty[index] = 0;
+      cache_misses++;
+    end
+    else
+      cache_hits++;
     
-    $display("write: %8x %2x", addr, data);
-    flush_index(index, tag);
     tags[index] = tag;
     data_cache[index] = data;
     dirty[index] = 1;
-  endfunction
-
-  //----------------------------------------------------------------------------
-  // flush_index
-  //----------------------------------------------------------------------------
-  local function void flush_index(index_t index, tag_t tag);
+    full[index] = 1;
     
-    addr_t addr = make_addr(tag, index, tags);
-
-    if(dirty[index] == 0 || tags[index] == tag)
-      return;
-    
-    m.write(addr, data_cache[index]);
-    dirty[index] = 0;
   endfunction
 
   //----------------------------------------------------------------------------
   // flush
   //----------------------------------------------------------------------------
   function void flush();
+    $display(" -- flush cache --");
     for(int unsigned i = 0; i < SIZE; i++)
-      if(dirty[i])
+      if(dirty[i]) begin
 	m.write(make_addr(tags[i], i, tags), data_cache[i]);
+	dirty[i] = 0;
+	full[i] = 0;
+      end
   endfunction
 
   //----------------------------------------------------------------------------
@@ -114,11 +128,26 @@ class mem_cache implements mem_if;
     
     $display("--- cache ---");
     for(i = 0; i < SIZE; i++) begin
-      $display("  %06x %02x : %02x (%0b)", tags[i], i, data_cache[i], dirty[i]);
+      $display("  %06x %02x : %02x (dirty = %0b full = %0b)",
+	       tags[i], i, data_cache[i], dirty[i], full[i]);
     end
     $display("--- memory ---");
     m.dump();
   endfunction
 
-endclass
+  //----------------------------------------------------------------------------
+  // dump_stats
+  //----------------------------------------------------------------------------
+  function void dump_stats();
 
+    real hit_pct = (real'(cache_hits) / real'(accesses)) * 100.0;
+    real miss_pct =( real'(cache_misses) / real'(accesses)) * 100.0;
+    
+    $display("cache stats");
+    $display("  accesses     = %0d", accesses);
+    $display("  cache hits   = %0d (%5.2f%%)", cache_hits, hit_pct);
+    $display("  cache misses = %0d (%5.2f%%)", cache_misses, miss_pct);
+
+  endfunction
+  
+endclass

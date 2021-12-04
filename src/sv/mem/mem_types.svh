@@ -29,14 +29,15 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-parameter int unsigned ADDR_BITS=32;
+parameter int unsigned ADDR_BITS=16;
 parameter int unsigned INDEX_BITS=8;
 parameter int unsigned SIZE = (1<<INDEX_BITS);
 parameter int unsigned TAG_BITS = (ADDR_BITS - INDEX_BITS);
 typedef bit [TAG_BITS-1:0] tag_t;
 typedef bit[INDEX_BITS-1:0] index_t;
 typedef bit [ADDR_BITS-1:0] addr_t;
+parameter addr_t ADDR_MASK = 'h00000fff;
 
-let get_index(addr_t addr) = addr & 'h000000ff;
+let get_index(addr_t addr) = addr & ADDR_MASK;
 let get_tag(addr_t addr) = addr >> INDEX_BITS;
 let make_addr(tag_t tag, index_t index, tag_t[SIZE] tags) = (tags[index] << INDEX_BITS) | index;

@@ -36,13 +36,11 @@ class mem implements mem_if;
   virtual function byte read(addr_t addr);
     byte     data;
     data = m[addr];
-    $display("mem read : %8x %2x", addr, data);
     return data;
   endfunction
 
   virtual function void write(addr_t addr, byte data);
     m[addr] = data;
-    $display("mem write: %8x %2x", addr, data);
   endfunction
 
   function void dump();

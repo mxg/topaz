@@ -29,6 +29,9 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+// top
+//------------------------------------------------------------------------------
 module top;
 
   import mem_pkg::*;
@@ -40,16 +43,24 @@ module top;
 
     m = new();
 
-    for(int i = 0; i < 100; i++) begin
+    for(int i = 0; i < 1000; i++) begin
       addr = $urandom() & 'h3ff;
       case($urandom() & 'h1)
-	0: data = m.read(addr);
-	1: m.write(addr, $urandom() & 'hff);
+	0: begin
+	  data = m.read(addr);
+	  $display("-read - %08x = %02x", addr, data);
+	end
+	1: begin
+	  data = $urandom() & 'hff;
+	  m.write(addr, data);
+	  $display("-write- %08x = %02x", addr, data);
+	end
       endcase
     end
       
     m.flush();
     m.dump();
+    m.dump_stats();
   end
 
 endmodule
