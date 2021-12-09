@@ -14,6 +14,8 @@ doc :
 
 run :
 
+readme :
+
 clean :
 	rm -rf html
 

@@ -62,6 +62,11 @@ build: ${SRC}
 run: 
 	${SIMV_CMD}
 
+readme:
+	@if [ -f readme.md ]; then \
+	  pandoc readme.md --from=markdown --to=plain; \
+	fi
+
 clean:
 	rm -f ${COMPILELOG} ${VCSLOG} *.log
 	rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
