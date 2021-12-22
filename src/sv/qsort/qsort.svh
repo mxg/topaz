@@ -30,11 +30,11 @@
 //------------------------------------------------------------------------------
 
 //----------------------------------------------------------------------
-// sorter
+// qsort
 //
 // Implementation of quicksort.  Based on algorithm defined in
 // "Algorithms in C" by Robert Sedgewick, Addison-Wesley, 1990
-// ----------------------------------------------------------------------
+//----------------------------------------------------------------------
 class qsort#(type T=int, type P=int);
 
   static function void sort(ref T vec[$]);
