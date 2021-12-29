@@ -21,7 +21,7 @@
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
 # 
-#      http:#www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 # 
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
@@ -33,6 +33,7 @@
 # Loop through all the makefiles in the tree and "make" a target for
 # each.  The target is supplied on the command line.
 
+make=/bin/make
 target=$1
 
 makefiles=`find . -name makefile -print | sort`
@@ -44,21 +45,25 @@ for f in $makefiles; do
     d=`pwd`
     cd $dir
     echo "[$cnt] ***" $target "for" $dir
-    make --no-print-directory $target
+    $make --no-print-directory $target
     if [ $? -ne 0 ] ; then
        errcnt=$((errcnt + 1));
        errlist="$errlist $dir";
     fi
+    echo
     echo "------------------------------------------------------------------------"
+    echo
     cd $d
     cnt=$(( $cnt + 1 ))
 done
-
-echo
+echo "========================================================================"
+echo "                             *** DONE ***"
 echo "========================================================================"
 echo  $target "complete with" $errcnt "errors"
 if [ $errcnt -gt 0 ] ; then
     for f in $errlist; do
-	echo "   " $f
+        echo "   " $f
     done
 fi
+
+

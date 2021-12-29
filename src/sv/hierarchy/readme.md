@@ -8,4 +8,4 @@ traversals.
 Each node in the tree has one parent, except for the root node which
 has no parents.  Each node has zero or more children. Nodes with no
 children are leaf nodes.  Nodes with one or more children are internal
-nodes.
+nodes.  The tree structure is from example src/sv/hierarchy.

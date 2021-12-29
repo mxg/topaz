@@ -1,8 +1,8 @@
 Decorator
 =========
 
-Some component imoplments an interface.  There may be occassions when
-it's necessary to modify the implementation or add new funftionality
+Some component implements an interface.  There may be occasions when
+it's necessary to modify the implementation or add new functionality
 to the component.  The decorator pattern provides a means of doing
 that without modifying the original component.  The decorator is also
 known as a _wrapper_.
