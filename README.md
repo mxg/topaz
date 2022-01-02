@@ -2,10 +2,10 @@
 
 Topaz is a companion to the book "Patterns and Idioms in
 SystemVerilog" by Mark Glasser.  It is a library of SystemVerilog and
-UVM examples.  These examples demonstrate various dersign patterns and
+UVM examples.  These examples demonstrate various design patterns and
 idioms discussed in the book.
 
-The library is distributred under the Apache-2.0 open source license
+The library is distributed under the Apache-2.0 open source license
 (http://www.apache.org/licenses/LICENSE-2.0).  You are free to use the
 code as you wish as long as you adhere to the terms of the license.
 
@@ -15,7 +15,7 @@ trivial results.
 
 At the top of the distribution tree is a Makefile with these targets:
 
-build -- build all the builkdable examples
+build -- build all the buildable examples
 
 run -- run all the runnable examples
 
@@ -23,7 +23,7 @@ clean -- clean up after build and run
 
 list -- produce a list of all of the examples in the kit
 
-readme -- print all the readme.me files from each example.
+readme -- print all the readme.md files from each example.
 
 all -- do a clean, build, and run, in that order,
 
@@ -34,7 +34,7 @@ build -- build the example code
 
 run -- run the example
 
-clean -- cleanup files created build build and run
+clean -- cleanup files created by build and run
 
 all -- do a build and run
 
