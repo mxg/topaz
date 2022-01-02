@@ -38,7 +38,13 @@ cnt=0
 
 for f in $makefiles; do
     p=`dirname $f | sed s:./::`
-    echo "[$cnt]" $p;
+    if [ -r $p/readme.md ]; then
+	exec 3< $p/readme.md
+	read -u 3 title
+	echo "[$cnt]" $p ":" $title
+    else
+	echo "[$cnt]" $p
+    fi
     cnt=$(( $cnt + 1 ))
 done
 

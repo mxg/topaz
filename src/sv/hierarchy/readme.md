@@ -1,5 +1,5 @@
-Hierarchy
-=========
+Hierarchy (Composition) Pattern
+===============================
 
 Demonstration of the hierarchy or composition pattern.  Data is stored
 hierarchically, in a tree, and can be accessed with tree searches or

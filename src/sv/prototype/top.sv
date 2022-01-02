@@ -31,36 +31,36 @@
 
 module top;
 
+  import type_handle_pkg::*;
   import prototype_pkg::*;
-  import class_family_pkg::*;
-
-  prototype_registry proto;
 
   initial begin
     abstract_prototype p;
     populate_registry();
 
-    p = proto.get("class_1");
+    p = prototype_registry::get(type_handle#(concrete_prototype_1)::get_type());
     $display("p = %s", p.convert2string());
-    p = proto.get("class_2");
+    p = prototype_registry::get(type_handle#(concrete_prototype_2)::get_type());
     $display("p = %s", p.convert2string());
-    p = proto.get("class_3");
+    p = prototype_registry::get(type_handle#(concrete_prototype_3)::get_type());
     $display("p = %s", p.convert2string());
   end
 
   function void populate_registry();
-    class_1 c1 = new();
-    class_2 c2 = new();
-    class_3 c3 = new();
-    proto = new();
+    concrete_prototype_1 c1 = new();
+    concrete_prototype_2 c2 = new();
+    concrete_prototype_3 c3 = new();
 
-    c1.a = 42;
-    c2.b = 17;
-    c3.c = 111;
+     c1.a = 14;
+     c1.b = 22;
+     c2.c = 111;
+     c2.d = 88;
+     c3.e = 60;
+     c3.f = 90;
 
-    proto.add("class_1", c1);
-    proto.add("class_2", c2);
-    proto.add("class_3", c3);
+    prototype_registry::add(type_handle#(concrete_prototype_1)::get_type(), c1);
+    prototype_registry::add(type_handle#(concrete_prototype_2)::get_type(), c2);
+    prototype_registry::add(type_handle#(concrete_prototype_3)::get_type(), c3);
   endfunction
   
   

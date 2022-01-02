@@ -29,44 +29,20 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class class_1 extends concrete_prototype#(class_1);
+class prototype_registry;
 
-  int a;
-  
-  virtual function void copy(class_1 rhs);
-    a = rhs.a;
-  endfunction
-  
-  virtual function string convert2string();
-    return $sformatf("class_1 : a = %0d", a);
-  endfunction
-  
+   static local abstract_prototype prototype[type_handle_base];
+
+   static function add(type_handle_base th, abstract_prototype ap);
+      prototype[th] = ap;
+   endfunction
+
+   static function abstract_prototype get(type_handle_base th);
+      abstract_prototype p;
+      p = prototype[th];
+      return p.clone();
+   endfunction
+
 endclass
 
-class class_2 extends concrete_prototype#(class_2);
-
-  int b;
-  
-  virtual function void copy(class_2 rhs);
-    b = rhs.b;
-  endfunction
-  
-  virtual function string convert2string();
-    return $sformatf("class_2 : b = %0d", b);;
-  endfunction
-  
-endclass
-
-class class_3 extends concrete_prototype#(class_3);
-
-  int c;
- 
-  virtual function void copy(class_3 rhs);
-    c = rhs.c;
-  endfunction
-
-  virtual function string convert2string();
-    return $sformatf("class_3 : c = %0d", c);
-  endfunction
-  
-endclass
+   

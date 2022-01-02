@@ -31,7 +31,10 @@
 
 package prototype_pkg;
 
-  `include "prototype.svh"
-
+  import type_handle_pkg::*;
+  `include "abstract_prototype.svh"
+  `include "concrete_prototype.svh"
+  `include "prototype_registry.svh"
+   
 endpackage
   

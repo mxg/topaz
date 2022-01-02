@@ -1,5 +1,5 @@
-Mem
-===
+Memory Model that Employs the Decorator Pattern
+===============================================
 
 Demonstration of the decorator pattern.
 

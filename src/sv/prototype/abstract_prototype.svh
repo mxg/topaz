@@ -29,10 +29,7 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-package class_family_pkg;
-
-  import prototype_pkg::*;
-  `include "class_family.svh"
-
-endpackage
-  
+virtual class abstract_prototype;
+  pure virtual function abstract_prototype clone();
+  pure virtual function string convert2string();
+endclass
