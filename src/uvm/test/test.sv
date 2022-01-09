@@ -100,7 +100,6 @@ endclass
 module top;
 
   initial begin
-    component c;
     run_test();
   end
 endmodule

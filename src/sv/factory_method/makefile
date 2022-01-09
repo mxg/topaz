@@ -32,5 +32,5 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= environment.sv
- 
+UVM_SRC	=
+SRC	= factory_method.sv
