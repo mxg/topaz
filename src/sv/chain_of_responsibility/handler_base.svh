@@ -37,7 +37,8 @@ virtual class handler_base;
   protected handler_base next_handler;
 
   pure virtual function string name();
-  pure virtual function void handle_request(mem_transaction tr, mem m);
+  pure virtual function void handle_request(mem_transaction tr,
+					    mem m);
 
   function void add_handler(handler_base h);
     if(next_handler == null)

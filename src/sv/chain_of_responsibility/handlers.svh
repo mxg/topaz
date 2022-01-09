@@ -38,7 +38,8 @@ class protected_handler extends handler_base;
     return "protected";
   endfunction
 
-  virtual function void handle_request(mem_transaction tr, mem m);
+  virtual function void handle_request(mem_transaction tr,
+				       mem m);
     if(tr.addr < 'h00008000 && tr.mode == PROT) begin
       $write("%s handler: ", name());
       m.do_transaction(tr);
@@ -58,7 +59,8 @@ class read_only_handler extends handler_base;
     return "read-only";
   endfunction
 
-  virtual function void handle_request(mem_transaction tr, mem m);
+  virtual function void handle_request(mem_transaction tr,
+				       mem m);
     if(tr.addr >= 'h00008000 && tr.addr <= 'h0000ffff &&
       tr.op == READ) begin
       $write("%s handler: ", name());
@@ -79,7 +81,8 @@ class read_write_handler extends handler_base;
     return "read-write";
   endfunction
 
-  virtual function void handle_request(mem_transaction tr, mem m);
+  virtual function void handle_request(mem_transaction tr,
+				       mem m);
     if(tr.addr <= 'hffffffff && tr.addr > 'h0000ffff) begin
       $write("%s handler: ", name());
       m.do_transaction(tr);
@@ -101,7 +104,8 @@ class error_handler extends handler_base;
     return "error";
   endfunction
 
-  virtual function void handle_request(mem_transaction tr, mem m);
+  virtual function void handle_request(mem_transaction tr,
+				       mem m);
     $write("%s handler: ", name());
     $display("no handler for transaction: %s", tr.convert2string());
   endfunction

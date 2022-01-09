@@ -47,9 +47,11 @@ module top;
 	addr dist {['h00000000:'h00007fff] :/1, 
                    ['h00008000:'h0000ffff] :/1,
                    ['h00010000:'hffffffff] :/1};
-	(addr <= 'hffffffff && addr > 'h0000ffff) -> mode == USER;
+	(addr <= 'hffffffff &&
+	 addr > 'h0000ffff) -> mode == USER;
 	 addr < 'h00008000 -> mode == PROT;
-	(addr >= 'h00008000 && addr <= 'h0000ffff) -> (mode == USER && op == READ);
+	(addr >= 'h00008000 &&
+	 addr <= 'h0000ffff) -> (mode == USER && op == READ);
       };
       m.exec(tr);
     end
