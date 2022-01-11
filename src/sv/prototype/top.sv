@@ -38,11 +38,14 @@ module top;
     abstract_prototype p;
     populate_registry();
 
-    p = prototype_registry::get(type_handle#(concrete_prototype_1)::get_type());
+    p = prototype_registry::
+        get(type_handle#(concrete_prototype_1)::get_type());
     $display("p = %s", p.convert2string());
-    p = prototype_registry::get(type_handle#(concrete_prototype_2)::get_type());
+    p = prototype_registry
+        ::get(type_handle#(concrete_prototype_2)::get_type());
     $display("p = %s", p.convert2string());
-    p = prototype_registry::get(type_handle#(concrete_prototype_3)::get_type());
+    p = prototype_registry
+        ::get(type_handle#(concrete_prototype_3)::get_type());
     $display("p = %s", p.convert2string());
   end
 
@@ -58,9 +61,12 @@ module top;
      c3.e = 60;
      c3.f = 90;
 
-    prototype_registry::add(type_handle#(concrete_prototype_1)::get_type(), c1);
-    prototype_registry::add(type_handle#(concrete_prototype_2)::get_type(), c2);
-    prototype_registry::add(type_handle#(concrete_prototype_3)::get_type(), c3);
+    prototype_registry::
+    add(type_handle#(concrete_prototype_1)::get_type(), c1);
+    prototype_registry::
+    add(type_handle#(concrete_prototype_2)::get_type(), c2);
+    prototype_registry::
+    add(type_handle#(concrete_prototype_3)::get_type(), c3);
   endfunction
   
   
