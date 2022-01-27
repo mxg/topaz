@@ -50,35 +50,3 @@ class concrete_class_3 extends abstract_class;
     $display("I'm a concrete_class_3");
   endfunction
 endclass
-
-typedef enum{C1, C2, C3} selector_t;
-
-function abstract_class factory(selector_t selector);
-  abstract_class c;
-  case(selector)
-    C1: begin
-      concrete_class_1 c1 = new();
-      c = c1;
-    end
-    C2: begin
-      concrete_class_2 c2 = new();
-      c = c2;
-    end
-    C3: begin
-      concrete_class_1 c3 = new();
-      c = c3;
-    end
-  endcase
-  return c;
-endfunction
-
-module top;
-
-  initial begin
-    abstract_class c;
-
-    c = factory(C2);
-    c.print();
-  end
-  
-endmodule
