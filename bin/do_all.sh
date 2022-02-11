@@ -44,21 +44,18 @@ for f in $makefiles; do
     dir=`dirname $f`
     d=`pwd`
     cd $dir
-    echo "[$cnt] ***" $target "for" $dir
     $make --no-print-directory $target
     if [ $? -ne 0 ] ; then
        errcnt=$((errcnt + 1));
        errlist="$errlist $dir";
     fi
-    echo
-    echo "------------------------------------------------------------------------"
-    echo
     cd $d
     cnt=$(( $cnt + 1 ))
 done
 echo "========================================================================"
 echo "                             *** DONE ***"
 echo "========================================================================"
+echo "$cnt items"
 echo  $target "complete with" $errcnt "errors"
 if [ $errcnt -gt 0 ] ; then
     for f in $errlist; do

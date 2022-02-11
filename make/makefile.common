@@ -58,9 +58,9 @@ COMPILE_OPTS    = -sverilog                                            \
                   -timescale=1ns/1ps                                   \
                   -debug_access
 
-VCS_CMD		= ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS} -l ${COMPILELOG}
+VCS_CMD		= ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS}
 
-SIMV_ARGS	= -l ${SIMLOG} +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
+SIMV_ARGS	= +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
 
 SIMV_CMD	= ./${SIMV} ${SIMV_ARGS} 
 
@@ -71,21 +71,29 @@ SIMV_CMD	= ./${SIMV} ${SIMV_ARGS}
 all: build run
 
 build: ${SRC}
-	${VCS_CMD}
-
-run: 
-	${SIMV_CMD}
+	@echo "[BUILD]" `pwd`
+	@echo ${VCS_CMD} > ${COMPILELOG} 2>&1
+	@${VCS_CMD} >> ${COMPILELOG} 2>&1
+ 
+run:
+	@echo "[RUN]" `pwd`
+	@echo ${SIMV_CMD} > ${SIMLOG} 2>&1
+	@${SIMV_CMD} >> ${SIMLOG} 2>&1
 
 readme:
 	@if [ -f readme.md ]; then \
 	  pandoc readme.md --from=markdown --to=plain; \
+	  echo; \
+	  echo "------------------------------------------------------------------------"; \
+	  echo; \
 	fi
 
 clean:
-	rm -f ${COMPILELOG} ${VCSLOG} *.log
-	rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
-	rm -f simv ucli.key vc_hdrs.h
-	rm -f novas.* *.fsdb
-	rm -rf verdiLog nWaveLog
-	rm -f xx* *~ #*
+	@echo "[CLEAN]" `pwd`
+	@rm -f ${COMPILELOG} ${VCSLOG} *.log
+	@rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
+	@rm -f simv ucli.key vc_hdrs.h
+	@rm -f novas.* *.fsdb
+	@rm -rf verdiLog nWaveLog
+	@rm -f xx* *~ #*
 
