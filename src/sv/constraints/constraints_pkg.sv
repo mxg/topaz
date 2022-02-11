@@ -36,5 +36,6 @@ package constraints_pkg;
   `include "trans_small.svh"
   `include "trans_medium.svh"
   `include "trans_large.svh"
+  `include "generate_trans.svh"
 endpackage
   

@@ -29,9 +29,39 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
-endclass
+module top;
+
+  import layered_constraints_pkg::*;
+
+  constrained_transaction t;
+
+  align_constraint align;
+  legal_addr_constraint legal;
+  io_region_constraint io;
+  large_constraint lrg;
+  small_constraint sml;
+
+  initial begin;
+    align = new();
+    legal = new();
+    io = new();
+    lrg = new();
+    sml = new();
+
+    t = new();
+    t.add_constraint(align);
+    t.add_constraint(legal);
+    t.add_constraint(lrg);
+    t.randomize();
+    $display(t.convert2string());
+
+    t = new();
+    t.add_constraint(align);
+    t.add_constraint(io);
+    t.add_constraint(sml);
+    t.randomize();
+    $display(t.convert2string());    
+
+  end
+
+endmodule

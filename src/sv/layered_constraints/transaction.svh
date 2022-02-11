@@ -29,9 +29,52 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
+class transaction;
+
+  rand op_t op;
+  rand addr_t addr;
+  rand int unsigned bytes;
+       byte data[];
+
+  local function void post_randomize();
+    if(op == READ || op == NOP)
+      return;
+    rand_data();
+  endfunction
+
+  local function void rand_data();
+    if(bytes == 0)
+      return;
+    data = new [bytes];
+    for(int i = 0; i < bytes; i++)
+      data [i] = $urandom() & 'hff;
+  endfunction
+
+  virtual function string convert2string();
+    string s;
+    s = $sformatf("%08x :", addr);
+    s = {s, $sformatf(" %s", op.name())};
+    s = {s, $sformatf(" [%0d bytes]", bytes)};
+    for(int i = 0; i < bytes; i++)
+      s = {s, $sformatf(" %02x", data[i])};
+    return s;
+  endfunction
+
+  virtual function void copy(transaction rhs);
+    op    = rhs.op;
+    addr  = rhs.addr;
+    bytes = rhs.bytes;
+    if(bytes > 0) begin
+      data = new [bytes];
+      for(int i = 0; i < bytes; i++)
+	data[i] = rhs.data[i];
+    end
+  endfunction
+
+  virtual function transaction clone();
+    transaction t = new();
+    t.copy(this);
+  endfunction
+  
 endclass
+  

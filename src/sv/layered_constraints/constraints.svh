@@ -29,9 +29,29 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
+class constraint_base;
+  transaction t;
+endclass
+
+class align_constraint extends constraint_base;
+  constraint align { (t.addr & 'h3) == 0; };
+endclass
+
+class legal_addr_constraint extends constraint_base;
+  constraint legal_addr { t.addr > 'hf; };
+endclass
+
+class io_region_constraint extends constraint_base;
+  constraint io_region { t.addr > 'h0000ffff;
+                         t.addr < 'h00030000; };
+endclass
+
+class large_constraint extends constraint_base;
+  constraint large_size { t.bytes >= 64;
+		          t.bytes < 128; };
+endclass
+
+class small_constraint extends constraint_base;
+  constraint small_size { t.bytes > 0;
+		          t.bytes < 64; };
 endclass

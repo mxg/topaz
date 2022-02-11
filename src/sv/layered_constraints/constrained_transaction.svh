@@ -29,9 +29,18 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
+class constrained_transaction extends transaction;
+  rand constraint_base constraints[$];
+
+  function void add_constraint(constraint_base c);
+    constraints.push_back(c);
+  endfunction
+
+  function void pre_randomize();
+    foreach(constraints[i])
+      constraints[i].t  = this;
+  endfunction
+
 endclass
+
+  

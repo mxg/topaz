@@ -32,4 +32,5 @@
 class trans_large extends trans_rw;
   constraint data_size { bytes >= 256;
 			 bytes <= 1024; };
+  constraint address   { addr <= 'hffffffff; };  
 endclass

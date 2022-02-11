@@ -29,9 +29,12 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
-endclass
+package layered_constraints_pkg;
+
+  `include "types.svh"
+  `include "transaction.svh"
+  `include "constraints.svh"
+  `include "constrained_transaction.svh"
+
+endpackage
+  

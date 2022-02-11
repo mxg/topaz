@@ -33,35 +33,11 @@ module top;
 
   import constraints_pkg::*;
 
-  typedef enum{SMALL, MEDIUM, LARGE} selector_t;
-
-  function base_transaction factory(selector_t selector);
-    base_transaction base;
-    case(selector)
-      SMALL: begin
-	trans_small t = new();
-	t.randomize();
-	return t;
-      end
-      MEDIUM: begin
-	trans_medium t = new();
-	t.randomize();
-	return t;
-      end
-      LARGE: begin
-	trans_large t = new();
-	t.randomize();
-	return t;
-      end
-    endcase
-  endfunction
-
   initial begin
     base_transaction t;
-    selector_t selector;
-    for(int i = 0 ; i < 10; i++) begin
-      std::randomize(selector);
-      t = factory(selector);
+    generate_trans g = new();
+    for(int i = 0 ; i < 100; i++) begin
+      t = g.gen();
       $display(t.convert2string());
     end
   end

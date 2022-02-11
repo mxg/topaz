@@ -36,9 +36,11 @@ class base_transaction;
   rand int unsigned bytes;
        byte data[];
 
-  constraint illegal { addr > 'hf; };
-  constraint align   { (addr & 'h3) == 0; };
-
+  constraint illegal   { addr > 'hf; };
+  constraint align     { (addr & 'h3) == 0; };
+  constraint data_size { bytes == 8; };
+  constraint address   { addr <= 'h0000ffff; };
+  
   local function void post_randomize();
     if(op == READ || op == NOP)
       return;

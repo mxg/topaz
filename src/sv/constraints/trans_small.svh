@@ -32,4 +32,5 @@
 class trans_small extends trans_rw;
   constraint data_size { bytes > 0;
 			 bytes < 64; };
+  constraint address   { addr <= 'h0000ffff; };
 endclass

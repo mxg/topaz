@@ -29,9 +29,47 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
+class generate_trans;
+  typedef enum{SMALL, MEDIUM, LARGE} selector_t;
+  op_t last_op;
+  int unsigned interval;
+
+  function new();
+    last_op = READ;
+    interval = 5;
+  endfunction
+
+  function base_transaction factory(selector_t selector);
+    base_transaction base;
+    case(selector)
+      SMALL: begin
+	trans_small t = new();
+	return t;
+      end
+      MEDIUM: begin
+	trans_medium t = new();
+	return t;
+      end
+      LARGE: begin
+	trans_large t = new();
+	return t;
+      end
+    endcase
+  endfunction 
+
+  function base_transaction gen();
+    base_transaction t;
+    selector_t selector;
+    int n;
+    
+    std::randomize(selector);
+    t = factory(selector);
+    n = $urandom();
+    t.randomize() with { if(local::n % interval == 0)
+                           t.op == last_op;
+                      else t.op != last_op; };
+    last_op = t.op;
+    return t;
+  endfunction
+    
 endclass

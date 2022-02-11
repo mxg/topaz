@@ -29,9 +29,13 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class trans_medium extends trans_rw;
-  constraint data_size { bytes >= 64;
-			 bytes < 256; };
-  constraint address   { addr > 'h0000ffff;
-                         addr <= 'hffffffff; };
-endclass
+`define ADDR_BITS 32
+typedef enum {NOP, READ, WRITE, POSTED_WRITE} op_t;
+typedef bit [`ADDR_BITS-1:0] addr_t;
+
+typedef bit [7:0]  data8_t;
+typedef bit [15:0] data16_t;
+typedef bit [31:0] data32_t;
+typedef bit [63:0] data64_t;
+
+
