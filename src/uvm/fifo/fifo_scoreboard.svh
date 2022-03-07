@@ -228,32 +228,34 @@ class fifo_scoreboard extends uvm_subscriber#(fifo_item);
   function void check_read(fifo_item t);
 
     if(!has_been_reset)
-      `uvm_warning("DEVICE NOT RESET", "Fifo has not been reset before read transaction.");
+      `uvm_warning("DEVICE NOT RESET",
+		   "Fifo has not been reset before read transaction.");
     
     if(!transaction_completed) begin
-      `uvm_warning("READ_NOT_COMPLETE", "Read did not complete because fifo was empty.");
+      `uvm_warning("READ_NOT_COMPLETE",
+		   "Read did not complete because fifo was empty.");
       dropped_reads++;
-      // Once we know the transaction did not complete there is no need
-      // to check for further errors.
     end
     else begin
       if(expected_read_data != t.data) begin
-        `uvm_error("READ_MISMATCH", $sformatf("Read data mismatch expectation = %x, actual = %x", expected_read_data, t.data));
+        `uvm_error("READ_MISMATCH",
+		   $sformatf("Read data mismatch expectation = %x, actual = %x",
+			     expected_read_data, t.data));
         error_count++;
       end
     end
 
-    // If the current state of the DUT is FULL and we were not expecting
-    // FULL then report an error.
     if((t.state == fifo_item::FULL) != expected_full) begin
-      `uvm_error("READ_FULL_MISMATCH", $sformatf("Full state mismatch on read - expectation = %b, actual = %b", expected_full, (t.state == fifo_item::FULL)));
+      `uvm_error("READ_FULL_MISMATCH",
+		 $sformatf("Full state mismatch on read - expectation = %b, actual = %b",
+			   expected_full, (t.state == fifo_item::FULL)));
       error_count++;
     end
 
-    // If the current state of the FIFO is empty and we were not
-    // expecting EMPTY then report an error.
     if((t.state == fifo_item::EMPTY) != expected_empty) begin
-      `uvm_error("READ_EMPTY_MISMATCH", $sformatf("Empty state mismatch on read - expectation = %b, actual = %b", expected_empty, (t.state == fifo_item::EMPTY)));
+      `uvm_error("READ_EMPTY_MISMATCH",
+		 $sformatf("Empty state mismatch on read - expectation = %b, actual = %b",
+			   expected_empty, (t.state == fifo_item::EMPTY)));
       error_count++;
     end
     
@@ -265,24 +267,26 @@ class fifo_scoreboard extends uvm_subscriber#(fifo_item);
   function void check_write(fifo_item t);
 
     if(!has_been_reset)
-      `uvm_warning("DEVICE NOT RESET", "Fifo has not been reset before write transaction.");
+      `uvm_warning("DEVICE NOT RESET",
+		   "Fifo has not been reset before write transaction.");
 
     if(!transaction_completed) begin
-      `uvm_warning("WRITE_NOT_COMPLETE", "Write did not complete because fifo was full.");
+      `uvm_warning("WRITE_NOT_COMPLETE",
+		   "Write did not complete because fifo was full.");
       dropped_writes++;
     end
 
-    // If the current tate of the DUT is FULL and we were not expecting
-    // FULL then report an error.
     if((t.state == fifo_item::FULL) != expected_full) begin
-      `uvm_error("WRITE_FULL_MISMATCH", $sformatf("Full state mismatch on write - expectation = %b, actual = %b", expected_full, (t.state == fifo_item::FULL)));
+      `uvm_error("WRITE_FULL_MISMATCH",
+		 $sformatf("Full state mismatch on write - expectation = %b, actual = %b",
+			   expected_full, (t.state == fifo_item::FULL)));
       error_count++;
     end
 
-    // If the current state of the DUT is EMPTY and were were not
-    // expecting EMPTY then report and error.
     if((t.state == fifo_item::EMPTY) != expected_empty) begin
-      `uvm_error("WRITE_EMPTY_MISMATCH", $sformatf("Empty state mismatch on read - expectation = %b, actual = %b", expected_empty, (t.state == fifo_item::EMPTY)));
+      `uvm_error("WRITE_EMPTY_MISMATCH",
+		 $sformatf("Empty state mismatch on read - expectation = %b, actual = %b",
+			   expected_empty, (t.state == fifo_item::EMPTY)));
       error_count++;
     end
       

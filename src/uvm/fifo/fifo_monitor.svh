@@ -54,7 +54,7 @@ class fifo_monitor extends uvm_component;
 
     // Locate the virtual interface
     if(!uvm_resource_db#(virtual fifo_if)::read_by_name(get_full_name(),
-							"fifo_if", vif, this))
+			 "fifo_if", vif, this))
       `uvm_fatal("NO_VIF", "no virtual interface available for the fifo monitor");
   endfunction
 
