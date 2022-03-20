@@ -33,11 +33,14 @@
 # Loop through all the makefiles in the tree and "make" a target for
 # each.  The target is supplied on the command line.
 
-make=/bin/make
+make=/usr/bin/make
 target=$1
 
 makefiles=`find . -name makefile -print | sort`
 cnt=0
+
+# Function to print messages on stderr
+echoerr() { cat <<< "$@" 1>&2; }
 
 errcnt=0
 for f in $makefiles; do
@@ -52,14 +55,14 @@ for f in $makefiles; do
     cd $d
     cnt=$(( $cnt + 1 ))
 done
-echo "========================================================================"
-echo "                             *** DONE ***"
-echo "========================================================================"
-echo "$cnt items"
-echo  $target "complete with" $errcnt "errors"
+echoerr "========================================================================"
+echoerr "                             *** DONE ***"
+echoerr "========================================================================"
+echoerr "$cnt items"
+echoerr  $target "complete with" $errcnt "errors"
 if [ $errcnt -gt 0 ] ; then
     for f in $errlist; do
-        echo "   " $f
+        echoerr "   " $f
     done
 fi
 

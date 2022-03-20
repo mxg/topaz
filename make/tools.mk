@@ -29,7 +29,7 @@
 #    limitations under the License.
 #-------------------------------------------------------------------------------
 
-MAKE		= /bin/make
+MAKE		= /usr/bin/make
 DOXYGEN		= /bin/doxygen
 
 VCS_HOME	= /tools/synopsys/vcs/P-2019.06-SP1-1

@@ -34,6 +34,7 @@ include make/tools.mk
 all: clean build run
 
 DOALL	= ./bin/do_all.sh
+DOC	= topaz
 
 # Build all the examples
 build:
@@ -44,14 +45,32 @@ run:
 	@${DOALL} run
 
 # Clean up all the examples
-clean:
+clean: clean_latex clean_pdf
 	@${DOALL} clean
 
 # Print a list of all the examples
 list:
 	@./bin/list.sh -x
 
-
 # Print a list of all the examples with readme files
 readme:
 	@${DOALL} readme
+
+clean_latex: 
+	@rm -f ${DOC}.tex
+	@rm -f *.aux *.log *.ps *.dvi
+
+clean_pdf: clean_latex
+	@rm -f *.pdf
+
+# Assemble the latex document
+latex:
+	@cat doc/preamble.tex > ${DOC}.tex
+	@${DOALL} latex >> ${DOC}.tex
+	@cat doc/postamble.tex >> ${DOC}.tex
+
+# Convert .tex file to .pdf
+pdf: latex
+	latex ${DOC}.tex
+	dvips ${DOC}.dvi
+	ps2pdf ${DOC}.ps

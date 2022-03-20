@@ -88,6 +88,11 @@ readme:
 	  echo; \
 	fi
 
+latex:
+	@if [ -f readme.md ]; then \
+	  pandoc readme.md --from=markdown --to=latex; \
+	fi
+
 clean:
 	@echo "[CLEAN]" `pwd`
 	@rm -f ${COMPILELOG} ${VCSLOG} *.log
