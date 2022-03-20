@@ -72,5 +72,6 @@ latex:
 # Convert .tex file to .pdf
 pdf: latex
 	latex ${DOC}.tex
+	latex ${DOC}.tex
 	dvips ${DOC}.dvi
 	ps2pdf ${DOC}.ps
