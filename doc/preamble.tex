@@ -1,5 +1,13 @@
 \documentclass{article}
 
+\usepackage[OT1]{fontenc}
+
+% Computer Modern Fonts
+\renewcommand{\rmdefault}{cmr}
+\renewcommand{\sfdefault}{cmss}
+% Courier Typewriter (monospace) font
+\renewcommand{\ttdefault}{pcr}
+
 \usepackage{hyperref}
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -10,7 +18,6 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{xcolor}
-\usepackage{ulem}
 \usepackage{geometry}
 \usepackage{setspace}
 \usepackage{upquote}
@@ -18,6 +25,8 @@
 \usepackage{xurl}
 \usepackage{bookmark}
 \usepackage{footnote}
+%\usepackage{ulem}
+
 
 \begin{document}
 
@@ -25,3 +34,10 @@
 \author{Mark Glasser}
 \date{\today}
 \maketitle
+
+Th4e Topaz library is a collection of SystemVerilog and UVM examples.
+The library is a companion to the book \emph{Patterns and Idioms in
+SystemVerilog and UVM}.  The examples demonstrate various coding
+patterns and idioms that are useful in building testbenches.
+
+This document provides a brief description of each example.

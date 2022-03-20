@@ -58,6 +58,7 @@ readme:
 
 clean_latex: 
 	@rm -f ${DOC}.tex
+	@rm -f xx* *~
 	@rm -f *.aux *.log *.ps *.dvi
 
 clean_pdf: clean_latex
