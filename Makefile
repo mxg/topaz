@@ -31,7 +31,7 @@
 
 include make/tools.mk
 
-all: clean build run
+all: clean build run doc
 
 DOALL	= ./bin/do_all.sh
 DOC	= topaz
@@ -44,17 +44,40 @@ build:
 run:
 	@${DOALL} run
 
-# Clean up all the examples
-clean: clean_latex clean_pdf
-	@${DOALL} clean
-
 # Print a list of all the examples
 list:
 	@./bin/list.sh -x
 
-# Print a list of all the examples with readme files
-readme:
-	@${DOALL} readme
+# Generate text and pdf documentation.  The doc source is the
+# readme.md files in each example.
+doc: text pdf
+
+text:
+	@echo "[GEN] Text document"
+	@cat doc/title.txt > ${DOC}.txt
+	@cat doc/intro.tex >> ${DOC}.txt
+	@${DOALL} readme >> ${DOC}.txt
+
+# Assemble the latex document
+latex:
+	@echo "[GEN] LaTeX document"
+	@cat doc/preamble.tex > ${DOC}.tex
+	@${DOALL} latex >> ${DOC}.tex
+	@cat doc/postamble.tex >> ${DOC}.tex
+
+# Convert .tex file to .pdf
+_pdf: latex
+	@latex ${DOC}.tex >  doc.log 2>&1
+	@latex ${DOC}.tex >> doc.log 2>&1
+	@dvips ${DOC}.dvi >> doc.log 2>&1
+	@ps2pdf ${DOC}.ps >> doc.log 2>&1
+
+pdf: _pdf clean_latex
+	@echo "[GEN] PDF document"
+
+# Clean up all the examples and docs
+clean: clean_doc
+	@${DOALL} clean
 
 clean_latex: 
 	@rm -f ${DOC}.tex
@@ -64,15 +87,5 @@ clean_latex:
 clean_pdf: clean_latex
 	@rm -f *.pdf
 
-# Assemble the latex document
-latex:
-	@cat doc/preamble.tex > ${DOC}.tex
-	@${DOALL} latex >> ${DOC}.tex
-	@cat doc/postamble.tex >> ${DOC}.tex
-
-# Convert .tex file to .pdf
-pdf: latex
-	latex ${DOC}.tex
-	latex ${DOC}.tex
-	dvips ${DOC}.dvi
-	ps2pdf ${DOC}.ps
+clean_doc: clean_pdf clean_latex
+	@rm -f ${DOC}.txt

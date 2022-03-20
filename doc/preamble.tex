@@ -11,7 +11,6 @@
 \usepackage{hyperref}
 \usepackage{amsfonts}
 \usepackage{amsmath}
-\usepackage{iftex}
 \usepackage{listings}
 \usepackage{fancyvrb}
 \usepackage{longtable}
@@ -20,12 +19,13 @@
 \usepackage{xcolor}
 \usepackage{geometry}
 \usepackage{setspace}
-\usepackage{upquote}
 \usepackage{parskip}
-\usepackage{xurl}
 \usepackage{bookmark}
 \usepackage{footnote}
+%\usepackage{upquote}
 %\usepackage{ulem}
+%\usepackage{iftex}
+%\usepackage{xurl}
 
 
 \begin{document}
@@ -35,9 +35,4 @@
 \date{\today}
 \maketitle
 
-Th4e Topaz library is a collection of SystemVerilog and UVM examples.
-The library is a companion to the book \emph{Patterns and Idioms in
-SystemVerilog and UVM}.  The examples demonstrate various coding
-patterns and idioms that are useful in building testbenches.
-
-This document provides a brief description of each example.
+\input{doc/intro}
