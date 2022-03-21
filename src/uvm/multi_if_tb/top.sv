@@ -29,16 +29,13 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module dut_env();
+module top;
 
+  `include "uvm_macros.svh"
   import uvm_pkg::*;
 
-  dut d();
-
-  bind dut dut_intf vif();
-
   initial begin
-    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", d.vif, null);
+    run_test();
   end
 
 endmodule
