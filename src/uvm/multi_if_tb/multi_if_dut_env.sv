@@ -29,7 +29,7 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module dut_env();
+module multi_if_dut_env();
 
   import uvm_pkg::*;
 

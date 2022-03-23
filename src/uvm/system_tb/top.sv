@@ -14,7 +14,7 @@
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
-//    Copyright 2021 Mark Glasser
+//    Copyright 2022 Mark Glasser
 // 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -29,25 +29,13 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class test extends uvm_component;
+module top;
 
-  `uvm_component_utils(test)
+  `include "uvm_macros.svh"
+  import uvm_pkg::*;
 
-  local multi_if_env env;
-  local sqr_aggregator sqrs;
+  initial begin
+    run_test();
+  end
 
-  function new(string name, uvm_component parent);
-    super.new(name, parent);
-  endfunction
-
-  function void build_phase(uvm_phase phase);
-    env = new("multi_if_env", this);
-  endfunction
-
-  function void end_of_elaboration_phase(uvm_phase phase);
-    sqrs = new();
-    env.get_sequencers(sqrs);
-    sqrs.dump();
-  endfunction
-
-endclass
+endmodule

@@ -38,6 +38,7 @@ package multi_if_pkg;
   `uvm_analysis_imp_decl(_A);
   `uvm_analysis_imp_decl(_B);
 
+  `include "sqr_aggregator.svh"
   `include "multi_if_scoreboard.svh"
   `include "multi_if_cov_collector.svh"
   `include "multi_if_env.svh"

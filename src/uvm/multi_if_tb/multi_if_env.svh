@@ -57,9 +57,9 @@ class multi_if_env extends uvm_component;
     agt_B.analysis_port.connect(analysis_port_B);
   endfunction
 
-  function void get_sequencers(ref uvm_sequencer_base sqr_table [string]);
-    sqr_table["control"] = agt_A.get_sequencer();
-    sqr_table["data"] = agt_B.get_sequencer();
+  function void get_sequencers(ref sqr_aggregator sqrs);
+    sqrs.add(agt_A.get_sequencer(), "control");
+    sqrs.add(agt_B.get_sequencer(), "data");
   endfunction
 
 endclass
