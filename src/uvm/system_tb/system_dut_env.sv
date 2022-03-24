@@ -37,5 +37,3 @@ module system_dut_env();
 
 endmodule
 
-
-  
