@@ -35,12 +35,4 @@ module multi_if_dut_env();
 
   multi_if_dut d();
 
-  bind multi_if_dut dut_intf vif_A();
-  bind multi_if_dut dut_intf vif_B();
-
-  initial begin
-    uvm_resource_db#(virtual dut_intf)::set("*A*", "dut_intf", d.vif_A, null);
-    uvm_resource_db#(virtual dut_intf)::set("*B*", "dut_intf", d.vif_B, null);
-  end
-
 endmodule

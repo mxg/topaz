@@ -36,8 +36,8 @@ include ${TOP}/make/tools.mk
 
 TEST		= test
 SIMV		= simv
-COMPILELOG	= compile.log
-SIMLOG		= sim.log
+BUILDLOG	= build.log
+RUNLOG		= run.log
 
 
 #
@@ -72,13 +72,13 @@ all: build run
 
 build: ${SRC}
 	@echo "[BUILD]" `pwd`
-	@echo ${VCS_CMD} > ${COMPILELOG} 2>&1
-	@${VCS_CMD} >> ${COMPILELOG} 2>&1
+	@echo ${VCS_CMD} > ${BUILDLOG} 2>&1
+	@${VCS_CMD} >> ${BUILDLOG} 2>&1
  
 run:
 	@echo "[RUN]" `pwd`
-	@echo ${SIMV_CMD} > ${SIMLOG} 2>&1
-	@${SIMV_CMD} >> ${SIMLOG} 2>&1
+	@echo ${SIMV_CMD} > ${RUNLOG} 2>&1
+	@${SIMV_CMD} >> ${RUNLOG} 2>&1
 
 readme:
 	@if [ -f readme.md ]; then \
@@ -95,7 +95,7 @@ latex:
 
 clean:
 	@echo "[CLEAN]" `pwd`
-	@rm -f ${COMPILELOG} ${VCSLOG} *.log
+	@rm -f ${BUILDLOG} ${VCSLOG} *.log
 	@rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
 	@rm -f simv ucli.key vc_hdrs.h
 	@rm -f novas.* *.fsdb

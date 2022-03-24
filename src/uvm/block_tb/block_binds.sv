@@ -29,10 +29,15 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module block_dut_env();
+module block_binds();
 
+  `include "uvm_macros.svh"
   import uvm_pkg::*;
 
-  block_dut d();
+  bind block_dut dut_intf vif();
+
+  initial begin
+    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", block_dut.vif, null);
+  end
 
 endmodule
