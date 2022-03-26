@@ -14,5 +14,5 @@ object ordering.  The file qsort_comparators.svh contains a few
 examples of comparator policy classes.  Each implements the compare()
 funtion for a different data type.
 
-Qsort_test generates a randomized list of integers and then sorts the
-list using the qsort_int version of quick sort.
+`Qsort_test` generates a randomized list of integers and then sorts
+the list using the `qsort_int` version of quick sort.
