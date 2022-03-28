@@ -1,6 +1,7 @@
-Skeleton Block-level Testbench
-==============================
+Syncronizer Sequence
+====================
 
-A skeleton of a block-level testbench.  This example demonstrates the
-organization of an agent and how it is connected into a block-level
-testbench.
+The example uses a specially constructed sync_driver and sync_seq for
+synchronizing a sequence with the DUT.  In this case the sync_seq
+waits until the device comes out of reset before initiating data
+transactions.
