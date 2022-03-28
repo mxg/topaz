@@ -51,8 +51,9 @@ class sqr_aggregator;
     if(name != "") begin
       if(name_table.exists(name))
 	`uvm_info("SQR_AGGREGATOR",
-		  $sformatf("replacing sequencer with name %s", name))
-      sqr_table[name] = sqr;
+		  $sformatf("replacing sequencer with name %s", name),
+		  UVM_NONE)
+      name_table[name] = sqr;
     end
 		
   endfunction
@@ -96,6 +97,11 @@ class sqr_aggregator;
 	uvm_sequencer_base sqr = q[i];
 	$display("      %s", sqr.get_full_name());
       end
+    end
+
+    $display("  by name");
+    foreach(name_table[name]) begin
+      $display("    %s", name);
     end
 
     $display("  by path:");
