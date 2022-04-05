@@ -46,8 +46,8 @@ class system_env extends uvm_component;
   endfunction
 
   function void get_sequencers(ref sqr_aggregator sqrs);
-    sqrs.add(blk_1.get_sequencer(), "block");
-    sqrs.add(blk_2.get_sequencer(), "block");
+    sqrs.add(blk_1.get_sequencer(), "block1", "block");
+    sqrs.add(blk_2.get_sequencer(), "block2", "block");
     blk_3.get_sequencers(sqrs);
   endfunction
   

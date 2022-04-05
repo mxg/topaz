@@ -58,8 +58,8 @@ class multi_if_env extends uvm_component;
   endfunction
 
   function void get_sequencers(ref sqr_aggregator sqrs);
-    sqrs.add(agt_A.get_sequencer(), "control");
-    sqrs.add(agt_B.get_sequencer(), "data");
+    sqrs.add(agt_A.get_sequencer(), "control", "control");
+    sqrs.add(agt_B.get_sequencer(), "data", "data");
   endfunction
 
 endclass

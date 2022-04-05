@@ -51,7 +51,8 @@ class sqr_aggregator;
     if(name != "") begin
       if(name_table.exists(name))
 	`uvm_info("SQR_AGGREGATOR",
-		  $sformatf("replacing sequencer with name %s", name))
+		  $sformatf("replacing sequencer with name %s", name),
+		  UVM_NONE)
       sqr_table[name] = sqr;
     end
 		
