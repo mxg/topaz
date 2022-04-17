@@ -41,7 +41,9 @@ class test extends uvm_component;
 
   function void build_phase(uvm_phase phase);
     e = new("env", this);
-    base_seq::type_id::set_type_override(constrained_addr_seq::type_id::get());
+    base_seq::
+      type_id::set_type_override(constrained_addr_seq::
+      type_id::get());
   endfunction
 
 endclass
