@@ -60,7 +60,7 @@ class test;
     s2 = singleton::get();
 
     if(s1 == s2)
-      $display("instances of singleton rever to the same object");
+      $display("instances of singleton refer to the same object");
     else
       $display("uh oh... something has gone terribly wrong");
 
