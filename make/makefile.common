@@ -96,7 +96,7 @@ latex:
 clean:
 	@echo "[CLEAN]" `pwd`
 	@rm -f ${BUILDLOG} ${VCSLOG} *.log
-	@rm -rf csrc simv.daidir vcdplus.vpd DVEfiles
+	@rm -rf csrc simv.* vcdplus.vpd DVEfiles
 	@rm -f simv ucli.key vc_hdrs.h
 	@rm -f novas.* *.fsdb
 	@rm -rf verdiLog nWaveLog
