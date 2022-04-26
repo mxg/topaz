@@ -49,7 +49,7 @@ class env extends uvm_component;
     
     agt = new("agent", this);
     if(!$cast(seq, seq_wrap.create_object("main_seq")))
-      `uvm_fatal("ENV", "Unable to case object to sequence")
+      `uvm_fatal("ENV", "Unable to cast object to sequence")
   endfunction
 
   task run_phase(uvm_phase phase);
