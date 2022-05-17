@@ -31,21 +31,25 @@
 
 class codegen;
 
-  code postfix[$];
+  local postfix_t postfix;
 
-  function void gen(ast t);
+  function postfix_t get_postfix();
+    return postfix;
+  endfunction
+
+  function postfix_t gen(ast t);
 
     code c;
     
     if(t == null)
-      return;
+      return postfix;
     
     foreach(t.children[c]) begin
       ast child = t.children[c];
       gen(child);
     end
     if(t.lexeme == "")
-      return;
+      return postfix;
 
     c = new();
     case(t.kind)
@@ -68,7 +72,6 @@ class codegen;
 	c.op = op_write;
 	c.name = t.lexeme;
       end
-
       
       default:
 	case(t.lexeme)

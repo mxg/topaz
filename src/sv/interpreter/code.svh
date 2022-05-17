@@ -49,3 +49,5 @@ class code;
   endfunction
       
 endclass
+
+typedef code postfix_t[$];

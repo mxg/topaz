@@ -54,8 +54,6 @@ class parser;
     t = stmt();
     if(t == null || err)
       $display("*** parse error");
-    else
-      t.print();
     return t;
   endfunction
 
@@ -70,8 +68,8 @@ class parser;
     string  lhs;
     ast t = new("assignment");
     lhs = lex.get_lexeme();
-    if(!match(TOKEN_ID)) return;
-    if(!match(TOKEN_EQUAL)) return;
+    if(!match(TOKEN_ID)) return t;
+    if(!match(TOKEN_EQUAL)) return t;
     t.add(expr());
     t.set_lexeme(lhs);
     return t;
@@ -120,7 +118,7 @@ class parser;
   function ast term_prime();
     ast t = new("term_prime");
     case(lookahead)
-      TOKEN_EOL   : return;
+      TOKEN_EOL   : return t;
       TOKEN_STAR  : begin
 	if(!match(TOKEN_STAR)) return t;
 	t.set_lexeme("*");
@@ -142,7 +140,7 @@ class parser;
   function ast factor();
     ast t = new("factor");
     case(lookahead)
-      TOKEN_EOL : return;
+      TOKEN_EOL : return t;
       TOKEN_ID  : begin
 	t.set_lexeme(lex.get_lexeme());
 	t.set_var();

@@ -37,6 +37,7 @@ package interpreter_pkg;
   `include "parser.svh"
   `include "code.svh"
   `include "codegen.svh"
+  `include "evaluator.svh"
 
 endpackage
   
