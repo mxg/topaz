@@ -31,14 +31,15 @@
 
 class dma_controller;
 
+  local memory mem;
+  local reg_model rm;
+
   function new();
     mem = new();
     rm = new();
   endfunction
 
-  memory mem;
-  reg_model rm;
-  bit ok;
+  local bit ok;
 
   task run();
     int unsigned bytes;
