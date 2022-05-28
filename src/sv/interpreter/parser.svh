@@ -29,6 +29,7 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+// Language parsed by this parser
 // stmt : A
 // A    : id = E
 // E    : T Ep
@@ -54,6 +55,7 @@ class parser;
     t = stmt();
     if(t == null || err)
       $display("*** parse error");
+    t.print();
     return t;
   endfunction
 
@@ -85,18 +87,25 @@ class parser;
   endfunction
 
   function ast expr_prime();
-    ast t = new("expr_prime");
+    
+    ast t;
+    ast_op optr;
+    
     case(lookahead)
-      TOKEN_EOL   : return t;
+      TOKEN_EOL   : return null;
       TOKEN_PLUS  : begin
-	if(!match(TOKEN_PLUS)) return t;
-	t.set_lexeme("+");
+	if(!match(TOKEN_PLUS)) return null;
+	optr = new("expr_prime");
+	optr.op = op_plus;
+	t = optr;
       end
       TOKEN_MINUS : begin
-	if(!match(TOKEN_MINUS)) return t;	
-	t.set_lexeme("-");
+	if(!match(TOKEN_MINUS)) return null;	
+	optr = new("expr_prime");
+	optr.op = op_minus;
+	t = optr;
       end
-      default : return t;
+      default : return null;
     endcase
     
     t.add(term());
@@ -107,27 +116,32 @@ class parser;
 
   function ast term();
     ast t = new("term");
-    if(lookahead == TOKEN_EOL) return t;
     t.add(factor());
     if(err) return t;
-    if(lookahead == TOKEN_EOL) return t;
     t.add(term_prime());
     return t;
   endfunction
 
   function ast term_prime();
-    ast t = new("term_prime");
+    
+    ast t;
+    ast_op optr;
+    
     case(lookahead)
-      TOKEN_EOL   : return t;
+      TOKEN_EOL   : return null;
       TOKEN_STAR  : begin
-	if(!match(TOKEN_STAR)) return t;
-	t.set_lexeme("*");
+	if(!match(TOKEN_STAR)) return null;
+	optr = new("term_prime");
+	optr.op = op_mult;
+	t = optr;
       end
       TOKEN_SLASH : begin
-	if(!match(TOKEN_SLASH)) return t;
-	t.set_lexeme("/");
+	if(!match(TOKEN_SLASH)) return null;
+	optr = new("term_prime");
+	optr.op = op_div;
+	t = optr;
       end
-      default : return t;
+      default : return null;
     endcase
 
     if(err || (lookahead == TOKEN_EOL)) return t;
@@ -138,25 +152,27 @@ class parser;
   endfunction
 
   function ast factor();
-    ast t = new("factor");
     case(lookahead)
-      TOKEN_EOL : return t;
+      TOKEN_EOL : return null;
       TOKEN_ID  : begin
+	ast_var t = new("factor");
 	t.set_lexeme(lex.get_lexeme());
-	t.set_var();
 	if(!match(TOKEN_ID))
 	  error();
+	t.name = t.lexeme;
 	return t;
       end
       TOKEN_INT : begin
+	ast_const t = new("factor");
 	t.set_lexeme(lex.get_lexeme());
-	t.set_const(AST_INT);
 	if(!match(TOKEN_INT))
 	  error();
+	t.val = t.lexeme.atoi();
 	return t;
       end
       TOKEN_LEFT_PAREN :
 	begin
+	  ast t = new("factor");
 	  if(!match(TOKEN_LEFT_PAREN)) return t;
 	  t.add(expr());
 	  if(!match(TOKEN_RIGHT_PAREN)) return t;
@@ -164,7 +180,7 @@ class parser;
 	end
       default: begin
 	error();
-	return t;
+	return null;
       end
     endcase
   endfunction

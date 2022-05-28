@@ -48,42 +48,43 @@ class codegen;
       ast child = t.children[c];
       gen(child);
     end
-    if(t.lexeme == "")
-      return postfix;
 
     c = new();
     case(t.kind)
       "factor" : begin
-	if(!t.is_const) begin
+	
+	ast_var vrbl;
+	ast_const cnst;
+	
+	if($cast(vrbl, t)) begin
 	  c.op = op_read;
-	  c.name = t.lexeme;
+	  c.name = vrbl.name;
+	  postfix.push_back(c);
 	end
-	if(t.is_const) begin
+	
+	if($cast(cnst, t)) begin
 	  c.op = op_const;
-	  case(t.data_type)
-	    AST_NONE   : ;
-	    AST_STRING : ;
-	    AST_INT    : c.operand = t.lexeme.atoi();
-	  endcase
+	  c.operand = cnst.val;
+	  postfix.push_back(c);
 	end
       end
       
       "assignment" : begin
 	c.op = op_write;
 	c.name = t.lexeme;
+	postfix.push_back(c);
       end
       
-      default:
-	case(t.lexeme)
-	  "+" : c.op = op_plus;
-	  "-" : c.op = op_minus;
-	  "*" : c.op = op_mult;
-	  "/" : c.op = op_div;
-	endcase
+      default: begin
+	ast_op optr;
+	if($cast(optr, t)) begin
+	  c.op = optr.op;
+	  postfix.push_back(c);
+	end
+      end
       
     endcase
 
-    postfix.push_back(c);
   endfunction
 
   function void print();
