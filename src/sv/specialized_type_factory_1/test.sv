@@ -36,6 +36,9 @@
 // Boilerplate code needed for classes to use the factory
 //------------------------------------------------------------------------------
 
+
+import type_factory_pkg::*;
+
 //------------------------------------------------------------------------------
 // Specialized Factory
 //

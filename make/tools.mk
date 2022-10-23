@@ -29,16 +29,16 @@
 #    limitations under the License.
 #-------------------------------------------------------------------------------
 
-MAKE		= /usr/bin/make
-DOXYGEN		= /bin/doxygen
+MAKE            = /usr/bin/make
+PANDOC          = /usr/bin/pandoc
 
-VCS_HOME	= /tools/synopsys/vcs/P-2019.06-SP1-1
-VERDI_HOME	= /tools/synopsys/verdi/P-2019.06-SP1-1
-VCS		= ${VCS_HOME}/bin/vcs
+export VCS_HOME         = /tools/snps/vcs/S-2021.09-SP2
+export VERDI_HOME       = /tools/snps/verdi/S-2021.09-SP2
+export VCS              = ${VCS_HOME}/bin/vcs
 
-UVM_VERSION	= 1800.2-2020-1.0
-UVM_HOME	= /tools/uvm/${UVM_VERSION}
-UVM_SRC		= ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
+UVM_VERSION     = 1800.2-2020-1.1
+UVM_HOME        = /home/mark.glasser/tools/${UVM_VERSION}
+UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
                   -CFLAGS -DVCS                                     \
                   +incdir+${UVM_HOME}/src                           \
                   ${UVM_HOME}/src/uvm.sv
