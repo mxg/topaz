@@ -41,14 +41,14 @@ class adapter extends processor;
     bit [31:0] word;
 
     for(int i = 0; i < 4; i++) begin
-      word[(4-i)*8 :- 8] = mem.read(addr+i);
+      word[(i*8) +: 8] = mem.read(addr+i);
     end
     return word;
   endfunction
 
   virtual function void write(bit [31:0] addr, bit [31:0] data);
-    for(i = 0; i < 4; i++) begin
-      mem.write(addr+i, data[(4-i)*8 :- 8]);
+    for(int i = 0; i < 4; i++) begin
+      mem.write(addr+i, data[(i*8) +: 8]);
     end	
   endfunction
 
