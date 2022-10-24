@@ -50,7 +50,7 @@ virtual class cc_fsm_base extends uvm_object
   endfunction // new
 
   virtual function void build_state_table();
-    `uvm_fatal("CC_FSM", "buikld_state_table() is unimplemented")
+    `uvm_fatal("CC_FSM", "build_state_table() is unimplemented")
   endfunction
   
   //----------------------------------------------------------------------------
