@@ -29,36 +29,18 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// vr_monitor
-//------------------------------------------------------------------------------
-class vr_monitor extends uvm_component;
+class test extends uvm_component;
 
-  uvm_analysis_port#(vr_item) analysis_port;
-  local virtual vr_if vif;
+  `uvm_component_utils(test)
+
+  environment env;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
 
   function void build_phase(uvm_phase phase);
-    analysis_port = new("analysis_port", this);
-    if(!uvm_resource_db#(virtual vr_if)::read_by_name(get_full_name(),
-                  "vif", vif, this))
-      `uvm_fatal("VR_MONITOR", "virtual interface cannot be located")
+    env = new("environment", this);
   endfunction
 
-  task run_phase(uvm_phase phase);
-    vr_item item;
-    forever begin
-      @(vif.valid or vif.ready);
-      if(vif.valid != 1 || vif.ready != 1)
-        continue;
-      @(posedge vif.clk)
-      item = new();
-      item.data = vif.data;
-      analysis_port.write(item);
-    end    
-  endtask
-  
 endclass
