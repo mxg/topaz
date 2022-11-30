@@ -29,25 +29,36 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class initiator;
+virtual class client;
 
-  local target tgt;
+  protected channel chan;
+  protected invoker inv;
 
-  function void bind_target(target t);
-    tgt = t;
+  function new();
+    inv = new();
   endfunction
-  
-  task run_dma();
 
-    constrained_dma_descriptor dma;
+  function void bind_channel(channel c);
+    chan = c;
+  endfunction
 
-    for(int i = 0; i < 20; i++) begin
-      dma = new();
-      dma.randomize();
-      tgt.initiate_dma(dma);
-    end
+ pure virtual task test();
 
+endclass
+
+class simple_client extends client;
+
+  task test();
+    inv.set_command(reset_command::create(chan));
+    inv.execute();
+    inv.set_command(config_command::create(chan));
+    inv.execute();
+    inv.set_command(stream_command::create(chan));
+    inv.execute();
+    inv.execute();
+    inv.execute();
   endtask
 
 endclass
+
 

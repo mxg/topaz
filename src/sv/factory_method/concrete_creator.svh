@@ -35,16 +35,16 @@ class concrete_creator extends creator;
     abstract_class c;
     case(selector)
       C1: begin
-	concrete_class_1 c1 = new();
-	c = c1;
+	      concrete_class_1 c1 = new();
+	      c = c1;
       end
       C2: begin
-	concrete_class_2 c2 = new();
-	c = c2;
+	      concrete_class_2 c2 = new();
+	      c = c2;
       end
       C3: begin
-	concrete_class_1 c3 = new();
-	c = c3;
+	      concrete_class_1 c3 = new();
+	      c = c3;
       end
     endcase
     return c;

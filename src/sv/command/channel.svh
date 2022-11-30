@@ -29,23 +29,15 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class dma_descriptor;
+class channel;
 
-  rand bit [31:0] src_addr;
-  rand bit [31:0] dest_addr;
-  rand bit [11:0] num_bytes;
+  function void reset();
+  endfunction
 
-  function string convert2string();
-    return $sformatf("%08x -> %08x [%0d]", src_addr, dest_addr, num_bytes);
+  function void stream();
+  endfunction
+
+  function void configure();
   endfunction
 
 endclass
-
-class constrained_dma_descriptor extends dma_descriptor;
-
-  constraint c { (src_addr  & 'h00000003) == 0;
-		 (dest_addr & 'h00000003) == 0;
-  };
-
-endclass
-

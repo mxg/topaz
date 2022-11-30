@@ -33,14 +33,14 @@ module top;
 
   import command_pkg::*;
 
-  initiator init;
-  target tgt;
+  simple_client sc;
+  channel c;
 
   initial begin
-    init = new();
-    tgt = new();
-    init.bind_target(tgt);
-    init.run_dma();
+    sc = new();
+    c = new();
+    sc.bind_channel(c);
+    sc.test();
   end
   
 endmodule

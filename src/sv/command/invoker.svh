@@ -29,14 +29,17 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-package command_pkg;
+class invoker;
 
-  `include "channel.svh"
-  `include "abstract_command.svh"
-  `include "commands.svh"
-  `include "invoker.svh"
-  `include "client.svh"
+  local abstract_command command;
 
-endpackage
+  function void set_command(abstract_command ac);
+    command = ac;
+  endfunction
 
-    
+  task execute();
+    if(command != null)
+      command.execute();
+  endtask
+
+endclass

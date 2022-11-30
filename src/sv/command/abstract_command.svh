@@ -29,14 +29,14 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-package command_pkg;
+virtual class abstract_command;
 
-  `include "channel.svh"
-  `include "abstract_command.svh"
-  `include "commands.svh"
-  `include "invoker.svh"
-  `include "client.svh"
+  protected channel chan;
 
-endpackage
+  function new(channel c);
+    chan = c;
+  endfunction
 
-    
+  pure virtual task execute();
+
+endclass

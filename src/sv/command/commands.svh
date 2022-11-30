@@ -29,11 +29,57 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class target;
+class config_command extends abstract_command;
 
-  task initiate_dma(dma_descriptor dma);
-    $display("%12t : dma : %s", $time, dma.convert2string());
+  function new(channel c);
+    super.new(c);
+  endfunction
+
+  task execute();
+    $display("%12t : executing config", $time);
     #5;
   endtask
 
+  static function abstract_command create(channel c);
+    config_command cmd = new(c);
+    return cmd;
+  endfunction
+
 endclass
+
+class stream_command extends abstract_command;
+
+  function new(channel c);
+    super.new(c);
+  endfunction
+
+  task execute();
+    $display("%12t : executing stream", $time);
+    #20;
+  endtask
+
+  static function abstract_command create(channel c);
+    stream_command cmd = new(c);
+    return cmd;
+  endfunction
+
+endclass
+
+class reset_command extends abstract_command;
+
+  function new(channel c);
+    super.new(c);
+  endfunction
+
+  task execute();
+    $display("%12t : executing reset", $time);
+    #5;
+  endtask
+
+  static function abstract_command create(channel c);
+   reset_command cmd = new(c);
+    return cmd;
+  endfunction
+
+endclass
+
