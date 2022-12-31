@@ -29,27 +29,26 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_agent extends uvm_component;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  uvm_sequencer#(reg_item) sqr;
+  reg_driver drv;
 
-   local function new();
-   endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+  function uvm_sequencer_base get_sequencer();
+    return sqr;
+  endfunction
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+  function void build_phase(uvm_phase phase);
+    sqr = new("sequencer", this);
+    drv = new("driver", this);
+  endfunction
+
+  function void connect_phase(uvm_phase phase);
+    drv.seq_item_port.connect(sqr.seq_item_export);
+  endfunction
 
 endclass

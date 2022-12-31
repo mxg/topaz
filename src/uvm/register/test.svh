@@ -29,27 +29,22 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class test extends uvm_component;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  `uvm_component_utils(test)
 
-   local function new();
-   endfunction
+  reg_env env;
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+  function void build_phase(uvm_phase phase);
+    uvm_object_wrapper seq_wrap;
+
+    env = new("reg_env", this);
+
+    seq_wrap = reg_sequence::type_id::get();
+    uvm_resource_db#(uvm_object_wrapper)::set("*", "seq_wrap", seq_wrap, this);  endfunction
 
 endclass

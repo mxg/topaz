@@ -29,27 +29,13 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+module top;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+`include "uvm_macros.svh"
+  import uvm_pkg::*;
 
-   local function new();
-   endfunction
+  initial begin
+    run_test();
+  end
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
-
-   function B create();
-      T t = new();
-      return t;
-   endfunction
-
-endclass
+endmodule

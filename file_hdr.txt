@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
-//    Copyright 2022 Mark Glasser
-// 
+//    Copyright 2023 Mark Glasser
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,13 +46,13 @@
 #     code is suitable for study and for copying/pasting into your own work.
 #
 #    Copyright 2022 Mark Glasser
-# 
+#
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -78,90 +78,90 @@ ________________________________________________________________________________
 vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
 
-888888  dP"Yb  88""Yb    db    8888P 
-  88   dP   Yb 88__dP   dPYb     dP  
-  88   Yb   dP 88"""   dP__Yb   dP   
-  88    YbodP  88     dP""""Yb d8888 
-                                     
-                                     
-                                     
-                                     
+888888  dP"Yb  88""Yb    db    8888P
+  88   dP   Yb 88__dP   dPYb     dP
+  88   Yb   dP 88"""   dP__Yb   dP
+  88    YbodP  88     dP""""Yb d8888
+
+
+
+
 
 4Max
 --------------------------------------------------------------------------------
-d888888b  .d88b.  d8888b.  .d8b.  d88888D 
-`~~88~~' .8P  Y8. 88  `8D d8' `8b YP  d8' 
-   88    88    88 88oodD' 88ooo88    d8'  
-   88    88    88 88~~~   88~~~88   d8'   
-   88    `8b  d8' 88      88   88  d8' db 
-   YP     `Y88P'  88      YP   YP d88888P 
-                                          
-Basic                                          
+d888888b  .d88b.  d8888b.  .d8b.  d88888D
+`~~88~~' .8P  Y8. 88  `8D d8' `8b YP  d8'
+   88    88    88 88oodD' 88ooo88    d8'
+   88    88    88 88~~~   88~~~88   d8'
+   88    `8b  d8' 88      88   88  d8' db
+   YP     `Y88P'  88      YP   YP d88888P
+
+Basic
 --------------------------------------------------------------------------------
-888                                       
-888                                       
-888                                       
-888888 .d88b.  88888b.   8888b.  88888888 
-888   d88""88b 888 "88b     "88b    d88P  
-888   888  888 888  888 .d888888   d88P   
-Y88b. Y88..88P 888 d88P 888  888  d88P    
- "Y888 "Y88P"  88888P"  "Y888888 88888888 
-               888                        
-               888                        
-               888                        
-                                          
+888
+888
+888
+888888 .d88b.  88888b.   8888b.  88888888
+888   d88""88b 888 "88b     "88b    d88P
+888   888  888 888  888 .d888888   d88P
+Y88b. Y88..88P 888 d88P 888  888  d88P
+ "Y888 "Y88P"  88888P"  "Y888888 88888888
+               888
+               888
+               888
+
 
 Colossal
 --------------------------------------------------------------------------------
-                                          
-                                          
-  mm                                      
-  MM                                      
-mmMMmm ,pW"Wq.`7MMpdMAo.  ,6"Yb.  M"""MMV 
-  MM  6W'   `Wb MM   `Wb 8)   MM  '  AMV  
-  MM  8M     M8 MM    M8  ,pm9MM    AMV   
-  MM  YA.   ,A9 MM   ,AP 8M   MM   AMV  , 
-  `Mbmo`Ybmd9'  MMbmmd'  `Moo9^Yo.AMMmmmM 
-                MM                        
-              .JMML.                      
-                                          
+
+
+  mm
+  MM
+mmMMmm ,pW"Wq.`7MMpdMAo.  ,6"Yb.  M"""MMV
+  MM  6W'   `Wb MM   `Wb 8)   MM  '  AMV
+  MM  8M     M8 MM    M8  ,pm9MM    AMV
+  MM  YA.   ,A9 MM   ,AP 8M   MM   AMV  ,
+  `Mbmo`Ybmd9'  MMbmmd'  `Moo9^Yo.AMMmmmM
+                MM
+              .JMML.
+
  Georgia11
 --------------------------------------------------------------------------------
-  dP                                       
-  88                                       
-d8888P .d8888b. 88d888b. .d8888b. d888888b 
-  88   88'  `88 88'  `88 88'  `88    .d8P' 
-  88   88.  .88 88.  .88 88.  .88  .Y8P    
-  dP   `88888P' 88Y888P' `88888P8 d888888P 
-                88                         
-                dP                         
+  dP
+  88
+d8888P .d8888b. 88d888b. .d8888b. d888888b
+  88   88'  `88 88'  `88 88'  `88    .d8P'
+  88   88.  .88 88.  .88 88.  .88  .Y8P
+  dP   `88888P' 88Y888P' `88888P8 d888888P
+                88
+                dP
 
 Nancyj-Fancy
 --------------------------------------------------------------------------------
-    .                                             
-  .o8                                             
-.o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo 
-  888   d88' `88b  888' `88b `P  )88b   d'""7d8P  
-  888   888   888  888   888  .oP"888     .d8P'   
-  888 . 888   888  888   888 d8(  888   .d8P'  .P 
-  "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P  
-                   888                            
-                  o888o                           
+    .
+  .o8
+.o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
+  888   d88' `88b  888' `88b `P  )88b   d'""7d8P
+  888   888   888  888   888  .oP"888     .d8P'
+  888 . 888   888  888   888 d8(  888   .d8P'  .P
+  "888" `Y8bod8P'  888bod8P' `Y888""8o d8888888P
+                   888
+                  o888o
 
 Roman
 -------------------------------------------------------------------------------
-                                                         
-                                                         
-  ,d                                                     
-  88                                                     
-MM88MMM  ,adPPYba,   8b,dPPYba,   ,adPPYYba,  888888888  
-  88    a8"     "8a  88P'    "8a  ""     `Y8       a8P"  
-  88    8b       d8  88       d8  ,adPPPPP88    ,d8P'    
-  88,   "8a,   ,a8"  88b,   ,a8"  88,    ,88  ,d8"       
-  "Y888  `"YbbdP"'   88`YbbdP"'   `"8bbdP"Y8  888888888  
-                     88                                  
-                     88                                  
-                                                         
+
+
+  ,d
+  88
+MM88MMM  ,adPPYba,   8b,dPPYba,   ,adPPYYba,  888888888
+  88    a8"     "8a  88P'    "8a  ""     `Y8       a8P"
+  88    8b       d8  88       d8  ,adPPPPP88    ,d8P'
+  88,   "8a,   ,a8"  88b,   ,a8"  88,    ,88  ,d8"
+  "Y888  `"YbbdP"'   88`YbbdP"'   `"8bbdP"Y8  888888888
+                     88
+                     88
+
 
 Univers
 --------------------------------------------------------------------------------

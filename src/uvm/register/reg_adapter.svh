@@ -29,27 +29,27 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_adapter extends uvm_reg_adapter;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  function new();
+    supports_byte_enable = 1;
+  endfunction
 
-   local function new();
-   endfunction
+  virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
+    reg_item item = new();
+    item.addr = rw.addr;
+    item.data = rw.data;
+    case(rw.kind)
+      UVM_READ : item.op = READ;
+      UVM_WRITE: item.op = WRITE;
+      default:   item.op = NOP;
+    endcase
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+    return item;
+  endfunction
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+  virtual function void bus2reg(uvm_sequence_item bus_item,
+                                ref uvm_reg_bus_op rw);
+  endfunction
 
 endclass

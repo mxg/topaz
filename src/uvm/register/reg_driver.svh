@@ -29,27 +29,48 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_driver extends uvm_component;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  uvm_seq_item_pull_port#(reg_item) seq_item_port;
 
-   local function new();
-   endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+  function void build_phase(uvm_phase phase);
+    seq_item_port = new("seq_item_port", this);
+  endfunction
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+  task run_phase(uvm_phase phase);
+
+    reg_item item;
+
+    forever begin
+      seq_item_port.get_next_item(item);
+      $display("%12t: %s", $time, item.convert2string());
+      #1;
+      seq_item_port.item_done();
+    end
+  endtask
+
+  // function string print_item(uvm_reg_item item);
+  //   string s;
+  //   uvm_reg rgstr;
+
+  //   if(!$cast(rgstr, item.element))
+  //     `uvm_fatal("REG_DRIVER", "$cast failure")
+
+  //   s = item.element_kind.name();
+  //   s = {s, ": ", item.kind.name()};
+  //   s = {s, " name=", item.element.get_full_name()};
+  //   s = {s, $sformatf(" offset=%08x", rgstr.get_offset())};
+  //   s = {s, " value={"};
+  //   foreach(item.value[i]) begin
+  //     s = {s, $sformatf(" %08x", item.value[i])};
+  //   end
+  //   s = {s, " }"};
+
+  //   return s;
+  // endfunction
 
 endclass

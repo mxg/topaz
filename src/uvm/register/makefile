@@ -15,13 +15,13 @@
 #     code is suitable for study and for copying/pasting into your own work.
 #
 #    Copyright 2022 Mark Glasser
-# 
+#
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -32,6 +32,6 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-UVM_SRC	=
-SRC	= ../type_factory/type_factory_pkg.sv test.sv
+TEST	= test
 
+SRC	= register_pkg.sv top.sv

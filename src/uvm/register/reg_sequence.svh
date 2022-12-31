@@ -29,27 +29,36 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_sequence extends uvm_sequence#(uvm_reg_item);
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  `uvm_object_utils(reg_sequence)
 
-   local function new();
-   endfunction
+  reg_model rm;
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+  function new(string name="reg_sequence");
+    super.new(name);
+  endfunction
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+  task pre_start();
+    if(!uvm_resource_db#(reg_model)::read_by_name("REG", "reg_model", rm, this))
+      `uvm_fatal("REG_SEQUENCE", "uanble to locate register model")
+  endtask
+
+  task body();
+    bit [31:0] addr;
+    bit [31:0] data;
+    uvm_status_e status;
+    uvm_reg_data_t value;
+
+    addr = $urandom();
+    rm.addr.write(status, addr);
+
+    data = $urandom();
+    rm.data.write(status, data);
+
+    rm.ctrl_status.cmd.write(status, 'b01);
+
+    rm.ctrl_status.status.read(status, value);
+  endtask
 
 endclass

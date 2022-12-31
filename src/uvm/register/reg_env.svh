@@ -29,27 +29,44 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_env extends uvm_component;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  local reg_model rm;
+  local reg_agent agt;
+  local uvm_sequence_base seq;
 
-   local function new();
-   endfunction
+  function new(string name, uvm_component parent);
+    super.new(name, parent);
+  endfunction
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
+  function void build_phase(uvm_phase phase);
+    uvm_object_wrapper seq_wrap;
 
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+    agt = new("reg_agent", this);
+    rm = new("reg_model");
+    rm.build();
+    rm.lock_model();
+    uvm_resource_db#(reg_model)::set("*", "reg_model", rm, this);
+
+    if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
+							                                             "seq_wrap",
+							                                             seq_wrap,
+							                                             this))
+      `uvm_fatal("REG_ENV", "Unable to locate sequence wrapper")
+
+    agt = new("agent", this);
+    if(!$cast(seq, seq_wrap.create_object("reg_seq")))
+      `uvm_fatal("ENV", "Unable to cast object to sequence")
+  endfunction
+
+  function void connect_phase(uvm_phase phase);
+    rm.set_sequencer(agt.get_sequencer());
+  endfunction
+
+  task run_phase(uvm_phase phase);
+    phase.raise_objection(this);
+    seq.start(null);
+    phase.drop_objection(this);
+  endtask
 
 endclass

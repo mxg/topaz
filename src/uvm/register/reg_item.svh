@@ -29,27 +29,19 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class reg_item extends uvm_sequence_item;
+  addr_t addr;
+  data_t data;
+  reg_op_t op;
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
+  function string convert2string();
+    string s;
 
-   local function new();
-   endfunction
+    s = {op.name(), ": "};
+    s = {s, $sformatf("@%8x", addr)};
+    s = {s, $sformatf(" = %08x", data)};
 
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
-
-   function B create();
-      T t = new();
-      return t;
-   endfunction
+    return s;
+  endfunction
 
 endclass

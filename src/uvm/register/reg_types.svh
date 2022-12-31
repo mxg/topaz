@@ -29,27 +29,6 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
-
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
-
-   local function new();
-   endfunction
-
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
-
-   function B create();
-      T t = new();
-      return t;
-   endfunction
-
-endclass
+typedef bit [31:0] addr_t;
+typedef bit [31:0] data_t;
+typedef enum {NOP, READ, WRITE} reg_op_t;
