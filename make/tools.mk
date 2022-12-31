@@ -35,6 +35,7 @@ PANDOC          = /usr/bin/pandoc
 export VCS_HOME         = /tools/snps/vcs/S-2021.09-SP2
 export VERDI_HOME       = /tools/snps/verdi/S-2021.09-SP2
 export VCS              = ${VCS_HOME}/bin/vcs
+export PANDOC		= /opt/homebrew/bin/pandoc
 
 UVM_VERSION     = 1800.2-2020-1.1
 UVM_HOME        = /home/mark.glasser/tools/${UVM_VERSION}
