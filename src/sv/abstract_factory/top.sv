@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
 //    Copyright 2023 Mark Glasser
-// 
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,32 +36,29 @@ module top;
 
   import class_family_pkg::*;
   import abstract_factory_pkg::*;
-  
+
   initial begin
-    
+
     abstract_factory#(base) factories[3];
     base q[$];
     int unsigned i;
     int unsigned f;
     base b;
-    
-    factories[0] = concrete_factory#(base, class_1)::get();
-    factories[1] = concrete_factory#(base, class_2)::get();
-    factories[2] = concrete_factory#(base, class_3)::get();
-    
+
+    factories[0] = concrete_factory_singleton#(base, class_1)::get();
+    factories[1] = concrete_factory_singleton#(base, class_2)::get();
+    factories[2] = concrete_factory_singleton#(base, class_3)::get();
+
     for(i = 0; i < 10; i++) begin
       f = $urandom() % 3;
       b = factories[f].create();
       q.push_back(b);
     end
-    
+
     foreach(q[i]) begin
       $display("[%0d] %s", i, q[i].convert2string());
     end
-    
+
   end
-  
+
 endmodule
-
-
-  

@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
 //    Copyright 2023 Mark Glasser
-// 
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,13 +29,16 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+// factory_method_pkg
+//------------------------------------------------------------------------------
 package factory_method_pkg;
+
+  import abstract_factory_pkg::*;
 
   typedef enum {C1, C2, C3} selector_t;
 
   `include "class_family.svh"
   `include "creator.svh"
-  `include "concrete_creator.svh"
 
 endpackage
-  

@@ -32,23 +32,11 @@
 //------------------------------------------------------------------------------
 // concrete_factory
 //------------------------------------------------------------------------------
-class concrete_factory#(type B, type T)
-   extends abstract_factory#(B);
+class concrete_factory#(type A, type C)
+   extends abstract_factory#(A);
 
-   typedef concrete_factory#(B,T) this_t;
-   static this_t cf;
-
-   local function new();
-   endfunction
-
-   static function this_t get();
-      if(cf == null)
-        cf = new();
-      return cf;
-   endfunction
-
-   function B create();
-      T t = new();
+   function A create();
+      C t = new();
       return t;
    endfunction
 

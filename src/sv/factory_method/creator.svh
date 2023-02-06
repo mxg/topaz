@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
 //    Copyright 2023 Mark Glasser
-// 
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,8 +29,19 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-virtual class creator;
-  pure virtual function abstract_class create(selector_t selector);
+//------------------------------------------------------------------------------
+// creator
+//------------------------------------------------------------------------------
+class creator;
+
+  static function abstract_class create(selector_t selector);
+    abstract_factory#(abstract_class) af;
+    case(selector)
+      C1: af = concrete_factory_singleton#(abstract_class, concrete_class_1)::get();
+      C2: af = concrete_factory_singleton#(abstract_class, concrete_class_2)::get();
+      C3: af = concrete_factory_singleton#(abstract_class, concrete_class_3)::get();
+    endcase
+    return af.create();;
+  endfunction
+
 endclass
-
-

@@ -15,13 +15,13 @@
 #     code is suitable for study and for copying/pasting into your own work.
 #
 #    Copyright 2023 Mark Glasser
-# 
+#
 #    Licensed under the Apache License, Version 2.0 (the "License");
 #    you may not use this file except in compliance with the License.
 #    You may obtain a copy of the License at
-# 
+#
 #      http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 #    Unless required by applicable law or agreed to in writing, software
 #    distributed under the License is distributed on an "AS IS" BASIS,
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,6 +31,10 @@
 
 include make/tools.mk
 
+# Set V to "@" to minimize output from make. Set it to empty to see
+# the gory details of each command.
+V	= @
+
 all: clean build run doc
 
 DOALL	= ./bin/do_all.sh
@@ -38,54 +42,54 @@ DOC	= topaz
 
 # Build all the examples
 build:
-	@${DOALL} build
+	${V}${DOALL} build
 
 # Execute all the examples
 run:
-	@${DOALL} run
+	${V}${DOALL} run
 
 # Print a list of all the examples
 list:
-	@./bin/list.sh -x
+	${V}./bin/list.sh -x
 
 # Generate text and pdf documentation.  The doc source is the
 # readme.md files in each example.
 doc: text pdf
 
 text:
-	@echo "[GEN] Text document"
-	@cat doc/title.txt > ${DOC}.txt
-	@cat doc/intro.tex >> ${DOC}.txt
-	@${DOALL} readme >> ${DOC}.txt
+	${V}echo "[GEN] Text document"
+	${V}cat doc/title.txt > ${DOC}.txt
+	${V}cat doc/intro.tex >> ${DOC}.txt
+	${V}${DOALL} readme >> ${DOC}.txt
 
 # Assemble the latex document
 latex:
-	@echo "[GEN] LaTeX document"
-	@cat doc/preamble.tex > ${DOC}.tex
-	@${DOALL} latex >> ${DOC}.tex
-	@cat doc/postamble.tex >> ${DOC}.tex
+	${V}echo "[GEN] LaTeX document"
+	${V}cat doc/preamble.tex > ${DOC}.tex
+	${V}${DOALL} latex >> ${DOC}.tex
+	${V}cat doc/postamble.tex >> ${DOC}.tex
 
 # Convert .tex file to .pdf
 _pdf: latex
-	@latex ${DOC}.tex >  doc.log 2>&1
-	@latex ${DOC}.tex >> doc.log 2>&1
-	@dvips ${DOC}.dvi >> doc.log 2>&1
-	@ps2pdf ${DOC}.ps >> doc.log 2>&1
+	${V}latex ${DOC}.tex >  doc.log 2>&1
+	${V}latex ${DOC}.tex >> doc.log 2>&1
+	${V}dvips ${DOC}.dvi >> doc.log 2>&1
+	${V}ps2pdf ${DOC}.ps >> doc.log 2>&1
 
 pdf: _pdf clean_latex
-	@echo "[GEN] PDF document"
+	${V}echo "[GEN] PDF document"
 
 # Clean up all the examples and docs
 clean: clean_doc
-	@${DOALL} clean
+	${V}${DOALL} clean
 
-clean_latex: 
-	@rm -f ${DOC}.tex
-	@rm -f xx* *~
-	@rm -f *.aux *.log *.ps *.dvi
+clean_latex:
+	${V}rm -f ${DOC}.tex
+	${V}rm -f xx* *~
+	${V}rm -f *.aux *.log *.ps *.dvi
 
 clean_pdf: clean_latex
-	@rm -f *.pdf
+	${V}rm -f *.pdf
 
 clean_doc: clean_pdf clean_latex
-	@rm -f ${DOC}.txt
+	${V}rm -f ${DOC}.txt
