@@ -29,6 +29,9 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------
+// dma_controller
+//------------------------------------------------------------------------------
 class dma_controller;
 
   local memory mem;
@@ -41,30 +44,30 @@ class dma_controller;
 
   local bit ok;
 
-  task run();
+  task run();                             /* \label{code:facade:dma7} */
     int unsigned bytes;
     int unsigned words;
     addr_t src_addr;
     addr_t dest_addr;
     data_t data;
     
-    forever begin
-      rm.interrupt.poll();
+    forever begin                          /* \label{code:facade:dma0} */
+      rm.interrupt.poll();                 /* \label{code:facade:dma6} */
       ok = 0;
-      bytes = rm.byte_count.read();
+      bytes = rm.byte_count.read();        /* \label{code:facade:dma1} */
       src_addr = rm.src_addr.read();
-      dest_addr = rm.dest_addr.read();
+      dest_addr = rm.dest_addr.read();     /* \label{code:facade:dma2} */
 
       words = bytes / 4;
-      for(int i = 0; i < words; i++) begin
+      for(int i = 0; i < words; i++) begin /* \label{code:facade:dma3} */
 	data = mem.read(src_addr);
 	mem.write(dest_addr, data);
 	src_addr += 4;
 	dest_addr += 4;
-      end
+      end                                  /* \label{code:facade:dma4} */
       ok = 1;
     end
-  endtask
+  endtask                                  /* \label{code:facade:dma5} */
 
   function ok_to_kill();
     return ok;

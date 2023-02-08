@@ -32,10 +32,10 @@
 //------------------------------------------------------------------------------
 // concrete_factory_singleton
 //------------------------------------------------------------------------------
-class concrete_factory_singleton#(type B, type T)
-   extends abstract_factory#(B);
+class concrete_factory_singleton#(type A, type C)
+   extends abstract_factory#(A);
 
-   typedef concrete_factory#(B,T) this_t;
+   typedef concrete_factory#(A,C) this_t;
    static this_t cf;
 
    local function new();
@@ -47,8 +47,8 @@ class concrete_factory_singleton#(type B, type T)
       return cf;
    endfunction
 
-   function B create();
-      T t = new();
+   function A create();
+      C t = new();
       return t;
    endfunction
 
