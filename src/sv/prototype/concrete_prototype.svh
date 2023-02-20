@@ -37,12 +37,12 @@ class concrete_prototype_1 extends abstract_prototype;
    int a;
    int b;
 
-   function void copy(concrete_prototype_1 rhs);
+   function void copy(concrete_prototype_1 rhs); /* \label{code:proto:conc1} */
       a = rhs.a;
       b = rhs.b;
    endfunction
 
-   function abstract_prototype clone();
+   function abstract_prototype clone();          /* \label{code:proto:conc2} */
       concrete_prototype_1 cp = new();
       cp.copy(this);
       return cp;

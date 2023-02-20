@@ -39,7 +39,7 @@ module top;
 
   initial begin
 
-    abstract_factory#(base) factories[3];
+    abstract_factory#(base) factories[3]; /* \label{code:abstr:top1} */
     base q[$];
     int unsigned i;
     int unsigned f;
@@ -49,14 +49,14 @@ module top;
     factories[1] = concrete_factory_singleton#(base, class_2)::get();
     factories[2] = concrete_factory_singleton#(base, class_3)::get();
 
-    for(i = 0; i < 10; i++) begin
+    for(i = 0; i < 10; i++) begin    /* \label{code:abstr:top2} */
       f = $urandom() % 3;
       b = factories[f].create();
       q.push_back(b);
-    end
+    end                              /* \label{code:abstr:top3} */
 
-    foreach(q[i]) begin
-      $display("[%0d] %s", i, q[i].convert2string());
+    foreach(q[i]) begin              /* \label{code:abstr:top4} */
+      $display("[%0d] %s", i, q[i].convert2string()); /* \label{code:abstr:top5} */
     end
 
   end
