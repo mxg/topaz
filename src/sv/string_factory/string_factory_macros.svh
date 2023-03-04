@@ -9,7 +9,7 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
@@ -21,10 +21,10 @@
 
 `define register_string_factory(type_name, B, T) \
   static bit __str_fact__ = \
-    string_factory#(B)::add(type_name, concrete_factory#(B,T)::get());
+    string_factory#(B)::add(type_name, concrete_factory_singleton#(B,T)::get());
 
 `define override_string_factory(type_name, B, T) \
-  string_factory#(B)::override(type_name, concrete_factory#(B,T)::get());
+  string_factory#(B)::override(type_name, concrete_factory_singleton#(B,T)::get());
 
 `define create_string_factory(type_name, B, t)  \
   begin                                                       \
@@ -33,4 +33,3 @@
     if(cf != null)                                            \
       t = cf.create();                                        \
   end
-       
