@@ -44,8 +44,7 @@ class fsm_context;
   local state curr_state;
   local light_t ns_light;
   local light_t ew_light;
-
-  state states[4];
+  local state states[4];
 
   function new();
     state_0 s0 = new(this);
@@ -54,10 +53,6 @@ class fsm_context;
     state_3 s3 = new(this);
     states = '{s0, s1, s2, s3};
     set_curr_state(0);
-  endfunction
-
-  function state get_curr_state();
-    return curr_state;
   endfunction
 
   function void set_curr_state(int st);

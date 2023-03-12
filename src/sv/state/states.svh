@@ -70,7 +70,7 @@ endclass
 //------------------------------------------------------------------------------
 class state_2 extends state;
 
-  int seed = 109934;;
+  int seed = 109934;
 
   function new(fsm_context ctxt);
     super.new(ctxt);
