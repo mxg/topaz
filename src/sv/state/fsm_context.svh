@@ -48,10 +48,10 @@ class fsm_context;
   state states[4];
 
   function new();
-    state_0 s0 = new();
-    state_1 s1 = new();
-    state_2 s2 = new();
-    state_3 s3 = new();
+    state_0 s0 = new(this);
+    state_1 s1 = new(this);
+    state_2 s2 = new(this);
+    state_3 s3 = new(this);
     states = '{s0, s1, s2, s3};
     set_curr_state(0);
   endfunction
@@ -66,8 +66,9 @@ class fsm_context;
 
   task run();
     $timeformat(0,0,"s",4);
-    repeat(20) begin
-      curr_state.next_state(this);
+    $display("               ryg      ryg");
+    repeat(25) begin
+      curr_state.next_state();
       print_state();
     end
   endtask

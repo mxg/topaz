@@ -37,5 +37,12 @@ typedef class fsm_context;
 // Virtual base class for all states
 //------------------------------------------------------------------------------
 virtual class state;
-  pure virtual task next_state(input fsm_context ctxt);
+
+  fsm_context ctxt;
+
+  function new(fsm_context c);
+    ctxt = c;
+  endfunction
+
+  pure virtual task next_state();
 endclass
