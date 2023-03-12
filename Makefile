@@ -71,10 +71,14 @@ latex:
 
 # Convert .tex file to .pdf
 _pdf: latex
-	${V}latex ${DOC}.tex >  doc.log 2>&1
-	${V}latex ${DOC}.tex >> doc.log 2>&1
-	${V}dvips ${DOC}.dvi >> doc.log 2>&1
-	${V}ps2pdf ${DOC}.ps >> doc.log 2>&1
+	${V}if [[ -z `which latex` ]]; then  \
+	  echo "No latex available.";        \
+	else                                 \
+	  latex ${DOC}.tex >  doc.log 2>&1;  \
+	  latex ${DOC}.tex >> doc.log 2>&1;  \
+	  dvips ${DOC}.dvi >> doc.log 2>&1;  \
+	  ps2pdf ${DOC}.ps >> doc.log 2>&1;  \
+	fi
 
 pdf: _pdf clean_latex
 	${V}echo "[GEN] PDF document"
