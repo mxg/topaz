@@ -34,7 +34,7 @@
 //------------------------------------------------------------------------------
 class state_0 extends state;
 
-  int seed = 4556896;
+  int seed = 45568960;
 
   function new(fsm_context ctxt);
     super.new(ctxt);
@@ -70,15 +70,13 @@ endclass
 //------------------------------------------------------------------------------
 class state_2 extends state;
 
-  int seed = 109934;
-
   function new(fsm_context ctxt);
     super.new(ctxt);
   endfunction
 
   virtual task  next_state();
-    ctxt.set_lights(3'b001, 3'b100);
-    ctxt.delay($dist_poisson(seed, 30));
+    ctxt.set_lights(3'b100, 3'b100);
+    ctxt.delay(1);
     ctxt.set_curr_state(3);
   endtask
 
@@ -89,6 +87,25 @@ endclass
 //------------------------------------------------------------------------------
 class state_3 extends state;
 
+  int seed = 109934;
+
+  function new(fsm_context ctxt);
+    super.new(ctxt);
+  endfunction
+
+  virtual task  next_state();
+    ctxt.set_lights(3'b001, 3'b100);
+    ctxt.delay($dist_poisson(seed, 30));
+    ctxt.set_curr_state(4);
+  endtask
+
+endclass
+
+//------------------------------------------------------------------------------
+// state_4
+//------------------------------------------------------------------------------
+class state_4 extends state;
+
   function new(fsm_context ctxt);
     super.new(ctxt);
   endfunction
@@ -96,6 +113,23 @@ class state_3 extends state;
   virtual task  next_state();
     ctxt.set_lights(3'b010, 3'b100);
     ctxt.delay(3);
+    ctxt.set_curr_state(5);
+  endtask
+
+endclass
+
+//------------------------------------------------------------------------------
+// state_5
+//------------------------------------------------------------------------------
+class state_5 extends state;
+
+  function new(fsm_context ctxt);
+    super.new(ctxt);
+  endfunction
+
+  virtual task  next_state();
+    ctxt.set_lights(3'b100, 3'b100);
+    ctxt.delay(1);
     ctxt.set_curr_state(0);
   endtask
 

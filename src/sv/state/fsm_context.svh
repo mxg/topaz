@@ -44,27 +44,30 @@ class fsm_context;
   local state curr_state;
   local light_t ns_light;
   local light_t ew_light;
-  local state states[4];
+  local state states[6];
 
   function new();
     state_0 s0 = new(this);
     state_1 s1 = new(this);
     state_2 s2 = new(this);
     state_3 s3 = new(this);
-    states = '{s0, s1, s2, s3};
-    set_curr_state(0);
+    state_4 s4 = new(this);
+    state_5 s5 = new(this);
+    states = '{s0, s1, s2, s3, s4, s5};
+    set_lights(3'b100, 3'b100);
   endfunction
 
   function void set_curr_state(int st);
     curr_state = states[st];
+    print_state();
   endfunction
 
   task run();
     $timeformat(0,0,"s",4);
     $display("               ryg      ryg");
+    set_curr_state(0);
     repeat(25) begin
       curr_state.next_state();
-      print_state();
     end
   endtask
 
