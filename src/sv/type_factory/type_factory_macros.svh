@@ -41,9 +41,9 @@
   type_factory#(B)::override(th, concrete_factory_singleton#(B,T)::get());
 
 `define create_type_factory(th, B, t)  \
-  begin                                                       \
-    abstract_factory#(B) cf;                                  \
-    cf = type_factory#(B)::get_concrete_factory(th);          \
-    if(cf != null)                                            \
-      t = cf.create();                                        \
+  begin                                             \
+    abstract_factory#(B) cf;                        \
+    cf = type_factory#(B)::get_concrete_factory(th);\
+    if(cf != null)                                  \
+      t = cf.create();                              \
   end
