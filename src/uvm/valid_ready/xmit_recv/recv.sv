@@ -44,17 +44,17 @@ module receiver #(parameter DATA_WIDTH=8)
 
   assign ready = r_ready;
 
-  always @(posedge clk) begin
+  always @(posedge clk) begin   /* \label{code:xmit_recv:recv1} */
     r_buf = (valid == 1 && ready == 1) ? data : 'z;
   end
 
-  always @(posedge valid) begin
+  always @(posedge valid) begin /* \label{code:xmit_recv:recv2} */
     r_ready <= 1;
     @(posedge clk);
     r_ready <= 0;
   end
 
-  always @(r_buf) begin
+  always @(r_buf) begin         /* \label{code:xmit_recv:recv3} */
     if(valid == 1 && ready == 1)
       $display("%12t : received <- %0x", $time, r_buf);
   end
