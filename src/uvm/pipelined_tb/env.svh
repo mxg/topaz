@@ -46,7 +46,6 @@ class env extends uvm_component;
   endfunction
 
   function void connect_phase(uvm_phase phase);
-    //s3.seq_item_port.connect(s1.seq_item_export);
     s2.seq_item_port.connect(s1.seq_item_export);
     s3.seq_item_port.connect(s2.seq_item_export);
   endfunction
