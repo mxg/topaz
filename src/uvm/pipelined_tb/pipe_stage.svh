@@ -51,7 +51,7 @@ class pipe_stage#(type SEQ = uvm_sequence_item) extends pipe_stage_base #(SEQ);
     join
   endtask
 
-  task enqueue_items();
+  task enqueue_items();  /* \label{code:pipe_stage:1} */
     SEQ item;
     forever begin
       seq_item_port.get_next_item(item);
@@ -60,12 +60,12 @@ class pipe_stage#(type SEQ = uvm_sequence_item) extends pipe_stage_base #(SEQ);
     end
   endtask
 
-  task dequeue_items();
+  task dequeue_items();   /* \label{code:pipe_stage:2} */
     SEQ item;
     forever begin
       fifo.get(item);
       process_item(item);
-      done = (fifo.used() == 0);
+      done = (fifo.used() == 0); /* \label{code:pipe_stage:3} */
     end
   endtask
 

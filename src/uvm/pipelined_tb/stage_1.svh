@@ -52,5 +52,4 @@ class stage_1 extends pipe_stage_base #(transaction);
     sqr.execute_item(item);
   endtask
 
-
 endclass

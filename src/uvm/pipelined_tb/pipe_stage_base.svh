@@ -31,29 +31,29 @@
 
 class pipe_stage_base #(type SEQ = uvm_sequence_item) extends uvm_component;
 
-  uvm_seq_item_pull_export #(SEQ) seq_item_export;
+  uvm_seq_item_pull_export #(SEQ) seq_item_export; /* \label{code:pipe_stage_base:3} */
 
   bit done;
-  protected uvm_sequencer#(SEQ) sqr;
+  protected uvm_sequencer#(SEQ) sqr;  /* \label{code:pipe_stage_base:1} */
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
   endfunction
 
-  function bit is_done();
+  function bit is_done(); /* \label{code:pipe_stage_base:6} */
     return done;
   endfunction
 
   function void build_phase(uvm_phase phase);
-    sqr = new("sequencer", this);
-    seq_item_export = new("seq_item_export", this);
+    sqr = new("sequencer", this);    /* \label{code:pipe_stage_base:2} */
+    seq_item_export = new("seq_item_export", this); /* \label{code:pipe_stage_base:4} */
   endfunction
 
   function void connect_phase(uvm_phase phase);
-    seq_item_export.connect(sqr.seq_item_export);
+    seq_item_export.connect(sqr.seq_item_export); /* \label{code:pipe_stage_base:5} */
   endfunction
 
-  virtual task process_item(SEQ item);
+  virtual task process_item(SEQ item); /* \label{code:pipe_stage_base:7} */
   endtask
 
 endclass
