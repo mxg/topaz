@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y 
+//                 T O P A Z   P A T T E R N   L I B R A R Y
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
 //    Copyright 2023 Mark Glasser
-// 
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -36,7 +36,6 @@ class vr_env extends uvm_component;
 
   local vr_agent agent;
   local uvm_sequence_base seq;
-  //local vr_receiver receiver;
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -45,10 +44,9 @@ class vr_env extends uvm_component;
   function void build_phase(uvm_phase phase);
 
     uvm_object_wrapper seq_wrapper;
-    
+
     agent = new("vr_agent", this);
-    //receiver = new("vr_receiver", this);
-    
+
     if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
 							   "seq_wrapper",
 							   seq_wrapper, this))
@@ -56,7 +54,7 @@ class vr_env extends uvm_component;
 
     if(!$cast(seq, seq_wrapper.create_object("seq")))
       `uvm_fatal("VR_ENV", "Invalid sequence");
-    
+
   endfunction
 
   task run_phase(uvm_phase phase);
