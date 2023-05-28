@@ -27,9 +27,9 @@
   string_factory#(B)::override(type_name, concrete_factory_singleton#(B,T)::get());
 
 `define create_string_factory(type_name, B, t)  \
-  begin                                                       \
-    abstract_factory#(B) cf;                                  \
-    cf = string_factory#(B)::get_concrete_factory(type_name); \
-    if(cf != null)                                            \
-      t = cf.create();                                        \
+  begin                                                  \
+    abstract_factory#(B) cf;                             \
+    cf = string_factory#(B)::get_concrete_factory(type_name);\
+    if(cf != null)                                       \
+      t = cf.create();                                   \
   end
