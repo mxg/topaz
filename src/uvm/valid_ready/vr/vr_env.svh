@@ -47,9 +47,10 @@ class vr_env extends uvm_component;
 
     agent = new("vr_agent", this);
 
-    if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
-							   "seq_wrapper",
-							   seq_wrapper, this))
+    if(!uvm_resource_db#(uvm_object_wrapper)
+        ::read_by_name(get_full_name(),
+		       "seq_wrapper",
+		       seq_wrapper, this))
       `uvm_fatal("VR_ENV", "Sequence cannot be located");
 
     if(!$cast(seq, seq_wrapper.create_object("seq")))
