@@ -48,7 +48,7 @@ class fifo_monitor extends uvm_component;
   //--------------------------------------------------------------------
   // Build all of the subordinate components.  In this case the only
   // subordinate component is the analysis port.
-  // --------------------------------------------------------------------
+  //--------------------------------------------------------------------
   function void build_phase(uvm_phase phase);
     analysis_port = new("anlysis_port", this);
 
