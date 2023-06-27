@@ -39,11 +39,11 @@ class singleton;
   local function new();
   endfunction
 
-  static function singleton get();
+  static function singleton get(); /* \label{code:singleton:1} */
     if(inst == null)
       inst = new();
     return inst;
-  endfunction
+  endfunction                    /* \label{code:singleton:2} */
 
 endclass
 
