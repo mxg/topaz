@@ -68,17 +68,17 @@ class decorator implements component_ifc;
   local component comp;
   local state_t additional_state;
 
-  function new(component c);
+  function new(component c);         /* \label{code:decorator:1} */
     comp = c;
-  endfunction
+  endfunction                      /* \label{code:decorator:2} */
 
-  virtual function void operation();
+  virtual function void operation();  /* \label{code:decorator:3} */
     comp.operation();
-  endfunction
+  endfunction                      /* \label{code:decorator:4} */
 
-  function void new_operation();
+  function void new_operation();     /* \label{code:decorator:5} */
      // do some new operation
-  endfunction
+  endfunction                      /* \label{code:decorator:6} */
 
 endclass
 
