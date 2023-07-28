@@ -40,12 +40,12 @@ class env extends uvm_component;
 
   function void build_phase(uvm_phase phase);
     agt = new("agent", this);
-    seq = new("simple_sequence");
+    seq = new("simple_sequence"); /* \label{code:simple:1} */
   endfunction
 
   task run_phase(uvm_phase phase);
     phase.raise_objection(this);
-    seq.start(agt.get_sequencer());
+    seq.start(agt.get_sequencer()); /* \label{code:simple:2} */
     phase.drop_objection(this);
   endtask
 
