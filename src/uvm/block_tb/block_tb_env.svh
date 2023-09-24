@@ -33,11 +33,11 @@ class block_tb_env extends uvm_component;
 
   `uvm_component_utils(block_tb_env)
 
-  uvm_analysis_port#(transaction) analysis_port;
+  uvm_analysis_port#(transaction) analysis_port;   /* \label{code:blk:1} */
 
   local agent agt;
   local scoreboard sb;
-  local coverage_collector cov;
+  local coverage_collector cov; /* \label{code:blk:2} */
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -47,18 +47,18 @@ class block_tb_env extends uvm_component;
     return agt.get_sequencer();
   endfunction
 
-  function void build_phase(uvm_phase phase);
+  function void build_phase(uvm_phase phase); /* \label{code:blk:3} */
     analysis_port = new("analysis_port", this);
     agt = new("agent", this);
     sb = new("scoreboard", this);
     cov = new("coverage_collector", this);
-  endfunction
+  endfunction /* \label{code:blk:4} */
 
-  function void connect_phase(uvm_phase phase);
+  function void connect_phase(uvm_phase phase) ; /* \label{code:blk:5} */
     agt.analysis_port.connect(analysis_port);
     agt.analysis_port.connect(sb.analysis_export);
     agt.analysis_port.connect(cov.analysis_export);
-  endfunction
+  endfunction  /* \label{code:blk:6} */
 
 endclass
 
