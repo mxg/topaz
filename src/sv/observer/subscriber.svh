@@ -33,9 +33,7 @@
 // subscriber
 //------------------------------------------------------------------------------
 virtual class subscriber#(type T);
-
    pure virtual function void update(T msg);
-
 endclass
 
 	 
