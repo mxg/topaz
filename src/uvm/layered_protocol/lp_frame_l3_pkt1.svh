@@ -36,7 +36,7 @@ class lp_frame_l3_pkt1 extends lp_frame_l2;
 
   rand addr_t src;
   rand addr_t dst;
-  rand bit [7:0] data[64];
+  rand byte data[64];
 
   constraint addr_c {src != dst;};
 
@@ -46,16 +46,18 @@ class lp_frame_l3_pkt1 extends lp_frame_l2;
 
   virtual function void pack();
     super.pack();
-    packer.pack_int(src, ADDR_BITS);
-    packer.pack_int(dst, ADDR_BITS);
-    packer.pack_int(data, 64*8);
+    packer.pack_field_int(src, ADDR_BITS);
+    packer.pack_field_int(dst, ADDR_BITS);
+    for(int i = 0; i < 64; i++)
+      packer.pack_field_int(data[i], 8);
   endfunction
    
   virtual function void unpack();
     super.unpack();
-    src = packer.unpack_int(ADDR_BITS);
-    dst = packer.unpack_int(ADDR_BITS);
-    data = packer.unpack_int(64*8);
+    src = packer.unpack_field_int(ADDR_BITS);
+    dst = packer.unpack_field_int(ADDR_BITS);
+    for(int i = 0; i < 64; i++)
+      data[i] = packer.unpack_field_int(8);
   endfunction
    
   virtual function void copy(lp_frame pkt);
@@ -95,7 +97,7 @@ class lp_frame_l3_pkt1 extends lp_frame_l2;
     s = super.convert2string();
     s = {s, $sformatf(" src=%8x", src)};
     s = {s, $sformatf(" dst=%8x", dst)};
-    s = {s, "data="};
+    s = {s, " data="};
     for(int i = 0; i < 64; i++)
       s = {s, $sformatf("%2x ", data[i])};
     return s;

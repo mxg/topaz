@@ -32,12 +32,15 @@
 MAKE            = /usr/bin/make
 PANDOC          = /usr/bin/pandoc
 
-export VCS_HOME         = /tools/snps/vcs/S-2021.09-SP2
-export VERDI_HOME       = /tools/snps/verdi/S-2021.09-SP2
+VCS_VER			= U-2023.03-SP2
+VERDI_VER		= T-2022.06-1
+
+export VCS_HOME		= /apps/synopsys/vcs/${VCS_VER}
+export VERDI_HOME	= /apps/synopsys/verdi/${VERDI_VER}
 export VCS              = ${VCS_HOME}/bin/vcs
 
 UVM_VERSION     = 1800.2-2020-1.1
-UVM_HOME        = /home/mark.glasser/tools/${UVM_VERSION}
+UVM_HOME        = /shared/home/mglasser/projects/${UVM_VERSION}
 UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
                   -CFLAGS -DVCS                                     \
                   +incdir+${UVM_HOME}/src                           \

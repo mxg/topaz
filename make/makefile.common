@@ -58,7 +58,8 @@ COMPILE_OPTS    = -sverilog                                            \
                   +libext+.v                                           \
                   +libext+.sv                                          \
                   -timescale=1ns/1ps                                   \
-                  -debug_access
+                  -debug_access                                        \
+                  -xlrm module_xmr 
 
 VCS_CMD         = ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS}
 

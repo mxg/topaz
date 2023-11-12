@@ -31,7 +31,7 @@
 
 class lp_frame_l2 extends lp_frame;
 
-  typedef lp_frame this_t;
+  typedef lp_frame_l2 this_t;
   const local string msg_ctxt = "LP_FRAME_L2";
 
   rand mac_t smac;
@@ -39,15 +39,15 @@ class lp_frame_l2 extends lp_frame;
        lp_type lptype;
 
   virtual function void pack();
-    packer.pack(smac, LP_MAC_BITS);
-    packer.pack(dmac, LP_MAC_BITS);
-    packer.pack(lptype, LP_TYPE_BITS);
+    packer.pack_field_int(smac, LP_MAC_BITS);
+    packer.pack_field_int(dmac, LP_MAC_BITS);
+    packer.pack_field_int(lptype, LP_TYPE_BITS);
   endfunction
    
   virtual function void unpack();
-    dmac = packer.unpack_int(LP_MAC_BITS);
-    smac = packer.unpack_int(LP_MAC_BITS);
-    lptype = packer.unpack_int(LP_TYPE_BITS);
+    dmac = packer.unpack_field_int(LP_MAC_BITS);
+    smac = packer.unpack_field_int(LP_MAC_BITS);
+    lptype = lp_type'(packer.unpack_field_int(LP_TYPE_BITS));
   endfunction
    
   virtual function void copy(lp_frame pkt);

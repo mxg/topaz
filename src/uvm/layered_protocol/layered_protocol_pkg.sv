@@ -41,5 +41,6 @@ package layered_protocol_pkg;
   `include "lp_frame_l3_pkt2.svh"
   `include "lp_frame_l3_fc.svh"
 
-  `include "lp_factory.svh"
+  `include "lp_factory_method.svh"
   
+endpackage

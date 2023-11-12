@@ -42,13 +42,11 @@ virtual class lp_frame;
   pure virtual function string convert2string(); /* \label{code:lpfr:2} */
   
   function void set_bits(uvm_bitstream_t bits);
-    packer.set_packed_bits(bits);
+    packer.m_bits = bits;
   endfunction
   
-  function uvm_bitstream get_bits();
-    uvm_bitstream_t bits;
-    packer.get_packed_bits(bits);
-    return bits;
+  function uvm_bitstream_t get_bits();
+    return packer.m_bits;
   endfunction
   
   protected uvm_packer packer;

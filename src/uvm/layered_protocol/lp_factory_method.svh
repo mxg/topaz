@@ -29,7 +29,7 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class lp_concrete_factory#(type C)
+class lp_concrete_factory#(type C);
    static function lp_frame create();
       C t = new();
       return t;
@@ -41,9 +41,9 @@ class lp_factory_method;
   static function lp_frame create(lp_type et);
     lp_frame fr;
     case(et)
-      lp_1 : fr = lp_concrete_factory#(lp_frame_l2_pkt1)::create();
-      lp_2 : fr = lp_concrete_factory#(lp_frame_l2_pkt2)::create();
-      lp_fc: fr = lp_concrete_factory#(lp_frame_l2_fc)::create();
+      lp_pkt1 : fr = lp_concrete_factory#(lp_frame_l3_pkt1)::create();
+      lp_pkt2 : fr = lp_concrete_factory#(lp_frame_l3_pkt2)::create();
+      lp_fc   : fr = lp_concrete_factory#(lp_frame_l3_fc)::create();
     endcase
     return fr;
   endfunction

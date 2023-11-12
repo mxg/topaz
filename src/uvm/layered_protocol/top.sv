@@ -34,6 +34,10 @@ module top;
   import layered_protocol_pkg::*;
 
   initial begin
+    lp_frame lp;
+    lp = lp_factory_method::create(lp_pkt1);
+    lp.randomize();
+    $display(lp.convert2string());
   end
 
 endmodule

@@ -37,7 +37,7 @@ class lp_frame_l3_pkt2 extends lp_frame_l2;
   rand addr_t src;
   rand addr_t dst;
   rand bit [11:0] length;
-  rand bit [7:0] payload[]
+  rand bit [7:0] payload[];
 
   function new();
     lptype = lp_pkt2;
@@ -53,20 +53,20 @@ class lp_frame_l3_pkt2 extends lp_frame_l2;
 
   virtual function void pack();
     super.pack();
-    packer.pack_int(src, ADDR_BITS);
-    packer.pack_int(dst, ADDR_BITS);
-    packer.pack_int(length, 12);
+    packer.pack_field_int(src, ADDR_BITS);
+    packer.pack_field_int(dst, ADDR_BITS);
+    packer.pack_field_int(length, 12);
     for(int i = 0; i < length; i++)
-      packer.pack_int(payload[i], 8);
+      packer.pack_field_int(payload[i], 8);
   endfunction
    
   virtual function void unpack();
     super.unpack();
-    src = packer.unpack_int(ADDR_BITS);
-    dst = packer.unpack_int(ADDR_BITS);
-    length = packer.unpack_int(12);
+    src = packer.unpack_field_int(ADDR_BITS);
+    dst = packer.unpack_field_int(ADDR_BITS);
+    length = packer.unpack_field_int(12);
     for(int i = 0; i < length; i++)
-      payload[i] = packer.unpack(8);
+      payload[i] = packer.unpack_field_int(8);
   endfunction
    
   virtual function void copy(lp_frame pkt);

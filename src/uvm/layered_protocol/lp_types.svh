@@ -29,17 +29,17 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-parameter int unsigned ETH_TYPE_BITS = 16;
-parameter int unsigned ETH_MAC_BITS = 48;
+parameter int unsigned LP_TYPE_BITS = 16;
+parameter int unsigned LP_MAC_BITS = 48;
 parameter int unsigned ADDR_BITS = 32;
 
-typedef bit [ETH_MAC_BITS-1:0] mac_t;
+typedef bit [LP_MAC_BITS-1:0] mac_t;
 typedef bit [ADDR_BITS-1:0] addr_t;
 
-typedef enum bit [ETH_TYPE_BITS-1:0]
+typedef enum bit [LP_TYPE_BITS-1:0]
              {
-              eth_1    = 'h0800;
-              eth_2    = 'h86DD;
-              eth_fc   = 'h8808;
-             } eth_type;
+              lp_pkt1   = 'h0800,
+              lp_pkt2   = 'h86DD,
+              lp_fc     = 'h8808
+             } lp_type;
 
