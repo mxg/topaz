@@ -41,10 +41,11 @@ class env extends uvm_component;
   function void build_phase(uvm_phase phase);
     uvm_object_wrapper seq_wrap;
     
-    if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
-							   "seq_wrap",
-							   seq_wrap,
-							   this))
+    if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name
+        (get_full_name(),
+	 "seq_wrap",
+	 seq_wrap,
+	 this))
       `uvm_fatal("ENV", "Unable to locate sequence wrapper in the resource database")
     
     agt = new("agent", this);
