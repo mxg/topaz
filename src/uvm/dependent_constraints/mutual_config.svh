@@ -31,23 +31,23 @@
 
 class mutual_config;
 
-  rand input_config incfg;
+  rand input_config incfg;  /* \label{code:dc:mutual1} */
   rand output_config outcfg;
 
-  function new();
+  function new(); /* \label{code:dc:mutual2} */
     incfg = new();
     outcfg = new();
-  endfunction
+  endfunction /* \label{code:dc:mutual3} */
 
-  constraint addr { (incfg.base_addr & 'h3) == 0;
+  constraint addr { (incfg.base_addr & 'h3) == 0;  /* \label{code:dc:mutual4} */
 		    (outcfg.base_addr & 'h3) == 0;
                     incfg.base_addr != outcfg.base_addr; };
-  constraint buff { outcfg.buffer_size == (4 * incfg.stride); };
+  constraint buff { outcfg.buffer_size == (4 * incfg.stride); }; /* \label{code:dc:mutual5} */
 
-  function void post_randomize();
+  function void post_randomize(); /* \label{code:dc:mutual6} */
     uvm_resource_db#(input_config)::set( "*", "input_config",  incfg);
     uvm_resource_db#(output_config)::set("*", "output_config", outcfg);
-  endfunction
+  endfunction /* \label{code:dc:mutual7} */
 
 endclass
 

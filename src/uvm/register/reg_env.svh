@@ -49,9 +49,9 @@ class reg_env extends uvm_component;
     uvm_resource_db#(reg_model)::set("*", "reg_model", rm, this);
 
     if(!uvm_resource_db#(uvm_object_wrapper)::read_by_name(get_full_name(),
-							                                             "seq_wrap",
-							                                             seq_wrap,
-							                                             this))
+							   "seq_wrap",
+							   seq_wrap,
+							   this))
       `uvm_fatal("REG_ENV", "Unable to locate sequence wrapper")
 
     agt = new("agent", this);
