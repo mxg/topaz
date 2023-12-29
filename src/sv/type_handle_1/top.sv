@@ -30,7 +30,7 @@ module top;
 
   initial begin
 
-    string type_list[type_handle_base];
+    string type_list[type_handle_base];  /* \label{code:type_handle:1} */
 
     type_list[type_handle#(some_class)::get_type()] = "some_class";
     type_list[type_handle#(thingy)::get_type()] = "thingy";

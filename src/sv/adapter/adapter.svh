@@ -46,7 +46,8 @@ class adapter extends processor;
     return word;
   endfunction
 
-  virtual function void write(bit [31:0] addr, bit [31:0] data);
+  virtual function void write(bit [31:0] addr, 
+			      bit [31:0] data);
     for(int i = 0; i < 4; i++) begin
       mem.write(addr+i, data[(i*8) +: 8]);
     end	
