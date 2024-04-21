@@ -56,8 +56,8 @@ module top;
     end                              /* \label{code:abstr:top3} */
 
     foreach(q[i]) begin              /* \label{code:abstr:top4} */
-      $display("[%0d] %s", i, q[i].convert2string()); /* \label{code:abstr:top5} */
-    end
+      $display("[%0d] %s", i, q[i].convert2string());
+    end                              /* \label{code:abstr:top5} */
 
   end
 

@@ -20,9 +20,10 @@
 //------------------------------------------------------------------------------
 class string_factory#(type B);
 
-  static local abstract_factory#(B) factory_table [string];
+  typedef abstract_factory#(B) af_t;
+  static local af_t factory_table [string];
 
-  static function bit add(string type_name, abstract_factory#(B) cf);
+  static function bit add(string type_name, af_t cf);
     if(!factory_table.exists(type_name))
       factory_table[type_name] = cf;
     else
@@ -30,14 +31,14 @@ class string_factory#(type B);
     return 1;
   endfunction
 
-  static function void override(string type_name, abstract_factory#(B) cf);
+  static function void override(string type_name, af_t cf);
     if(factory_table.exists(type_name))
       factory_table[type_name] = cf;
     else
       $display("error: Type %s cannot be overridden in the string factory", type_name);
   endfunction    
       
-  static function abstract_factory#(B) get_concrete_factory(string type_name);
+  static function af_t get_concrete_factory(string type_name);
     if(factory_table.exists(type_name))
       return factory_table[type_name];
     $display("error: Type %s is not in the string factory", type_name);

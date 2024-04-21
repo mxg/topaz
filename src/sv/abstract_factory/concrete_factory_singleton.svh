@@ -35,7 +35,7 @@
 class concrete_factory_singleton#(type A, type C)
    extends abstract_factory#(A);
 
-   typedef concrete_factory#(A,C) this_t;
+   typedef concrete_factory_singleton#(A,C) this_t;
    static this_t cf;
 
    local function new();
@@ -53,3 +53,4 @@ class concrete_factory_singleton#(type A, type C)
    endfunction
 
 endclass
+2
