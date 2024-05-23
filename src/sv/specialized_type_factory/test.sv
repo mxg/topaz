@@ -29,6 +29,9 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+import type_factory_pkg::*;
+`include "factory_macro.svh"
+
 class base;
   `factory(base,base)
 

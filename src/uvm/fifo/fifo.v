@@ -34,25 +34,25 @@
 //------------------------------------------------------------------------------
 module fifo
   (
-   input 	 clk,      // clock
-   input 	 rst,      // reset
-   input 	 rd_en,    // read enable
-   input 	 wr_en,    // write enable
+   input         clk,      // clock
+   input         rst,      // reset
+   input         rd_en,    // read enable
+   input         wr_en,    // write enable
    input  [31:0] data_in,  // data in
    output [31:0] data_out, // data out
-   output 	 empty,    // 1 when fifo is empty, 0 otherwise
-   output 	 full,     // 1 when fifo is full, 0 otherwise
+   output        empty,    // 1 when fifo is empty, 0 otherwise
+   output        full,     // 1 when fifo is full, 0 otherwise
    input         cs        // chip (device) select
   );
 
   
   // local state data
   // fifo buffer
-  reg [31:0] 	 buffer[4];
+  reg [31:0]     buffer[4];
   // ptr to next item to read
-  reg  [1:0]	 rd_ptr;
+  reg [1:0]      rd_ptr;
   // ptr to next item to write
-  reg  [1:0]	 wr_ptr;
+  reg [1:0]      wr_ptr;
 
   // Note that the buffer size is a power of 2 and the ptr sizes are
   // log2(buffer_size).  This allows for some simplicity in the pointer
@@ -64,9 +64,9 @@ module fifo
   // appropriate time.
 
   // registers for outputs
-  reg 		 r_full;
-  reg 		 r_empty;
-  reg [31:0] 	 r_data_out; 		 
+  reg        r_full;
+  reg        r_empty;
+  reg [31:0] r_data_out;         
 
   assign empty = r_empty;
   assign full = r_full;
@@ -81,11 +81,11 @@ module fifo
   always @(posedge clk)
     begin
       if(rst == 0) begin
-	rd_ptr = 0;
-	wr_ptr = 0;
-	r_empty <= 1;
-	r_full <= 0;
-	@(negedge clk);
+    rd_ptr = 0;
+    wr_ptr = 0;
+    r_empty <= 1;
+    r_full <= 0;
+    @(negedge clk);
       end
     end
 
@@ -98,15 +98,15 @@ module fifo
   always @(posedge clk)
     begin
       if(cs == 1 && rst == 1 && rd_en == 1 && empty == 0) begin
-	r_data_out <= buffer[rd_ptr]; // do the read
-	rd_ptr = rd_ptr + 1;          // advance the read pointer
-	r_full <= 0;
-	// Does the read leave the fifo in an empty state?
-	if(rd_ptr == wr_ptr)
-	  r_empty <= 1;
-	else
-	  r_empty <= 0;
-	@(negedge clk);
+    r_data_out <= buffer[rd_ptr]; // do the read
+    rd_ptr = rd_ptr + 1;          // advance the read pointer
+    r_full <= 0;
+    // Does the read leave the fifo in an empty state?
+    if(rd_ptr == wr_ptr)
+      r_empty <= 1;
+    else
+      r_empty <= 0;
+    @(negedge clk);
       end
     end
 
@@ -119,15 +119,15 @@ module fifo
   always @(posedge clk)
     begin
       if(cs == 1 && rst == 1 && wr_en == 1 && full == 0) begin
-	buffer[wr_ptr] = data_in;  // do the write
-	wr_ptr = wr_ptr + 1;       // advance the write pointer
-	r_empty <= 0;
-	// Does the write leave the fifo in a full state?
-	if(wr_ptr == rd_ptr)
-	  r_full <= 1;
-	else
-	  r_full <= 0;
-	@(negedge clk);
+    buffer[wr_ptr] = data_in;  // do the write
+    wr_ptr = wr_ptr + 1;       // advance the write pointer
+    r_empty <= 0;
+    // Does the write leave the fifo in a full state?
+    if(wr_ptr == rd_ptr)
+      r_full <= 1;
+    else
+      r_full <= 0;
+    @(negedge clk);
       end
     end
   

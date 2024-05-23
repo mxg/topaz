@@ -31,16 +31,16 @@
 
 class reg_model;
 
+  register#(32) src_addr;
+  register#(32) dest_addr;
+  register#(16) byte_count;
+  register#(1) interrupt;
+
   function new();
     src_addr = new();
     dest_addr = new();
     byte_count = new();
     interrupt = new();
   endfunction
-
-  register#(32) src_addr;
-  register#(32) dest_addr;
-  register#(16) byte_count;
-  register#(1) interrupt;
 
 endclass

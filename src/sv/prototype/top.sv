@@ -50,9 +50,9 @@ module top;
   end
 
   function void populate_registry();
-    concrete_prototype_1 c1 = new();
-    concrete_prototype_2 c2 = new();
-    concrete_prototype_3 c3 = new();
+    automatic concrete_prototype_1 c1 = new();
+    automatic concrete_prototype_2 c2 = new();
+    automatic concrete_prototype_3 c3 = new();
 
      c1.a = 14;
      c1.b = 22;

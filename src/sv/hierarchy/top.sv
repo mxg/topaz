@@ -36,6 +36,8 @@
 //------------------------------------------------------------------------------
 module top;
 
+  import hierarchy_pkg::*;
+   
   initial begin
 
     tree a, b, c, d, e, f, g, h, i;

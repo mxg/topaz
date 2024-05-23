@@ -30,47 +30,65 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// clkgen
+// Specialized Type Factory
+//
+// In this variant of the type factory we provide consztructor
+// arguments.  The create() and construct() methods have to be
+// redefined and reimolemented to support arguments.
 //------------------------------------------------------------------------------
-module clkgen(output clk);
 
-  reg r_clk;
+//------------------------------------------------------------------------------
+// concrete_factory_base
+//------------------------------------------------------------------------------
+virtual class concrete_factory_base#(type B);
 
-  assign clk = r_clk;
+  pure virtual function B construct(string name);
+    
+endclass
 
-  initial begin
-    r_clk <= 0;
-    forever begin
-      #5 r_clk <= ~clk;
+//------------------------------------------------------------------------------
+// concrete_factory
+//------------------------------------------------------------------------------
+class concrete_factory#(type T, type B) extends concrete_factory_base#(B);
+
+  function B construct(string name);
+    T t = new(name);
+    return t;
+  endfunction
+
+endclass
+
+//------------------------------------------------------------------------------
+// abstract_factory
+//------------------------------------------------------------------------------
+class abstract_factory#(type T, type B) extends concrete_factory#(T,B);
+
+  typedef abstract_factory#(T,B) this_t;
+
+  static local concrete_factory_base#(B) cfb;
+
+  local function new();
+    cfb = this;
+  endfunction
+
+  static function concrete_factory_base#(B) get();
+    static this_t inst;
+    if(inst == null)
+      inst = new();
+    return inst;
+  endfunction
+
+  static function B create(string name);
+    if(cfb == null) begin
+      concrete_factory#(T,B) t = new();
+      cfb = t;
     end
-  end
-endmodule
+    return cfb.construct(name);
+  endfunction
+  
+  static function void override(concrete_factory_base#(B) override_cfb);
+    cfb = override_cfb;
+  endfunction
+    
+endclass
 
-//------------------------------------------------------------------------------
-// top
-//------------------------------------------------------------------------------
-module top();
-
-  parameter DATA_WIDTH = 8;
-
-  wire clk;
-  wire ready;
-  wire valid;
-  wire [DATA_WIDTH-1:0] data;
-
-  transmitter#(.DATA_WIDTH(8)) xmit(.clk(clk),
-				    .ready(ready),
-				    .valid(valid),
-				    .data(data));
-  receiver#(.DATA_WIDTH(8)) recv(.clk(clk),
-				 .ready(ready),
-				 .valid(valid),
-				 .data(data));
-  clkgen ck(clk);
-
-  initial begin
-    #500;
-    $finish;
-  end
-
-endmodule

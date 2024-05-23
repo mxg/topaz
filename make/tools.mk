@@ -32,16 +32,36 @@
 MAKE            = /usr/bin/make
 PANDOC          = /usr/bin/pandoc
 
+#------------------------------------------------------------
+# VCS
+
 VCS_VER			= U-2023.03-SP2
 VERDI_VER		= T-2022.06-1
 
 export VCS_HOME		= /apps/synopsys/vcs/${VCS_VER}
 export VERDI_HOME	= /apps/synopsys/verdi/${VERDI_VER}
 export VCS              = ${VCS_HOME}/bin/vcs
+SIMV			= ./simv
 
-UVM_VERSION     = 1800.2-2020-1.1
-UVM_HOME        = /shared/home/mglasser/projects/${UVM_VERSION}
+#------------------------------------------------------------
+# Questa
+
+VLOG		= /home/questasim/bin/vlog
+VSIM		= /home/questasim/bin/vsim
+
+#------------------------------------------------------------
+#UVM_VERSION     = 1800.2-2020.3.0
+UVM_VERSION	= 1800.2-2020-1.1
+UVM_HOME        = /home/training18/git-repos/${UVM_VERSION}
+
+# UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
+#                   -CFLAGS -DVCS                                     \
+#                   +incdir+${UVM_HOME}/src                           \
+#                   ${UVM_HOME}/src/uvm.sv
+
 UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
-                  -CFLAGS -DVCS                                     \
                   +incdir+${UVM_HOME}/src                           \
                   ${UVM_HOME}/src/uvm.sv
+
+COMPILE		= ${VLOG}
+RUN		= ${VSIM}

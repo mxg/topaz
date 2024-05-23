@@ -29,20 +29,10 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class prototype_registry;
+package visitor_pkg;
 
-   static local abstract_prototype prototype[type_handle_base];
+  import hierarchy_pkg::*;
+  `include "visitor.svh"
 
-   static function void add(type_handle_base th, abstract_prototype ap);
-      prototype[th] = ap;
-   endfunction
-
-   static function abstract_prototype get(type_handle_base th);
-      abstract_prototype p;
-      p = prototype[th];
-      return p.clone();
-   endfunction
-
-endclass
-
-   
+endpackage
+  

@@ -30,14 +30,6 @@
 //------------------------------------------------------------------------------
 
 //------------------------------------------------------------------------------
-// Specialized Type Factory
-//
-// In this variant of the type factory we provide consztructor
-// arguments.  The create() and construct() methods have to be
-// redefined and reimolemented to support arguments.
-//------------------------------------------------------------------------------
-
-//------------------------------------------------------------------------------
 // factory macro
 //
 // Boilerplate code needed for classes to use the factory
@@ -48,59 +40,4 @@
   static function concrete_factory_base#(B) get_factory();  \
     return factory::get();                                  \
   endfunction
-
-//------------------------------------------------------------------------------
-// concrete_factory_base
-//------------------------------------------------------------------------------
-virtual class concrete_factory_base#(type B);
-
-  pure virtual function B construct(string name);
-    
-endclass
-
-//------------------------------------------------------------------------------
-// concrete_factory
-//------------------------------------------------------------------------------
-class concrete_factory#(type T, type B) extends concrete_factory_base#(B);
-
-  function B construct(string name);
-    T t = new(name);
-    return t;
-  endfunction
-
-endclass
-
-//------------------------------------------------------------------------------
-// abstract_factory
-//------------------------------------------------------------------------------
-class abstract_factory#(type T, type B) extends concrete_factory#(T,B);
-
-  typedef abstract_factory#(T,B) this_t;
-
-  static local concrete_factory_base#(B) cfb;
-
-  local function new();
-    cfb = this;
-  endfunction
-
-  static function concrete_factory_base#(B) get();
-    static this_t inst;
-    if(inst == null)
-      inst = new();
-    return inst;
-  endfunction
-
-  static function B create(string name);
-    if(cfb == null) begin
-      concrete_factory#(T,B) t = new();
-      cfb = t;
-    end
-    return cfb.construct(name);
-  endfunction
-  
-  static function void override(concrete_factory_base#(B) override_cfb);
-    cfb = override_cfb;
-  endfunction
-    
-endclass
 

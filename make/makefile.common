@@ -33,11 +33,11 @@
 # represents the top of the Xenon hierarchy.
 
 V               = @
+#V               =
 
 include ${TOP}/make/tools.mk
 
 TEST            = test
-SIMV            = simv
 BUILDLOG        = build.log
 RUNLOG          = run.log
 
@@ -52,20 +52,32 @@ INC             = +incdir+.
 # commands
 #
 
-COMPILE_OPTS    = -sverilog                                            \
-                  -full64                                              \
-                  +vcs+lic+wait                                        \
-                  +libext+.v                                           \
-                  +libext+.sv                                          \
+# VCS
+# COMPILE_OPTS    = -sverilog                                            \
+#                   -full64                                              \
+#                   +vcs+lic+wait                                        \
+#                   +libext+.v                                           \
+#                   +libext+.sv                                          \
+#                   -timescale=1ns/1ps                                   \
+#                   -debug_access                                        \
+#                   -xlrm module_xmr 
+
+# Questa
+COMPILE_OPTS	= -64                                                  \
                   -timescale=1ns/1ps                                   \
-                  -debug_access                                        \
-                  -xlrm module_xmr 
+                  -ccflags "-DQUESTA"
 
-VCS_CMD         = ${VCS} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS}
 
-SIMV_ARGS       = +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
+COMPILE_CMD	= ${COMPILE} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS}
 
-SIMV_CMD        = ./${SIMV} ${SIMV_ARGS}
+# VCS
+#RUN_ARGS	= +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
+
+# Questa
+RUN_ARGS	= -64 -batch -lib work work.top -do 'run -all; quit' \
+                   +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
+
+RUN_CMD		= ${RUN} ${RUN_ARGS}
 
 #
 # rules
@@ -75,13 +87,13 @@ all: build run
 
 build: ${SRC}
 	${V}echo "[BUILD]" `pwd`
-	${V}echo ${VCS_CMD} > ${BUILDLOG} 2>&1
-	${V}${VCS_CMD} >> ${BUILDLOG} 2>&1
+	${V}echo ${COMPILE_CMD} > ${BUILDLOG} 2>&1
+	${V}${COMPILE_CMD} >> ${BUILDLOG} 2>&1
 
 run:
 	${V}echo "[RUN]" `pwd`
-	${V}echo ${SIMV_CMD} > ${RUNLOG} 2>&1
-	${V}${SIMV_CMD} >> ${RUNLOG} 2>&1
+	${V}echo ${RUN_CMD} > ${RUNLOG} 2>&1
+	${V}${RUN_CMD} >> ${RUNLOG} 2>&1
 
 readme:
 	${V}if [ -f readme.md -a -x ${PANDOC} ]; then \
@@ -102,7 +114,9 @@ clean:
 	${V}rm -rf csrc simv.* vcdplus.vpd DVEfiles
 	${V}rm -f simv ucli.key vc_hdrs.h
 	${V}rm -f novas.* *.fsdb
-	${V}rm -rf verdiLog nWaveLog
+	${V}rm -rf verdiLog nWav1eLog
+	${V}rm -rf work
+	${V}rm -f transcript
 	${V}rm -f xx* *~ #*
 
 # Local Variables:

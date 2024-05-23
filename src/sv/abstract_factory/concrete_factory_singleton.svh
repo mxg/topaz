@@ -53,4 +53,4 @@ class concrete_factory_singleton#(type A, type C)
    endfunction
 
 endclass
-2
+

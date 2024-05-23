@@ -27,22 +27,9 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 //------------------------------------------------------------------------------
 
-class prototype_registry;
-
-   static local abstract_prototype prototype[type_handle_base];
-
-   static function void add(type_handle_base th, abstract_prototype ap);
-      prototype[th] = ap;
-   endfunction
-
-   static function abstract_prototype get(type_handle_base th);
-      abstract_prototype p;
-      p = prototype[th];
-      return p.clone();
-   endfunction
-
-endclass
-
-   
+interface dut_intf;
+  logic clk;
+endinterface

@@ -31,6 +31,8 @@
 
 virtual class lp_frame;
 
+  protected uvm_packer packer;
+
   function new();
     packer = new();
   endfunction     
@@ -49,8 +51,6 @@ virtual class lp_frame;
     return packer.m_bits;
   endfunction
   
-  protected uvm_packer packer;
-
 endclass
   
    
