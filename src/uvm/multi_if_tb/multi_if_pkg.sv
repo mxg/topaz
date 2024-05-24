@@ -42,6 +42,7 @@ package multi_if_pkg;
   `include "multi_if_scoreboard.svh"
   `include "multi_if_cov_collector.svh"
   `include "multi_if_env.svh"
+  `include "virtual_sequence_base.svh"
   
 endpackage
   

@@ -29,8 +29,6 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-`include "dut_intf.svh"
-
 package block_tb_pkg;
 
   `include "uvm_macros.svh"

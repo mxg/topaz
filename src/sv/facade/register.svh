@@ -37,9 +37,10 @@ class register#(int unsigned SIZE) extends register_base;
   typedef bit[SIZE-1:0] data_t;
 
   function data_t read();
+    return 0;
   endfunction
 
-  function write(data_t data);
+  function void write(data_t data);
   endfunction
 
   task poll();

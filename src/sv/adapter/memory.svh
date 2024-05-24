@@ -32,6 +32,7 @@
 class memory;
 
   function bit [7:0] read(bit [31:0] addr);
+    return 0;
   endfunction
 
   function void write(bit [31:0] addr, bit [7:0] data);

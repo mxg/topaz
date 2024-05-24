@@ -35,7 +35,7 @@ class sqr_aggregator;
 
   local uvm_sequencer_base sqr_table[string];
   local uvm_sequencer_base name_table[string];
-  local sqr_q_t kinds[string];
+  local sqr_q_t kind_table[string];
 
   function void add(uvm_sequencer_base sqr, string name, string kind);
     sqr_q_t q;
@@ -43,17 +43,18 @@ class sqr_aggregator;
     sqr_table[path] = sqr;
 
     if(kind != "") begin
-      q = kinds[kind];
+      if(kind_table.exists(kind))
+        q = kind_table[kind];
       q.push_back(sqr);
-      kinds[kind] = q;
-      end
+      kind_table[kind] = q;
+    end
 
     if(name != "") begin
       if(name_table.exists(name))
-	`uvm_info("SQR_AGGREGATOR",
-		  $sformatf("replacing sequencer with name %s", name),
-		  UVM_NONE)
-      sqr_table[name] = sqr;
+	    `uvm_info("SQR_AGGREGATOR",
+		          $sformatf("replacing sequencer with name %s", name),
+		          UVM_NONE)
+      name_table[name] = sqr;
     end
 		
   endfunction
@@ -82,20 +83,26 @@ class sqr_aggregator;
   endfunction
 
   function sqr_q_t lookup_kind(string kind);
-    return kinds[kind];
+    return kind_table[kind];
   endfunction
 
   function void dump();
     
     $display("--- SEQUENCER AGGREGATOR ---");
+
+    $display("  by name:");
+    foreach(name_table[name]) begin
+      uvm_sequencer_base sqr = name_table[name];
+      $display("    %s -> %s", name, sqr.get_full_name());
+    end
     
     $display("  by kind:");
-    foreach(kinds[kind]) begin
-      sqr_q_t q = kinds[kind];
+    foreach(kind_table[kind]) begin
+      sqr_q_t q = kind_table[kind];
       $display("    %s", kind);
       foreach(q[i]) begin
-	uvm_sequencer_base sqr = q[i];
-	$display("      %s", sqr.get_full_name());
+	    uvm_sequencer_base sqr = q[i];
+	    $display("      %s", sqr.get_full_name());
       end
     end
 

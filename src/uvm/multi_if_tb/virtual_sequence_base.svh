@@ -29,16 +29,24 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-module top;
+class virtual_sequence_base #(type REQ = uvm_sequence_item,
+                              type RSP = REQ)
+  extends uvm_sequence#(REQ, RSP);
 
-  import constraints_pkg::*;
+  local sqr_aggregator sqrs;
+  local uvm_sequencer_base ctrl_sqr;
+  local uvm_sequencer_base data_sqr;
 
-  initial begin
-    base_transaction t;
-    automatic generate_trans g = new();
-    for(int i = 0 ; i < 100; i++) begin
-      t = g.gen();
-      $display(t.convert2string());
-    end
-  end
-endmodule
+  task pre_start();
+
+    if(!uvm_resource_db#(sqr_aggregator)::read_by_name(get_full_name(),
+                                                   "sqrs", sqrs, this))
+      `uvm_fatal("VIRTUAL_SEQUENCE_BASE",
+                 "sequencer aggregator cannot be located")
+
+    ctrl_sqr = sqrs.lookup_name("control");
+    data_sqr = sqrs.lookup_name("data");
+
+  endtask
+
+endclass

@@ -74,6 +74,7 @@ class transaction;
   virtual function transaction clone();
     transaction t = new();
     t.copy(this);
+    return t;
   endfunction
   
 endclass

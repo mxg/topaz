@@ -79,6 +79,7 @@ class base_transaction;
   virtual function base_transaction clone();
     base_transaction t = new();
     t.copy(this);
+    return t;
   endfunction
   
 endclass

@@ -35,7 +35,7 @@ class mem implements mem_if;
 
   virtual function byte read(addr_t addr);
     byte     data;
-    data = m[addr];
+    data = (m.exists(addr))? m[addr] : 0;
     return data;
   endfunction
 

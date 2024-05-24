@@ -71,7 +71,7 @@ endclass
 module top;
 
   initial begin
-    test t = new();
+    static test t = new();
     t.test_singleton();
   end
 

@@ -32,6 +32,7 @@
 class processor;
 
   virtual function bit [31:0] read(bit [31:0] addr);
+    return 0;
   endfunction
 
   virtual function void write(bit [31:0] addr, bit [31:0] data);

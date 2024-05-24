@@ -91,8 +91,8 @@ module top;
 
   initial begin
 
-    component c = new;
-    decorator d = new(c);
+    static component c = new;
+    static decorator d = new(c);
 
     d.operation();
     d.new_operation();

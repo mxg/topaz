@@ -33,6 +33,7 @@ module top;
 
 `include "uvm_macros.svh"
   import uvm_pkg::*;
+  import test_pkg::*;
 
   multi_if_dut_env dut();
   multi_if_binds binds();

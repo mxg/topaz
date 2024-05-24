@@ -47,6 +47,7 @@ class test extends uvm_component;
   function void end_of_elaboration_phase(uvm_phase phase);
     sqrs = new();
     env.get_sequencers(sqrs);
+    uvm_resource_db#(sqr_aggregator)::set("*", "sqrs", sqrs, this);
     sqrs.dump();
   endfunction
 
