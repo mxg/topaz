@@ -1,7 +1,7 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC = fifo.v            \
+SRC = fifo.sv           \
       clkgen.sv         \
       fifo_if.sv        \
       fifo_env.sv       \

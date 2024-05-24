@@ -33,6 +33,7 @@ module top;
 
   `include "uvm_macros.svh"
   import uvm_pkg::*;
+  import test_pkg::*;
 
   block_dut_env dut();
   block_binds binds();

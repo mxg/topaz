@@ -87,29 +87,29 @@ class fifo_driver extends uvm_component;
   //----------------------------------------------------------------------------
   task send_to_bus(fifo_item t);
 
-    vif.cs <= 1;
+    vif.cs_r <= 1;
 
     case(t.op)
       
       fifo_item::RD:  // Read
 	begin
-	  vif.rd_en <= 1;
+	  vif.rd_en_r <= 1;
 	  @(negedge vif.clk);
 	  t.data = vif.data_out;
 	end
       
       fifo_item::WR:  // Write
 	begin
-	  vif.wr_en <= 1;
-	  vif.data_in <= t.data;
+	  vif.wr_en_r <= 1;
+	  vif.data_in_r <= t.data;
 	  @(negedge vif.clk);
 	end
       
       fifo_item::RST: // Reset
 	begin
-	  vif.rst <= 0;
+	  vif.rst_r <= 0;
 	  @(negedge vif.clk);
-	  vif.rst <= 1;
+	  vif.rst_r <= 1;
 	end
       
       fifo_item::NOP: // No-op
@@ -119,9 +119,9 @@ class fifo_driver extends uvm_component;
 
     endcase
 
-    vif.wr_en <= 0;
-    vif.rd_en <= 0;
-    vif.cs <= 0;
+    vif.wr_en_r <= 0;
+    vif.rd_en_r <= 0;
+    vif.cs_r <= 0;
 
     case({vif.full, vif.empty})
       2'b00: t.state = fifo_item::OK;

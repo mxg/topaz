@@ -37,13 +37,25 @@
 // statements.
 //------------------------------------------------------------------------------
 interface fifo_if (wire        clk,
-		   wire        rst,
-		   wire        rd_en,
-		   wire        wr_en,
-		   wire [31:0] data_in,
-		   wire [31:0] data_out,
-		   wire        empty,
-		   wire        full,
-		   wire        cs
-		   );
+                   wire        rst,
+                   wire        rd_en,
+                   wire        wr_en,
+                   wire [31:0] data_in,
+                   wire [31:0] data_out,
+                   wire        empty,
+                   wire        full,
+                   wire        cs
+                   );
+  reg cs_r;
+  reg rd_en_r;
+  reg wr_en_r;
+  reg rst_r;
+  reg [31:0] data_in_r;
+  
+  assign cs = cs_r;
+  assign rd_en = rd_en_r;
+  assign wr_en = wr_en_r;
+  assign rst = rst_r;
+  assign data_in = data_in_r;
+  
 endinterface

@@ -38,8 +38,8 @@ module block_binds();
   bind block_dut sync_if sif(reset);
 
   initial begin
-    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", block_dut.vif, null);
-    uvm_resource_db#(virtual sync_if)::set_anonymous("*", block_dut.sif, null);
+    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", top.dut.d.vif, null);
+    uvm_resource_db#(virtual sync_if)::set_anonymous("*", top.dut.d.sif, null);
   end
 
 endmodule
