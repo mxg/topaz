@@ -47,13 +47,13 @@ class sqr_aggregator;
         q = kind_table[kind];
       q.push_back(sqr);
       kind_table[kind] = q;
-      end
+    end
 
     if(name != "") begin
       if(name_table.exists(name))
-	`uvm_info("SQR_AGGREGATOR",
-		  $sformatf("replacing sequencer with name %s", name),
-		  UVM_NONE)
+	    `uvm_info("SQR_AGGREGATOR",
+		          $sformatf("replacing sequencer with name %s", name),
+		          UVM_NONE)
       name_table[name] = sqr;
     end
 		
@@ -89,20 +89,21 @@ class sqr_aggregator;
   function void dump();
     
     $display("--- SEQUENCER AGGREGATOR ---");
+
+    $display("  by name:");
+    foreach(name_table[name]) begin
+      uvm_sequencer_base sqr = name_table[name];
+      $display("    %s -> %s", name, sqr.get_full_name());
+    end
     
     $display("  by kind:");
     foreach(kind_table[kind]) begin
       sqr_q_t q = kind_table[kind];
       $display("    %s", kind);
       foreach(q[i]) begin
-	uvm_sequencer_base sqr = q[i];
-	$display("      %s", sqr.get_full_name());
+	    uvm_sequencer_base sqr = q[i];
+	    $display("      %s", sqr.get_full_name());
       end
-    end
-
-    $display("  by name");
-    foreach(name_table[name]) begin
-      $display("    %s", name);
     end
 
     $display("  by path:");
