@@ -37,8 +37,9 @@ class virtual_sequence_base extends uvm_sequence#(uvm_sequence_item);
 
   task pre_start();
 
-    if(!uvm_resource_db#(sqr_aggregator)::read_by_name(get_full_name(),
-                                                   "sqrs", sqrs, this))
+    if(!uvm_resource_db#(sqr_aggregator)::
+       read_by_name(get_full_name(),
+                    "sqrs", sqrs, this))
       `uvm_fatal("VIRTUAL_SEQUENCE_BASE",
                  "sequencer aggregator cannot be located")
 

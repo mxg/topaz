@@ -34,7 +34,7 @@ class test extends uvm_component;
   `uvm_component_utils(test)
 
   local multi_if_env env;
-  local sqr_aggregator sqrs;
+  local sqr_aggregator sqrs; /* \label{code:multi-if-test:1} */
 
   function new(string name, uvm_component parent);
     super.new(name, parent);
@@ -45,9 +45,10 @@ class test extends uvm_component;
   endfunction
 
   function void end_of_elaboration_phase(uvm_phase phase);
-    sqrs = new();
-    env.get_sequencers(sqrs);
-    uvm_resource_db#(sqr_aggregator)::set("*", "sqrs", sqrs, this);
+    sqrs = new();  /* \label{code:multi-if-test:2} */
+    env.get_sequencers(sqrs); /* \label{code:multi-if-test:3} */
+    uvm_resource_db#(sqr_aggregator)::set("*", "sqrs", /* \label{code:multi-if-test:4} */
+					  sqrs, this); 
     sqrs.dump();
   endfunction
 
