@@ -29,9 +29,7 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-class virtual_sequence_base #(type REQ = uvm_sequence_item,
-                              type RSP = REQ)
-  extends uvm_sequence#(REQ, RSP);
+class virtual_sequence_base extends uvm_sequence#(uvm_sequence_item);
 
   local sqr_aggregator sqrs;
   local uvm_sequencer_base ctrl_sqr;
