@@ -69,6 +69,5 @@ module top;
     add(type_handle#(concrete_prototype_3)::get_type(), c3);
   endfunction
   
-  
 endmodule
 
