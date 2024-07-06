@@ -44,9 +44,10 @@ class vr_driver extends uvm_component;
 
   function void build_phase (uvm_phase phase);
     seq_item_port = new("seq_item_port", this);
-    if(!uvm_resource_db#(virtual vr_if)::read_by_name(get_full_name(),
-						      "vif", vif, this))
-      `uvm_fatal("VR_MONITOR", "virtual interface cannot be located")
+    if(!uvm_resource_db#(virtual vr_if)::
+      read_by_name(get_full_name(), "vif", vif, this))
+      `uvm_fatal("VR_MONITOR", 
+      "virtual interface cannot be located")
   endfunction
 
   task run_phase(uvm_phase phase);

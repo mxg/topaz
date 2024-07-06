@@ -278,15 +278,15 @@ class fifo_scoreboard extends uvm_subscriber#(fifo_item);
 
     if((t.state == fifo_item::FULL) != expected_full) begin
       `uvm_error("WRITE_FULL_MISMATCH",
-		 $sformatf("Full state mismatch on write - expectation = %b, actual = %b",
-			   expected_full, (t.state == fifo_item::FULL)));
+	$sformatf("Full state mismatch on write - expectation = %b, actual = %b",
+		  expected_full, (t.state == fifo_item::FULL)));
       error_count++;
     end
 
     if((t.state == fifo_item::EMPTY) != expected_empty) begin
       `uvm_error("WRITE_EMPTY_MISMATCH",
-		 $sformatf("Empty state mismatch on read - expectation = %b, actual = %b",
-			   expected_empty, (t.state == fifo_item::EMPTY)));
+	 $sformatf("Empty state mismatch on read - expectation = %b, actual = %b",
+		   expected_empty, (t.state == fifo_item::EMPTY)));
       error_count++;
     end
       

@@ -46,8 +46,9 @@ class test extends uvm_component;
   function void build_phase(uvm_phase phase);
     env = new("vr_env", this);
     seq_wrapper = vr_seq::get_type();
-    uvm_resource_db#(uvm_object_wrapper)::set("*", "seq_wrapper",
-					      seq_wrapper, this);
+    uvm_resource_db#(uvm_object_wrapper)::set(
+      "*", "seq_wrapper",
+      seq_wrapper, this);
   endfunction
   
 endclass
