@@ -34,9 +34,9 @@
 //------------------------------------------------------------------------------
 class creator;
 
-  static function abstract_class create(selector_t selector);
+  static function abstract_class create(selector_t select);
     abstract_factory#(abstract_class) af;
-    case(selector)
+    case(select)
       C1: af = concrete_factory_singleton#(abstract_class, concrete_class_1)::get();
       C2: af = concrete_factory_singleton#(abstract_class, concrete_class_2)::get();
       C3: af = concrete_factory_singleton#(abstract_class, concrete_class_3)::get();

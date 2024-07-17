@@ -29,7 +29,8 @@
 `define create_string_factory(type_name, B, t)  \
   begin                                                  \
     abstract_factory#(B) cf;                             \
-    cf = string_factory#(B)::get_concrete_factory(type_name);\
+    cf = string_factory#(B)::                            \
+           get_concrete_factory(type_name);              \
     if(cf != null)                                       \
       t = cf.create();                                   \
   end

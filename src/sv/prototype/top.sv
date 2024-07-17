@@ -41,11 +41,11 @@ module top;
     p = prototype_registry::
         get(type_handle#(concrete_prototype_1)::get_type());
     $display("p = %s", p.convert2string());
-    p = prototype_registry
-        ::get(type_handle#(concrete_prototype_2)::get_type());
+    p = prototype_registry::
+        get(type_handle#(concrete_prototype_2)::get_type());
     $display("p = %s", p.convert2string());
-    p = prototype_registry
-        ::get(type_handle#(concrete_prototype_3)::get_type());
+    p = prototype_registry::
+        get(type_handle#(concrete_prototype_3)::get_type());
     $display("p = %s", p.convert2string());
   end
 
