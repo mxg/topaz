@@ -66,6 +66,4 @@ You are encouraged to experiment with the examples -- make changes and try
 variations -- in order to gain a deeper understanding of the patterns and idioms
 exhibited.
 
-Should you choose to use any code in the Topaz library, please be sure to adhere
-to the terms of the open sopurce license.  See LICENSE.txt for details.
 --------------------------------------------------------------------------------
