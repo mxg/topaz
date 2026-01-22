@@ -33,6 +33,11 @@ TOP	= ../../..
 include ${TOP}/make/makefile.common
 
 UVM_SRC	=
-SRC	= ../hierarchy/hierarchy_pkg.sv visitor_pkg.sv top.sv
 
+SV_SRC	= ../hierarchy/hierarchy_pkg.sv visitor_pkg.sv top.sv
 
+SV_INC	+= +incdir+../hierarchy
+
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

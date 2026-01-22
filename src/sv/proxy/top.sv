@@ -44,7 +44,7 @@ module top;
 
     `info(lgr, "some_info", "This is an informational message");
     `warning(lgr, "AHOOGA...AHOOGA...", "This is your last warning!");
-    `error(lgr, "Uh Oh", "Something really bad has happened");
+    `err(lgr, "Uh Oh", "Something really bad has happened");
     `trace(lgr, "here", "It happened right here");
     `debug(lgr, "what", "What happened?");
   end

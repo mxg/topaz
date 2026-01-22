@@ -33,5 +33,11 @@ TOP	= ../../..
 include ${TOP}/make/makefile.common
 
 UVM_SRC	=
-INC	+= +incdir+../type_handle_1
-SRC	=  ../type_handle_1/type_handle_pkg.sv prototype_pkg.sv top.sv 
+
+SV_INC	+= +incdir+../type_handle_1
+
+SV_SRC	=  ../type_handle_1/type_handle_pkg.sv prototype_pkg.sv top.sv 
+
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

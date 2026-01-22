@@ -46,7 +46,9 @@ RUNLOG          = run.log
 # source code
 #
 
-INC             = +incdir+.
+SV_INC		= +incdir+.
+SC_INC		= -I${OBJDIR}
+INC		= ${SV_INC} ${SC_INC}
 
 #
 # commands
@@ -63,19 +65,31 @@ INC             = +incdir+.
 #                   -xlrm module_xmr 
 
 # Questa
-COMPILE_OPTS	= -64                                                  \
-                  -timescale=1ns/1ps                                   \
-                  -ccflags "-DQUESTA"
+# COMPILE_OPTS	= -64                                                    \
+#                   -timescale=1ns/1ps                                   \
+#                   -ccflags "-DQUESTA"
 
+# Verilator
+TOPMOD		= top
+COMPILE_OPTS	= --sc                                                   \
+		  --exe                                                  \
+		  --build                                                \
+		  --vpi                                                  \
+		  -j                                                     \
+		  --top ${TOPMOD}                                        \
+		  -timing
 
-COMPILE_CMD	= ${COMPILE} ${UVM_SRC} ${INC} ${SRC} ${COMPILE_OPTS}
+COMPILE_CMD	= ${COMPILE} ${COMPILE_OPTS} ${INC} ${UVM_SRC} ${SRC}
 
 # VCS
 #RUN_ARGS	= +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} +fsdb+delta
 
 # Questa
-RUN_ARGS	= -64 -batch -lib work work.top -do 'run -all; quit' \
-                   +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
+# RUN_ARGS	= -64 -batch -lib work work.top -do 'run -all; quit' \
+#                    +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
+
+# Verilator
+RUN_ARGS	= 
 
 RUN_CMD		= ${RUN} ${RUN_ARGS}
 
@@ -112,6 +126,7 @@ clean:
 	${V}echo "[CLEAN]" `pwd`
 	${V}rm -f ${BUILDLOG} ${VCSLOG} *.log
 	${V}rm -rf csrc simv.* vcdplus.vpd DVEfiles
+	${V}rm -rf obj_dir
 	${V}rm -f simv ucli.key vc_hdrs.h
 	${V}rm -f novas.* *.fsdb
 	${V}rm -rf verdiLog nWav1eLog

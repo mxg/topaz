@@ -31,8 +31,6 @@
 
 package state_pkg;
 
-  `timescale 1s/1s;
-
   `include "state.svh"
   `include "states.svh"
   `include "fsm_context.svh"

@@ -31,6 +31,6 @@
 
 `define info(lgr, msg_class, msg)    lgr.info(msg_class, msg, `__LINE__, `__FILE__)
 `define warning(lgr, msg_class, msg) lgr.warning(msg_class, msg, `__LINE__, `__FILE__)
-`define error(lgr, msg_class, msg)   lgr.error(msg_class, msg, `__LINE__, `__FILE__)
+`define err(lgr, msg_class, msg)   lgr.error(msg_class, msg, `__LINE__, `__FILE__)
 `define trace(lgr, msg_class, msg)   lgr.trace(msg_class, msg, `__LINE__, `__FILE__)
 `define debug(lgr, msg_class, msg)   lgr.debug(msg_class, msg, `__LINE__, `__FILE__)

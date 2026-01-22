@@ -59,6 +59,7 @@ class cc_env extends uvm_component;
 
     for(i = 0; i < 100; i++) begin
       t = new();
+      /* verilator lint_off IGNOREDRETURN */
       t.randomize();
       analysis_port.write(t);
       #1;

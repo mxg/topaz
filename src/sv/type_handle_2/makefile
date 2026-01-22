@@ -32,5 +32,8 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= type_handle_2.sv
+SV_SRC	= type_handle_2.sv
 
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

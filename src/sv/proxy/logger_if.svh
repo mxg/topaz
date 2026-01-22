@@ -32,10 +32,11 @@
 interface class logger_if;
 
   typedef enum {INFO, WARNING, ERROR, TRACE, DEBUG} severity_t;
-  typedef enum {show_file  = 'b0001,
-		show_line  = 'b0010,
-		show_trace = 'b0100,
-		show_debug = 'b1000
+  typedef enum bit [3:0] {
+		show_file  = 4'b0001,
+		show_line  = 4'b0010,
+		show_trace = 4'b0100,
+		show_debug = 4'b1000
 		} flag_val;
   typedef bit [3:0] flag_t;
 		

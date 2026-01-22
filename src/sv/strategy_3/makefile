@@ -34,4 +34,9 @@ include ${TOP}/make/makefile.common
 
 UVM_SRC	=
 TEST	= cc_test
-SRC	= strategy_3.sv
+
+SV_SRC	= strategy_3.sv
+
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

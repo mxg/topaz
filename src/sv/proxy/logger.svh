@@ -49,10 +49,10 @@ class logger implements logger_if;
 
     string s;
     
-    if((severity == logger_if::TRACE) && !(flags & logger_if::show_trace))
+    if((severity == logger_if::TRACE) && (flags & logger_if::show_trace) == 4'b0)
       return;
     
-    if((severity == logger_if::DEBUG) && !(flags & logger_if::show_debug))
+    if((severity == logger_if::DEBUG) && (flags & logger_if::show_debug) == 4'b0)
       return;
     
     case(severity)
@@ -64,10 +64,10 @@ class logger implements logger_if;
     endcase
 
     s = {s, ": "};
-    if(flags & logger_if::show_file)
+    if((flags & logger_if::show_file) == 4'b0)
       s = {s, file};
 
-    if(flags & logger_if::show_line)
+    if((flags & logger_if::show_line) == 4'b0)
       s = {s, $sformatf("@%0d", line)};
 
     s = {s, " [", msg_class, "] ", msg};

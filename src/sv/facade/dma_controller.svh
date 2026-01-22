@@ -45,8 +45,8 @@ class dma_controller;
   local bit ok;
 
   task run();                             /* \label{code:facade:dma7} */
-    int unsigned bytes;
-    int unsigned words;
+    bit unsigned [15:0] bytes;
+    bit unsigned [15:0] words;
     addr_t src_addr;
     addr_t dest_addr;
     data_t data;

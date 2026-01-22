@@ -34,8 +34,11 @@ include ${TOP}/make/makefile.common
 
 UVM_SRC	=
 INC	+= +incdir+../abstract_factory
-SRC	= ../abstract_factory/abstract_factory_pkg.sv \
+SV_SRC	= ../abstract_factory/abstract_factory_pkg.sv \
           string_factory_pkg.sv                       \
           class_family_pkg.sv                         \
           top.sv
 
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

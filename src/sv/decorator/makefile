@@ -33,4 +33,9 @@ TOP	= ../../..
 include ${TOP}/make/makefile.common
 
 UVM_SRC	=
-SRC	= decorator.sv
+
+SV_SRC	= decorator.sv
+
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

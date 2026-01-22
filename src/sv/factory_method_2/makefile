@@ -33,5 +33,10 @@ TOP	= ../../..
 include ${TOP}/make/makefile.common
 
 UVM_SRC	=
-SRC	= factory_method_pkg.sv                       \
+
+SV_SRC	= factory_method_pkg.sv                       \
           top.sv
+
+SC_SRC	= sc_main.cpp
+
+SRC	= ${SV_SRC} ${SC_SRC}

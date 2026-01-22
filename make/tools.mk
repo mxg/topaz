@@ -33,6 +33,16 @@ MAKE            = /usr/bin/make
 PANDOC          = /usr/bin/pandoc
 
 #------------------------------------------------------------
+# Verilator
+
+VERILATOR_ROOT	= /usr/local/share/verilator
+VERILATOR	= $(VERILATOR_ROOT)/bin/verilator
+
+VLFLAGS		= --sc --build
+
+OBJDIR		= obj_dir
+
+#------------------------------------------------------------
 # VCS
 
 VCS_VER			= U-2024.03-SP2
@@ -52,7 +62,7 @@ VSIM		= /home/questasim/bin/vsim
 #------------------------------------------------------------
 #UVM_VERSION     = 1800.2-2020.3.0
 UVM_VERSION	= 1800.2-2020-1.1
-UVM_HOME        = /home/training18/git-repos/${UVM_VERSION}
+UVM_HOME        = /home/mark-glasser/uvm/${UVM_VERSION}
 
 # UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
 #                   -CFLAGS -DVCS                                     \
@@ -63,5 +73,5 @@ UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \
                   +incdir+${UVM_HOME}/src                           \
                   ${UVM_HOME}/src/uvm.sv
 
-COMPILE		= ${VLOG}
-RUN		= ${VSIM}
+COMPILE		= ${VERILATOR}
+RUN		= ${OBJDIR}/Vtop
