@@ -33,4 +33,8 @@ TOP	= ../../..
 include ${TOP}/make/makefile.common
 
 UVM_SRC	=
-SRC	= constraints_pkg.sv top.sv
+SV_SRC	= constraints_pkg.sv top.sv
+
+C_SRC	= main.cpp
+
+SRC	= ${SV_SRC} ${C_SRC}

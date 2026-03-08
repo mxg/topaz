@@ -36,7 +36,7 @@ UVM_SRC	=
 
 SV_SRC	= state_pkg.sv top.sv
 
-SC_SRC	= sc_main.cpp
+C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${SC_SRC}
+SRC	= ${SV_SRC} ${C_SRC}
 

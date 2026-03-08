@@ -38,6 +38,6 @@ SV_SRC	= ../hierarchy/hierarchy_pkg.sv visitor_pkg.sv top.sv
 
 SV_INC	+= +incdir+../hierarchy
 
-SC_SRC	= sc_main.cpp
+C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${SC_SRC}
+SRC	= ${SV_SRC} ${C_SRC}

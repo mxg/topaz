@@ -39,6 +39,6 @@ SV_SRC	= ../abstract_factory/abstract_factory_pkg.sv \
           class_family_pkg.sv                         \
           top.sv
 
-SC_SRC	= sc_main.cpp
+C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${SC_SRC}
+SRC	= ${SV_SRC} ${C_SRC}
