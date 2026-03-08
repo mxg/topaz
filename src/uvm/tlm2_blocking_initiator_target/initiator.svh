@@ -42,19 +42,20 @@ class initiator extends uvm_component;
 
   function uvm_tlm_generic_payload populate_randomized_generic_payload();
     uvm_tlm_generic_payload gp;
-    bit [63:0] addr;
+    typedef bit [63:0] addr_t;
+    addr_t addr;
     byte unsigned data[];
     int unsigned  data_size;  
     byte unsigned byte_enables[];
 
     gp = new();
     gp.set_write();
-    addr = ($urandom() << 32) | $urandom();
+    addr = (addr_t'($urandom()) << 32) | addr_t'($urandom());
     gp.set_address(addr);
     data_size = ($urandom() & 'hff) + 256;
     data  = new [data_size];
     for(int i = 0; i < data_size; i++) begin
-      data[i] = $urandom() & 'hff;
+      data[i] = byte'($urandom()) & 'hff;
     end
     gp.set_data(data);
     gp.set_data_length(data_size);

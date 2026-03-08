@@ -35,8 +35,10 @@ module top;
   import uvm_pkg::*;
 
   block_dut_env dut();
+  block_binds bb();
 
   initial begin
+    #0;
     run_test();
   end
 

@@ -41,7 +41,7 @@ class simple_sequence extends uvm_sequence#(trans);
     
     for(int i = 0; i < 10; i++) begin
       t = new();
-      t.randomize();
+      void'(t.randomize());
       start_item(t);
       finish_item(t);
     end

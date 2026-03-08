@@ -29,6 +29,8 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
+`include "dut_intf.svh"
+
 module block_dut_env();
 
   import uvm_pkg::*;

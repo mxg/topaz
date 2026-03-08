@@ -71,13 +71,16 @@ INC		= ${SV_INC} ${SC_INC}
 
 # Verilator
 TOPMOD		= top
-COMPILE_OPTS	= --sc                                                   \
+COMPILE_OPTS	= -sv                                                    \
+		  --cc                                                   \
 		  --exe                                                  \
 		  --build                                                \
 		  --vpi                                                  \
 		  -j                                                     \
 		  --top ${TOPMOD}                                        \
-		  -timing
+		  -timing                                                \
+		  --build-jobs 8                                         \
+		  --output-groups 10
 
 COMPILE_CMD	= ${COMPILE} ${COMPILE_OPTS} ${INC} ${UVM_SRC} ${SRC}
 
@@ -89,7 +92,7 @@ COMPILE_CMD	= ${COMPILE} ${COMPILE_OPTS} ${INC} ${UVM_SRC} ${SRC}
 #                    +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST}
 
 # Verilator
-RUN_ARGS	= 
+RUN_ARGS	=  +UVM_NO_RELNOTES +UVM_TESTNAME=${TEST} 
 
 RUN_CMD		= ${RUN} ${RUN_ARGS}
 

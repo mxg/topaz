@@ -42,9 +42,10 @@ class constrained_addr_seq extends base_seq;
     trans t;
     
     for(int i = 0; i < 10; i++) begin
+      int ok;
       t = new();
-      t.randomize() with { ((addr & 'h3) == 0);
-	                   (addr <= 'hffffff); };
+      ok = t.randomize() with { ((addr & 'h3) == 0);
+                                 (addr <= 'hffffff); };
       start_item(t);
       finish_item(t);
     end

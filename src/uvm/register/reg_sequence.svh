@@ -51,10 +51,10 @@ class reg_sequence extends uvm_sequence#(uvm_reg_item);
     uvm_reg_data_t value;
 
     addr = $urandom();
-    rm.addr.write(status, addr);
+    rm.addr.write(status, uvm_reg_data_t'(addr));
 
     data = $urandom();
-    rm.data.write(status, data);
+    rm.data.write(status, uvm_reg_data_t'(data));
 
     rm.ctrl_status.cmd.write(status, 'b01);
 

@@ -43,7 +43,7 @@ module transmitter #(parameter DATA_WIDTH=8)
   int delay;
 
   assign valid = r_valid;
-  assign data = (valid == 1 && ready == 1) ? $urandom() : 'z;
+  assign data = (valid == 1 && ready == 1) ? byte'($urandom()) : 'z;
 
   always @(negedge clk) begin
     r_valid <= 1;

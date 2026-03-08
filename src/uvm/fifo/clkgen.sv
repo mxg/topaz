@@ -42,12 +42,14 @@ module clkgen(output clk);
   assign clk = r_clk;
 
   initial begin
-    r_clk <= 0;
+    $display("start clock");
+    r_clk = 0;
+    $display("doink!");
     forever begin
       #5;
-      r_clk <= 1;
+      r_clk = 1;
       #5;
-      r_clk <= 0;
+      r_clk = 0;
     end
   end
   

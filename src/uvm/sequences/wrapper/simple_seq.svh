@@ -43,7 +43,7 @@ class simple_seq extends base_seq;
     
     for(int i = 0; i < 10; i++) begin
       t = new();
-      t.randomize();
+      void'(t.randomize());
       start_item(t);
       finish_item(t);
     end

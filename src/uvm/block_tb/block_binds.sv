@@ -37,7 +37,7 @@ module block_binds();
   bind block_dut dut_intf vif();
 
   initial begin
-    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", block_dut.vif, null);
+    uvm_resource_db#(virtual dut_intf)::set("*", "dut_intf", top.dut.d.vif, null);
   end
 
 endmodule

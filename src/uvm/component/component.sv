@@ -45,14 +45,3 @@ class component extends uvm_component;
   endfunction
 
 endclass
-
-//------------------------------------------------------------------------------
-// top
-//------------------------------------------------------------------------------
-module top;
-
-  initial begin
-    component c;
-    run_test("component");
-  end
-endmodule

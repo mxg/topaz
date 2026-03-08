@@ -39,9 +39,9 @@ module clkgen(output clk);
   assign clk = r_clk;
 
   initial begin
-    r_clk <= 0;
+    r_clk = 0;
     forever begin
-      #5 r_clk <= ~clk;
+      #5 r_clk = ~clk;
     end
   end
 endmodule

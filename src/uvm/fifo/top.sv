@@ -42,15 +42,15 @@ module top();
 
   fifo_env dut_env();
   bind fifo_env fifo_if fif(.clk(clk),
-			                .rst(rst),
-			                .rd_en(rd_en),
-			                .wr_en(wr_en),
-			                .data_in(data_in),
-			                .data_out(data_out),
-			                .empty(empty),
-			                .full(full),
-			                .cs(cs)
-			                );
+			.rst(rst),
+			.rd_en(rd_en),
+			.wr_en(wr_en),
+			.data_in(data_in),
+			.data_out(data_out),
+			.empty(empty),
+			.full(full),
+			.cs(cs)
+			);
   
   initial begin
     uvm_resource_db#(virtual fifo_if)::set("*", "fifo_if", dut_env.fif, null);

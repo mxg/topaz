@@ -34,15 +34,15 @@
 //------------------------------------------------------------------------------
 module fifo_env();
 
-  wire clk;
-  wire rst;
-  wire cs;
-  wire rd_en;
-  wire wr_en;
-  wire [31:0] data_in;
-  wire [31:0] data_out;
-  wire empty;
-  wire full;
+  logic clk;
+  logic rst;
+  logic cs;
+  logic rd_en;
+  logic wr_en;
+  logic [31:0] data_in;
+  logic [31:0] data_out;
+  logic empty;
+  logic full;
    
   fifo f(
 	 .clk(clk),

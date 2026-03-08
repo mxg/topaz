@@ -33,7 +33,7 @@ class producer extends uvm_component;
 
     for(int i = 0; i < 10; i++) begin
       pkt = new();
-      pkt.randomize();
+      void'(pkt.randomize());
       put_port.put(pkt);
     end
     

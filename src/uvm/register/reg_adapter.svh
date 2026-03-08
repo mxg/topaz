@@ -37,8 +37,8 @@ class reg_adapter extends uvm_reg_adapter;
 
   virtual function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
     reg_item item = new();
-    item.addr = rw.addr;
-    item.data = rw.data;
+    item.addr = addr_t'(rw.addr);
+    item.data = data_t'(rw.data);
     case(rw.kind)
       UVM_READ : item.op = READ;
       UVM_WRITE: item.op = WRITE;

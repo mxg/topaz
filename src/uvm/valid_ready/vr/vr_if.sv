@@ -29,8 +29,8 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-interface vr_if(wire         clk,
-		wire 	    valid,
-		wire 	    ready,
-		wire [31:0] data);
+interface vr_if(logic         clk,
+		logic 	    valid,
+		logic 	    ready,
+		logic [31:0] data);
 endinterface

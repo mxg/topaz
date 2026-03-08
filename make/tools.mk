@@ -61,7 +61,8 @@ VSIM		= /home/questasim/bin/vsim
 
 #------------------------------------------------------------
 #UVM_VERSION     = 1800.2-2020.3.0
-UVM_VERSION	= 1800.2-2020-1.1
+#UVM_VERSION	= uvm-core-2020.3.1
+UVM_VERSION	= 1800.2-2017-1.0
 UVM_HOME        = /home/mark-glasser/uvm/${UVM_VERSION}
 
 # UVM_SRC         = ${UVM_HOME}/src/dpi/uvm_dpi.cc                    \

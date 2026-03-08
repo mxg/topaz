@@ -33,6 +33,8 @@ module top;
 
   import uvm_pkg::*;
 
+  dut d();
+
   initial begin
     run_test();
   end

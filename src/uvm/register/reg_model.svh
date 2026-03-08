@@ -83,9 +83,9 @@ class reg_model extends uvm_reg_block;
 
     offset = 0;
     default_map.add_reg(addr, offset, "RW");
-    offset +=  addr.get_n_bytes();
+    offset +=  uvm_reg_addr_t'(addr.get_n_bytes());
     default_map.add_reg(data, offset, "RW");
-    offset += data.get_n_bytes();
+    offset += uvm_reg_addr_t'(data.get_n_bytes());
     default_map.add_reg(ctrl_status, offset, "RW");
   endfunction
 

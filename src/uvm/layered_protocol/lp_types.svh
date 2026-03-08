@@ -32,9 +32,13 @@
 parameter int unsigned LP_TYPE_BITS = 16;
 parameter int unsigned LP_MAC_BITS = 48;
 parameter int unsigned ADDR_BITS = 32;
+parameter int unsigned LENGTH_BITS = 12;
+parameter int unsigned DELAY_BITS = 32;
 
 typedef bit [LP_MAC_BITS-1:0] mac_t;
 typedef bit [ADDR_BITS-1:0] addr_t;
+typedef bit [LENGTH_BITS-1:0] length_t;
+typedef bit [DELAY_BITS-1:0] delay_t;
 
 typedef enum bit [LP_TYPE_BITS-1:0]
              {

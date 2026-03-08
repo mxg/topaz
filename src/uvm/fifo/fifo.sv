@@ -72,7 +72,6 @@ module fifo
   assign full = r_full;
   assign data_out = r_data_out;
 
-//------------------------------------------------------------------------------
   //----------------------------------------------------------------------------
   // reset process
   //
@@ -81,11 +80,11 @@ module fifo
   always @(posedge clk)
     begin
       if(rst == 0) begin
-    rd_ptr = 0;
-    wr_ptr = 0;
-    r_empty <= 1;
-    r_full <= 0;
-    @(negedge clk);
+        rd_ptr = 0;
+        wr_ptr = 0;
+        r_empty <= 1;
+        r_full <= 0;
+        @(negedge clk);
       end
     end
 

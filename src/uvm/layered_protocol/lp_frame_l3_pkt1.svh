@@ -46,18 +46,18 @@ class lp_frame_l3_pkt1 extends lp_frame_l2;
 
   virtual function void pack();
     super.pack();
-    packer.pack_field_int(src, ADDR_BITS);
-    packer.pack_field_int(dst, ADDR_BITS);
+    packer.pack_field_int(uvm_integral_t'(src), ADDR_BITS);
+    packer.pack_field_int(uvm_integral_t'(dst), ADDR_BITS);
     for(int i = 0; i < 64; i++)
-      packer.pack_field_int(data[i], 8);
+      packer.pack_field_int(uvm_integral_t'(data[i]), 8);
   endfunction
    
   virtual function void unpack();
     super.unpack();
-    src = packer.unpack_field_int(ADDR_BITS);
-    dst = packer.unpack_field_int(ADDR_BITS);
+    src = addr_t'(packer.unpack_field_int(ADDR_BITS));
+    dst = addr_t'(packer.unpack_field_int(ADDR_BITS));
     for(int i = 0; i < 64; i++)
-      data[i] = packer.unpack_field_int(8);
+      data[i] = byte'(packer.unpack_field_int(8));
   endfunction
    
   virtual function void copy(lp_frame pkt);

@@ -3,4 +3,8 @@ include ${TOP}/make/makefile.common
 
 TEST	= test
 
-SRC	= top.sv tlm1_producer_fifo_consumer_pkg.sv
+SV_SRC	=  	top.sv tlm1_producer_fifo_consumer_pkg.sv
+
+C_SRC	= 	main.cpp
+
+SRC	= 	${SV_SRC} ${C_SRC}

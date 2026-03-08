@@ -34,7 +34,7 @@ class producer extends uvm_component;
     // Generate a stream of randomized packets
     for(int i = 0; i < 20; i++) begin
       pkt = new();
-      pkt.randomize();
+      void'(pkt.randomize());
       put_port.put(pkt);
     end
     

@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 //                 .
-//               .o8
+//               .O8
 //             .o888oo  .ooooo.  oo.ooooo.   .oooo.     oooooooo
 //               888   d88' `88b  888' `88b `P  )88b   d'""7d8P
 //               888   888   888  888   888  .oP"888     .d8P'
@@ -36,26 +36,14 @@
 // easier to bind them to devices without using a mucnh of assignment
 // statements.
 //------------------------------------------------------------------------------
-interface fifo_if (wire        clk,
-                   wire        rst,
-                   wire        rd_en,
-                   wire        wr_en,
-                   wire [31:0] data_in,
-                   wire [31:0] data_out,
-                   wire        empty,
-                   wire        full,
-                   wire        cs
+interface fifo_if (input	 clk,
+                   output	 rst,
+                   output	 rd_en,
+                   output	 wr_en,
+                   output [31:0] data_in,
+                   input [31:0] data_out,
+                   input	 empty,
+                   input	 full,
+                   output	 cs
                    );
-  reg cs_r;
-  reg rd_en_r;
-  reg wr_en_r;
-  reg rst_r;
-  reg [31:0] data_in_r;
-  
-  assign cs = cs_r;
-  assign rd_en = rd_en_r;
-  assign wr_en = wr_en_r;
-  assign rst = rst_r;
-  assign data_in = data_in_r;
-  
 endinterface

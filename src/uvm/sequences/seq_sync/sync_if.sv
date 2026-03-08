@@ -30,5 +30,5 @@
 //------------------------------------------------------------------------------
 
 interface sync_if
-  ( wire reset);
+  ( logic reset);
 endinterface

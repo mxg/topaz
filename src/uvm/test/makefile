@@ -32,4 +32,7 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= test.sv
+SV_SRC	= 	test.sv
+C_SRC	= 	main.cpp
+
+SRC	= 	${SV_SRC} ${C_SRC}

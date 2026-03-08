@@ -40,6 +40,7 @@ class lp_factory_method;
 
   static function lp_frame create(lp_type et);
     lp_frame fr;
+    /* verilator lint_off CASEINCOMPLETE */    
     case(et)
       lp_pkt1 : fr = 
         lp_concrete_factory#(lp_frame_l3_pkt1)::create();
@@ -48,6 +49,7 @@ class lp_factory_method;
       lp_fc   : fr = 
         lp_concrete_factory#(lp_frame_l3_fc)::create();
     endcase
+    /* verilator lint_on CASEINCOMPLETE */    
     return fr;
   endfunction
   

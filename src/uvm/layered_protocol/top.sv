@@ -36,7 +36,7 @@ module top;
   initial begin
     lp_frame lp;
     lp = lp_factory_method::create(lp_pkt1);
-    lp.randomize();
+    void'(lp.randomize());
     $display(lp.convert2string());
   end
 

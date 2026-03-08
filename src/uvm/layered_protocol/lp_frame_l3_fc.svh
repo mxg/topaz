@@ -34,7 +34,7 @@ class lp_frame_l3_fc extends lp_frame_l2;
   typedef lp_frame_l3_fc this_t;
   local const string msg_ctxt = "LP_FRAME_L3_FC";
   
-  rand bit [31:0] pause_delay;
+  rand delay_t pause_delay;
 
   function new();
     lptype = lp_fc;
@@ -42,12 +42,12 @@ class lp_frame_l3_fc extends lp_frame_l2;
 
   virtual function void pack();
     super.pack();
-    packer.pack_field_int(pause_delay, 32);
+    packer.pack_field_int(uvm_integral_t'(pause_delay), 32);
   endfunction
    
   virtual function void unpack();
     super.unpack();
-    pause_delay = packer.unpack_field_int(32);
+    pause_delay = delay_t'(packer.unpack_field_int(32));
   endfunction
    
   virtual function void copy(lp_frame pkt);

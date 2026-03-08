@@ -3,4 +3,8 @@ include ${TOP}/make/makefile.common
 
 TEST	= test
 
-SRC	= top.sv publisher_subscriber_pkg.sv
+SV_SRC	= 	top.sv publisher_subscriber_pkg.sv
+
+C_SRC	= 	main.cpp
+
+SRC	= 	${SV_SRC} ${C_SRC}

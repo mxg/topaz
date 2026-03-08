@@ -39,14 +39,14 @@ class lp_frame_l2 extends lp_frame;
        lp_type lptype;
 
   virtual function void pack();
-    packer.pack_field_int(smac, LP_MAC_BITS);
-    packer.pack_field_int(dmac, LP_MAC_BITS);
-    packer.pack_field_int(lptype, LP_TYPE_BITS);
+    packer.pack_field_int(uvm_integral_t'(smac), LP_MAC_BITS);
+    packer.pack_field_int(uvm_integral_t'(dmac), LP_MAC_BITS);
+    packer.pack_field_int(uvm_integral_t'(lptype), LP_TYPE_BITS);
   endfunction
    
   virtual function void unpack();
-    dmac = packer.unpack_field_int(LP_MAC_BITS);
-    smac = packer.unpack_field_int(LP_MAC_BITS);
+    smac = mac_t'(packer.unpack_field_int(LP_MAC_BITS));
+    dmac = mac_t'(packer.unpack_field_int(LP_MAC_BITS));
     lptype = lp_type'(packer.unpack_field_int(LP_TYPE_BITS));
   endfunction
    

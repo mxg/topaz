@@ -46,7 +46,7 @@ class fifo_rand_sequence extends fifo_sequence_base;
 
     int unsigned count = $random() % 1000;
     int unsigned i;
-    int unsigned determinant;
+    int determinant;
 
     // Make sure the fifo is in a known state before applying randomized
     // transactions.

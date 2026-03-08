@@ -39,7 +39,7 @@ module clkgen(output clk);
   assign clk = r_clk;
   
   initial begin
-    r_clk <= 0;
+    r_clk = 0;
     forever begin
       #5;
       r_clk = ~r_clk;
@@ -69,7 +69,3 @@ module dut();
   end
 
 endmodule
-
-
-
-      

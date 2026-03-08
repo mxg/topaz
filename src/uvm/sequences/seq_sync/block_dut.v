@@ -39,9 +39,9 @@ module block_dut();
 
   initial begin
     #3;
-    r_reset <= 0;
+    r_reset = 0;
     #5;
-    r_reset <= 1;
+    r_reset = 1;
   end
   
 endmodule

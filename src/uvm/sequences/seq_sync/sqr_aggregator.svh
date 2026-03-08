@@ -76,7 +76,7 @@ class sqr_aggregator;
   function sqr_q_t lookup_path_regex(string regex);
     sqr_q_t q = {};
     foreach(sqr_table[path]) begin
-      if(uvm_re_match(regex, path))
+      if(uvm_re_match(regex, path) == 1)
 	q.push_back(sqr_table[path]);
     end
     return q;

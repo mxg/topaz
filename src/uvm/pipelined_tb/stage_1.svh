@@ -40,7 +40,7 @@ class stage_1 extends pipe_stage_base #(transaction);
 
     for(int i = 0; i < 10; i++) begin
       t = new();
-      t.randomize();
+      void'(t.randomize());
       process_item(t);
       $display("stage_1: %10t: %s", $time, t.convert2string());
       #2;
