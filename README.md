@@ -79,7 +79,7 @@ used version "Verilator 5.042 2025-11-02 rev v5.042" and UVM version
 1800.2.2017-1.0
 
 Verilator supports most of the SystemVerilog language, including
-parameterized modules, interfaces, and classes.  Ads such, The great
+parameterized modules, interfaces, and classes.  As such, The great
 majority of Topaz examples ported over cleanly with no modification.
 There were a few places where we had to make some changes and a
 handful of examples did not function under Verilator.  We've noted the
@@ -93,12 +93,15 @@ features:
 * random constraints. Some Topaz examples use random constraints.
   Those examples are not fully functional with Verilator.
 
-* wire data type in port lists.
+ad* wire data type in port lists.
 
 * instance bind (module bind is supported). The example
   `uvm/system_tb` uses the instance form of bind, where an interface
   (in this case) is bound to a specific instance of a module instead
   of all instances of the module.
+
+
+### Size Mismatches
 
 Additionally, we found that Verilator is very pedantic about ensuring
 that all the operands in an expression are the same size.  This led to
@@ -127,10 +130,33 @@ This is a slight burden for programmers and creates some unnecessary
 clutter. We believe that the cast be generated internally by the
 compiler, as is done with commercial simulators.
 
+Another example is found in conditional expressions.  E.g.:
+
+```
+if(some_var)
+  ...
+```
+
+A common idiom is to test any integral variable against zero using a
+conditional similar to above.  If `some_var` is any length longer than
+1 then a size mismatch occurs.  The remedy is to use a comparison
+operator which results in a single bit values.  E.g.:
+
+```
+if(some_var == 1)
+  ...
+```
+
+We understand that this may be considered the preferred style for some
+engineers.  However, we believe that the compiler should recognize the
+idiom and generate code accordingly without the clutter.
+
+### Functions That Return Values
+
 We also found the compiler to be pedantic regarding function calls
 that return a value where the value is not used.  We encountered this
-in calls to `randomize()`. The problem appeared in the example 	
-`sequences/simple`.  The line:
+in calls to `randomize()`. The problem appeared in the example
+`sequences/simple`.  To get it to compile in Verilator, the line:
 
 ```
 t.randomize();
@@ -138,12 +164,14 @@ t.randomize();
 
 becomes
 
+```
 void'(t.randomize());
+```
 
-This seems to us to be unnecessary clutter.  However, this became more
-than a minor annoyance when using `randomize() with` as exemplified in
-the example `sequences/seq_sync`.  A loop for generating randomized
-sequences uses `randomize() with`.
+Again, this seems to us to be unnecessary clutter.  However, this
+became more than a minor annoyance when using `randomize() with` as
+exemplified in `sequences/seq_sync`.  A loop for generating randomized
+sequences uses `randomize() with`:
 
 ```
 for(int i = 0; i < 10; i++) begin
@@ -170,11 +198,22 @@ for(int i = 0; i < 10; i++) begin
 end
 ```
 
+### Interpreter Example
+
+The interpreter example was an experimental implementation of the
+interpreter pattern.  I made the editoral decision to not include it
+in the book.  As a result, the example was not finished.  It
+inadvertently was left in the Topaz codebase.  There is no point in
+porting an unfinished experiment.  However, I'm leaving it in place in
+the off chance that I finish the example.  Perhaps it will appear in a
+future edition of the book (!).
 
 
+# Final Note on Verilator
 
-
-
+Wow! Wilson Snyder and his team have done a tremendous job building a
+viable SystemVerilog simulator.  This is a game changer for the
+industry.
 
 
 --------------------------------------------------------------------------------

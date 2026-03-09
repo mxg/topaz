@@ -56,7 +56,7 @@ typedef enum{op_plus,
 	     op_write, 
 	     op_const} op_t;
 
-let isalpha(byte c) = ((c >= 65 && c <- 90) || (c >= 97 & c <= 122));
-let isdigit(byte c) = (( c >= 48 && c <= 57));
-let isspace(byte c) = ((c >= 9 && c <= 13) || (c == 32));
-let isalnum(byte c) = (isalpha(c) || isdigit(c));
+let isalpha(c) = ((c >= 65 && c <- 90) || (c >= 97 & c <= 122));
+let isdigit(c) = (( c >= 48 && c <= 57));
+let isspace(c) = ((c >= 9 && c <= 13) || (c == 32));
+let isalnum(c) = (isalpha(c) || isdigit(c));
