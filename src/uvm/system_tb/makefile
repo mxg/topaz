@@ -32,20 +32,18 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SV_SRC = 	../block_tb/block_dut.v                    \
-                ../block_tb/block_dut_env.sv               \
-                ../block_tb/block_tb_pkg.sv                \
-                ../multi_if_tb/multi_if_dut.v              \
-                ../multi_if_tb/multi_if_dut_env.sv         \
-                ../multi_if_tb/multi_if_pkg.sv             \
-                system_dut_env.sv                          \
-                system_binds.sv                            \
-                system_tb_pkg.sv                           \
-                test_pkg.sv                                \
-                top.sv
+INC	+= +incdir+../block_tb +incdir+../multi_if_tb
 
-INC	+=      +incdir+../block_tb +incdir+../multi_if_tb
+SV_SRC	= ../block_tb/block_dut.v                    \
+          ../block_tb/block_dut_env.sv               \
+          ../block_tb/block_tb_pkg.sv                \
+          ../multi_if_tb/multi_if_dut.v              \
+          ../multi_if_tb/multi_if_dut_env.sv         \
+          ../multi_if_tb/multi_if_pkg.sv             \
+          system_dut_env.sv                          \
+          system_binds.sv                            \
+          system_tb_pkg.sv                           \
+          test_pkg.sv                                \
+          top.sv
 
-C_SRC	= 	main.cpp
-
-SRC	= 	${SV_SRC} ${C_SRC}
+C_SRC	= main.cpp

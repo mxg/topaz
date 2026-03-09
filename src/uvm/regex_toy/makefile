@@ -32,8 +32,7 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SV_SRC	= 	regex_toy.sv
+SV_SRC	= regex_toy.sv
 
-C_SRC	= 	main.cpp
-
-SRC	= 	${SV_SRC} ${C_SRC}
+C_SRC	= main.cpp
+\

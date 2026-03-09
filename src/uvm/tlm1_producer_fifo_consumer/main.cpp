@@ -13,21 +13,39 @@
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
+//
+//    Copyright 2026 Mark Glasser
+// 
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+// 
+//      http://www.apache.org/licenses/LICENSE-2.0
+// 
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
 //------------------------------------------------------------------------------
 
-#include <iostream>
+
+//------------------------------------------------------------------------------
+// main
+//
+// A simplified main function for Verilator
+//------------------------------------------------------------------------------
 
 #include "verilated.h"
 #include "Vtop.h"
 
 int main(int argc, char** argv, char**) {
-  const std::unique_ptr<VerilatedContext> contextp{new VerilatedContext};
-  contextp->threads(4);
+  VerilatedContext* contextp{new VerilatedContext};
   contextp->commandArgs(argc, argv);
 
-  const std::unique_ptr<Vtop> top{new Vtop{contextp.get(), ""}};
+  Vtop* top{new Vtop{contextp, ""}};
 
-  while (VL_LIKELY(!contextp->gotFinish()))
+  while(!contextp->gotFinish())
   {
     top->eval_step();
     if (!top->eventsPending())
@@ -35,13 +53,7 @@ int main(int argc, char** argv, char**) {
     contextp->time(top->nextTimeSlot());
   }
 
-  if (VL_LIKELY(!contextp->gotFinish()))
-  {
-    VL_DEBUG_IF(VL_PRINTF("+ Exiting without $finish; no events left\n"););
-  }
-
   top->final();
-
   contextp->statsPrintSummary();
 
   return 0;

@@ -12,5 +12,3 @@ SV_SRC	= 	multi_if_dut.v              \
 		top.sv
 
 C_SRC	= 	main.cpp
-
-SRC	= 	${SV_SRC} ${C_SRC}

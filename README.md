@@ -93,7 +93,18 @@ features:
 * random constraints. Some Topaz examples use random constraints.
   Those examples are not fully functional with Verilator.
 
-ad* wire data type in port lists.
+  Verilator can be told to ignore constraints with following pragma:
+
+```
+    /* verilator lint_off CONSTRAINTIGN */
+      ... // constraint code
+    /* verilator lint_on CONSTRAINTIGN */  
+```
+
+This allows the code to compile and run, but it may not produce
+correct results.
+
+* wire data type in port lists.
 
 * instance bind (module bind is supported). The example
   `uvm/system_tb` uses the instance form of bind, where an interface
@@ -209,7 +220,7 @@ the off chance that I finish the example.  Perhaps it will appear in a
 future edition of the book (!).
 
 
-# Final Note on Verilator
+### Final Note on Verilator
 
 Wow! Wilson Snyder and his team have done a tremendous job building a
 viable SystemVerilog simulator.  This is a game changer for the

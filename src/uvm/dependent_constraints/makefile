@@ -32,4 +32,7 @@
 TOP	= ../../..
 include ${TOP}/make/makefile.common
 
-SRC	= dependent_constraints_pkg.sv top.sv
+SV_SRC	= dependent_constraints_pkg.sv top.sv
+
+C_SRC	= main.cpp
+

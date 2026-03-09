@@ -39,10 +39,14 @@ class mutual_config;
     outcfg = new();
   endfunction /* \label{code:dc:mutual3} */
 
+  // Turning the linter off for Verilator will allow the code to
+  // compile and run, but it may not give correcft results.
+  /* verilator lint_off CONSTRAINTIGN */  
   constraint addr { (incfg.base_addr & 'h3) == 0;  /* \label{code:dc:mutual4} */
 		    (outcfg.base_addr & 'h3) == 0;
                     incfg.base_addr != outcfg.base_addr; };
   constraint buff { outcfg.buffer_size == (4 * incfg.stride); }; /* \label{code:dc:mutual5} */
+  /* verilator lint_on CONSTRAINTIGN */  
 
   function void post_randomize(); /* \label{code:dc:mutual6} */
     uvm_resource_db#(input_config)::set( "*", "input_config",  incfg);

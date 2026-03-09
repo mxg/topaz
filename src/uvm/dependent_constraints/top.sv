@@ -41,7 +41,7 @@ module top;
 
   initial begin
     cfg = new();
-    cfg.randomize();
+    void'(cfg.randomize());
 
     if(!uvm_resource_db#(input_config)::read_by_name("", "input_config", incfg))
       `uvm_fatal("NO_INPUT_CONFIG", "Cannot locate input configuration object")

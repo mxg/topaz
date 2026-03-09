@@ -34,8 +34,6 @@ include ${TOP}/make/makefile.common
 
 TEST	= test
 
-SV_SRC	= 	override_pkg.sv top.sv
+SV_SRC	= override_pkg.sv top.sv
 
-C_SRC	= 	main.cpp
-
-SRC	= 	${SV_SRC} ${C_SRC}
+C_SRC	= main.cpp
