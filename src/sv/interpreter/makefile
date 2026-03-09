@@ -31,5 +31,9 @@
 
 TOP	= ../../..
 include ${TOP}/make/makefile.common
+
 UVM_SRC	=
-SRC	=  interpreter_pkg.sv top.sv
+
+SV_SRC	=  interpreter_pkg.sv top.sv
+
+C_SRC	= main.cpp

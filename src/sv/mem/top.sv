@@ -44,14 +44,14 @@ module top;
     m = new();
 
     for(int i = 0; i < 1000; i++) begin
-      addr = $urandom() & 'h3ff;
+      addr = addr_t'($urandom()) & 'h3ff;
       case($urandom() & 'h1)
 	0: begin
 	  data = m.read(addr);
 	  $display("-read - %08x = %02x", addr, data);
 	end
 	1: begin
-	  data = $urandom() & 'hff;
+	  data = byte'($urandom()) & 'hff;
 	  m.write(addr, data);
 	  $display("-write- %08x = %02x", addr, data);
 	end

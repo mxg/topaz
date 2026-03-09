@@ -44,24 +44,23 @@ module top;
   initial begin;
     align = new();
     legal = new();
-    io = new();
-    lrg = new();
-    sml = new();
+    io    = new();
+    lrg   = new();
+    sml   = new();
 
     t = new();
     t.add_constraint(align);
     t.add_constraint(legal);
     t.add_constraint(lrg);
-    t.randomize();
+    //void'(t.randomize());
     $display(t.convert2string());
 
     t = new();
     t.add_constraint(align);
     t.add_constraint(io);
     t.add_constraint(sml);
-    t.randomize();
-    $display(t.convert2string());    
-
+    //void'(t.randomize());
+    $display(t.convert2string());
   end
 
 endmodule

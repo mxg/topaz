@@ -38,5 +38,3 @@ TEST	= cc_test
 SV_SRC	= strategy_2.sv
 
 C_SRC	= main.cpp
-
-SRC	= ${SV_SRC} ${C_SRC}

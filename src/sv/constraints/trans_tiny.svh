@@ -29,15 +29,8 @@
 //    limitations under the License.
 //------------------------------------------------------------------------------
 
-parameter int unsigned ADDR_BITS=16;
-parameter int unsigned INDEX_BITS=8;
-parameter int unsigned SIZE = (1<<INDEX_BITS);
-parameter int unsigned TAG_BITS = (ADDR_BITS - INDEX_BITS);
-typedef bit [TAG_BITS-1:0] tag_t;
-typedef bit[INDEX_BITS-1:0] index_t;
-typedef bit [ADDR_BITS-1:0] addr_t;
-parameter addr_t ADDR_MASK = 'h00000fff;
-
-let get_index(addr) = index_t'(addr & ADDR_MASK);
-let get_tag(addr) = tag_t'(addr >> INDEX_BITS);
-let make_addr(tag, index, tags) = addr_t'((int'(tags[int'(index)]) << INDEX_BITS) | int'(index));
+class trans_tiny extends trans_rw;
+  constraint data_size { bytes > 0;
+			 bytes < 16; };
+  constraint address   { addr <= 'h0000000f; };
+endclass

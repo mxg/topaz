@@ -9,19 +9,19 @@
 //                                888
 //                               o888o
 //
-//                 T O P A Z   P A T T E R N   L I B R A R Y
+//                 T O P A Z   P A T T E R N   L I B R A R Y 
 //
 //    TOPAZ is a library of SystemVerilog and UVM patterns and idioms.  The
 //    code is suitable for study and for copying/pasting into your own work.
 //
-//    Copyright 2024 Mark Glasser
-//
+//    Copyright 2026 Mark Glasser
+// 
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-//
+// 
 //      http://www.apache.org/licenses/LICENSE-2.0
-//
+// 
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,21 +30,31 @@
 //------------------------------------------------------------------------------
 
 
-#include <systemc>
-#include <verilated.h>
+//------------------------------------------------------------------------------
+// main
+//
+// A simplified main function for Verilator
+//------------------------------------------------------------------------------
 
+#include "verilated.h"
 #include "Vtop.h"
 
-//------------------------------------------------------------------------------
-// sc_main
-//------------------------------------------------------------------------------
-int sc_main(int argc, char** argv)
-{
-  Verilated::commandArgs(argc, argv);
-  Vtop* const top = new Vtop{"top"};    
+int main(int argc, char** argv, char**) {
+  VerilatedContext* contextp{new VerilatedContext};
+  contextp->commandArgs(argc, argv);
 
-  sc_core::sc_start();
+  Vtop* top{new Vtop{contextp, ""}};
+
+  while(!contextp->gotFinish())
+  {
+    top->eval_step();
+    if (!top->eventsPending())
+      break;
+    contextp->time(top->nextTimeSlot());
+  }
+
   top->final();
+  contextp->statsPrintSummary();
 
   return 0;
 }

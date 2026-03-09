@@ -37,7 +37,6 @@ UVM_SRC	=
 SV_SRC	= class_family_pkg.sv     \
 	  abstract_factory_pkg.sv \
           top.sv
-C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${C_SRC}
+C_SRC	= main.cpp
 

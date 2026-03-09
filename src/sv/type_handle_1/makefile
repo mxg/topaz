@@ -35,5 +35,3 @@ include ${TOP}/make/makefile.common
 SV_SRC	= type_handle_pkg.sv top.sv
 
 C_SRC	= main.cpp
-
-SRC	= ${SV_SRC} ${C_SRC}

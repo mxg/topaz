@@ -50,6 +50,9 @@ SV_INC		= +incdir+.
 SC_INC		= -I${OBJDIR}
 INC		= ${SV_INC} ${SC_INC}
 
+SRC		= ${SV_SRC} ${SC_SRC} ${C_SRC}
+
+
 #
 # commands
 #

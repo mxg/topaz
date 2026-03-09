@@ -30,7 +30,7 @@
 //------------------------------------------------------------------------------
 
 class generate_trans;
-  typedef enum{SMALL, MEDIUM, LARGE} selector_t;
+  typedef enum bit [1:0] {TINY, SMALL, MEDIUM, LARGE} selector_t;
   op_t last_op;
   int unsigned interval;
 
@@ -42,6 +42,10 @@ class generate_trans;
   function base_transaction factory(selector_t selector);
     base_transaction base;
     case(selector)
+      TINY: begin
+	trans_tiny t = new();
+	return t;
+      end
       SMALL: begin
 	trans_small t = new();
 	return t;
@@ -60,14 +64,15 @@ class generate_trans;
   function base_transaction gen();
     base_transaction t;
     selector_t selector;
-    int n;
+    int unsigned n;
+    int ok;
     
-    std::randomize(selector);
+    void'(std::randomize(selector));
     t = factory(selector);
     n = $urandom();
-    t.randomize() with { if(local::n % interval == 0)
-                           t.op == last_op;
-                      else t.op != last_op; };
+    ok = t.randomize() with { if(local::n % interval == 0)
+                              t.op == last_op;
+                         else t.op != last_op; };
     last_op = t.op;
     return t;
   endfunction

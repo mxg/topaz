@@ -33,6 +33,7 @@ package constraints_pkg;
   `include "types.svh"
   `include "base_transaction.svh"
   `include "trans_rw.svh"
+  `include "trans_tiny.svh"
   `include "trans_small.svh"
   `include "trans_medium.svh"
   `include "trans_large.svh"

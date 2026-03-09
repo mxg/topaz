@@ -37,5 +37,3 @@ TEST	= cc_test
 SV_SRC	= cc_pkg.sv top.sv
 
 C_SRC	= main.cpp
-
-SRC	= ${SV_SRC} ${C_SRC}

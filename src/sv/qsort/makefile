@@ -38,4 +38,3 @@ SV_SRC	= qsort_pkg.sv top.sv
 
 C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${C_SRC}

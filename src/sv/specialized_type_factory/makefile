@@ -37,5 +37,3 @@ UVM_SRC	=
 SV_SRC	= type_factory_pkg.sv test.sv
 
 C_SRC	= main.cpp
-
-SRC	= ${SV_SRC} ${C_SRC}

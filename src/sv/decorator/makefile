@@ -38,4 +38,3 @@ SV_SRC	= decorator.sv
 
 C_SRC	= main.cpp
 
-SRC	= ${SV_SRC} ${C_SRC}

@@ -47,7 +47,7 @@ class transaction;
       return;
     data = new [bytes];
     for(int i = 0; i < bytes; i++)
-      data [i] = $urandom() & 'hff;
+      data [i] = byte'($urandom()) & 'hff;
   endfunction
 
   virtual function string convert2string();

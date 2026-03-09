@@ -36,6 +36,4 @@ UVM_SRC	=
 
 SV_SRC	= layered_constraints_pkg.sv top.sv
 
-SC_SRC	= sc_main.cpp
-
-SRC	= ${SV_SRC} ${SC_SRC}
+C_SRC	= main.cpp
