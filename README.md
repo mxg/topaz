@@ -66,4 +66,115 @@ You are encouraged to experiment with the examples -- make changes and try
 variations -- in order to gain a deeper understanding of the patterns and idioms
 exhibited.
 
+# Notes on Verilator port
+
+Verilator is an open source implementation of a SystemVerilog
+simulator. It parses SystemVerilog source code and generates
+functionally equivalent C++ code which is linked with its libraries
+to create a simulation executable.  The process of translating
+SystemVerilog to C++ is called "verilating."
+
+We ported the Topaz library of examples to run under Verilator.  We
+used version "Verilator 5.042 2025-11-02 rev v5.042" and UVM version
+1800.2.2017-1.0
+
+Verilator supports most of the SystemVerilog language, including
+parameterized modules, interfaces, and classes.  Ads such, The great
+majority of Topaz examples ported over cleanly with no modification.
+There were a few places where we had to make some changes and a
+handful of examples did not function under Verilator.  We've noted the
+issues below:
+
+There are some features of the language that are not yet supported by
+Verilator.  based on the exercise of porting the Topaz examples, we've
+found no or limited support for the following SystemVerilog language
+features:
+
+* random constraints. Some Topaz examples use random constraints.
+  Those examples are not fully functional with Verilator.
+
+* wire data type in port lists.
+
+* instance bind (module bind is supported). The example
+  `uvm/system_tb` uses the instance form of bind, where an interface
+  (in this case) is bound to a specific instance of a module instead
+  of all instances of the module.
+
+Additionally, we found that Verilator is very pedantic about ensuring
+that all the operands in an expression are the same size.  This led to
+many warnings about size mismatches.  The problem was easily remedied
+with type casts.  It is sour opinion, however, that the compiler
+should recognized the context of these type mismatches and insert the
+type case automatically.
+
+For example, consider the following assignment:
+
+```
+byte data;
+data = $urandom();
+```
+
+`$Urandom()` returns a 32-bit value and `data` is an 8-bit value,
+resulting in a size mismatch.  The remedy is to tell the compiler to
+make the sizes match using a cast operator.  E.g.:
+
+```
+byte data;
+data = byte'($urandom());
+```
+
+This is a slight burden for programmers and creates some unnecessary
+clutter. We believe that the cast be generated internally by the
+compiler, as is done with commercial simulators.
+
+We also found the compiler to be pedantic regarding function calls
+that return a value where the value is not used.  We encountered this
+in calls to `randomize()`. The problem appeared in the example 	
+`sequences/simple`.  The line:
+
+```
+t.randomize();
+```
+
+becomes
+
+void'(t.randomize());
+
+This seems to us to be unnecessary clutter.  However, this became more
+than a minor annoyance when using `randomize() with` as exemplified in
+the example `sequences/seq_sync`.  A loop for generating randomized
+sequences uses `randomize() with`.
+
+```
+for(int i = 0; i < 10; i++) begin
+  t = new();
+  t.randomize() with { ((addr & 'h3) == 0);
+                        (addr <= 'hffffff); };
+  start_item(t);
+  finish_item(t);
+end
+```
+
+required an additional, otherwise unused variable to satisfy the
+requirement that functions that return a value must always be the RHS
+of an assignment.
+
+```
+for(int i = 0; i < 10; i++) begin
+  int ok;
+  t = new();
+  ok = t.randomize() with { ((addr & 'h3) == 0);
+                             (addr <= 'hffffff); };
+  start_item(t);
+  finish_item(t);
+end
+```
+
+
+
+
+
+
+
+
 --------------------------------------------------------------------------------
